@@ -45,11 +45,11 @@ public class Login extends javax.swing.JFrame {
 
         loginLB.setBackground(new java.awt.Color(255, 125, 0));
         loginLB.setForeground(new java.awt.Color(255, 255, 255));
-        loginLB.setText("jLabel1");
+        loginLB.setText("Usuario");
 
         senhaLB.setBackground(new java.awt.Color(255, 125, 0));
         senhaLB.setForeground(new java.awt.Color(255, 255, 255));
-        senhaLB.setText("jLabel2");
+        senhaLB.setText("Senha");
 
         loginTF.setForeground(new java.awt.Color(249, 160, 63));
         loginTF.setText("jTextField1");
@@ -126,26 +126,25 @@ public class Login extends javax.swing.JFrame {
         painel_dos_dadosLayout.setHorizontalGroup(
             painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_dos_dadosLayout.createSequentialGroup()
-                .addContainerGap(191, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painel_dos_dadosLayout.createSequentialGroup()
                         .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(painel_dos_dadosLayout.createSequentialGroup()
-                                        .addComponent(senhaLB)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(senhaPF))
-                                    .addGroup(painel_dos_dadosLayout.createSequentialGroup()
-                                        .addComponent(loginLB)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(loginTF, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dos_dadosLayout.createSequentialGroup()
+                                    .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(senhaLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(loginLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(loginTF, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                        .addComponent(senhaPF)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dos_dadosLayout.createSequentialGroup()
                                     .addComponent(cadastro_ClienteBTN)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cadastro_RestauranteBTN)))
                             .addComponent(painel_do_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(191, Short.MAX_VALUE))
+                        .addContainerGap(190, Short.MAX_VALUE))
                     .addGroup(painel_dos_dadosLayout.createSequentialGroup()
                         .addComponent(loginBTN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

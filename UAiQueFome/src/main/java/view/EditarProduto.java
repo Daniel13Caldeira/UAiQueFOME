@@ -36,7 +36,7 @@ public class EditarProduto extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nome");
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Nome do Restaurante");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
