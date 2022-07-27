@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * @author danie
  */
 public class Cliente {
-
     private String cpf;
     private String nome;
     private Endereco endereco;
