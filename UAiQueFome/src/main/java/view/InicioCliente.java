@@ -101,8 +101,15 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 125, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Ver Lista de Produtos");
+        jButton2.setText("Cardapio");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
+        jButton7.setBackground(new java.awt.Color(255, 125, 0));
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Pesquisar");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -119,12 +126,12 @@ public class InicioCliente extends javax.swing.JFrame {
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(20, 20, 20)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton7)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -146,8 +153,8 @@ public class InicioCliente extends javax.swing.JFrame {
         lista_de_produtosLayout.setHorizontalGroup(
             lista_de_produtosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lista_de_produtosLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -187,7 +194,7 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(255, 125, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Finalizarr Pedido");
+        jButton3.setText("Finalizar Pedido");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -196,7 +203,7 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(255, 125, 0));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Cancelar Pedido");
+        jButton5.setText("Esvaziar Carrinho");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -472,6 +479,8 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Perfil", perfil);
 
+        jButton6.setBackground(new java.awt.Color(255, 125, 0));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Sair");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -549,6 +558,11 @@ public class InicioCliente extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setVisible(false);
+        new ListaProdutos().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
