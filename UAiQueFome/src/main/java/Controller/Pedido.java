@@ -5,6 +5,7 @@
 package Controller;
 
 import java.util.ArrayList;
+import model.Ids;
 
 /**
  *
@@ -15,10 +16,12 @@ public class Pedido {
     private String codigo;
     private Cliente cliente;
     private Restaurante restaurante;
+    private String status;
     private double valorTotal;
 
     public Pedido(Cliente cliente, Restaurante restaurante) {
-        this.codigo = codigo;
+        this.codigo = Ids.setIdPedido();
+        this.status = "enviado para o restaurante";
         this.cliente = cliente;
         this.restaurante = restaurante;
         ArrayList<Produto> produtos = cliente.getCarrinho();
@@ -28,7 +31,7 @@ public class Pedido {
         }
     }
 
-    public Pedido(String codigo, Restaurante restaurante, Cliente cliente) {
+    public Pedido(String codigo, Restaurante restaurante, Cliente cliente, String status) {
         this.codigo = codigo;
         this.cliente = cliente;
         this.restaurante = restaurante;
@@ -57,6 +60,14 @@ public class Pedido {
 
     public String getCodigo() {
         return codigo;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
 }

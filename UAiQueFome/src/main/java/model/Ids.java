@@ -27,7 +27,7 @@ public class Ids {
         }
     }
 
-    public static void setIdProduto() {
+    public static String setIdProduto() {
         File arquivo = abreArquivo();
         String idProduto = "", idPedido = "";
         try {
@@ -59,9 +59,10 @@ public class Ids {
         } catch (IOException ex) {
             //erro(arquivo);
         }
+        return idProduto;
     }
 
-    public static void setIdPedido() {
+    public static String setIdPedido() {
         File arquivo = abreArquivo();
         String idProduto = "", idPedido = "";
         try {
@@ -93,6 +94,7 @@ public class Ids {
         } catch (IOException ex) {
             //erro(arquivo);
         }
+        return idPedido;
     }
 
     public static String getIdProduto() {

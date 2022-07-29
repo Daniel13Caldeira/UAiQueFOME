@@ -27,13 +27,21 @@ public class Produto {
         return this.precoPromocao;
     }
 
-    public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao) {
-        this.codigo = codigo;
+    public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao) {
         this.restaurante = restaurante;
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.precoPromocao = precoPromocao;
+    }
+    
+        public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao,ArrayList<String> categorias) {
+        this.restaurante = restaurante;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.precoPromocao = precoPromocao;
+        this.categorias = categorias;
     }
 
     public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
@@ -47,19 +55,19 @@ public class Produto {
     }
 
     public String getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public String getRestaurante() {
-        return restaurante;
+        return this.restaurante;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public int getQuantidade() {
-        return quantidade;
+        return this.quantidade;
     }
 
     public void setQuantidade(int quantidade) {
@@ -67,11 +75,11 @@ public class Produto {
     }
 
     public float getPrecoPromocao() {
-        return precoPromocao;
+        return this.precoPromocao;
     }
 
     public ArrayList<String> getCategorias() {
-        return categorias;
+        return this.categorias;
     }
 
 }

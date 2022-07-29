@@ -26,22 +26,29 @@ public class Cliente {
         this.cpf = cpf;
         this.nome = nome;
         this.senha = senha;
-        ClienteDB.cadastra(cpf, nome, endereco, senha);
+        ClienteDB.cadastra(cpf, nome, this.endereco, senha);
+    }
+
+    public Cliente(String cpf, String nome, Endereco endereco) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.endereco = endereco;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public Endereco getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public ArrayList<Produto> getCarrinho() {
+        this.carrinho.clear();
         String restaurante = ClienteDB.getRestaurante(this.cpf);
         ArrayList<String> produtos = ClienteDB.getProdutos(this.cpf);
         ArrayList<Integer> quantidades = new ArrayList<>();
@@ -61,16 +68,18 @@ public class Cliente {
             for (int j = 0; j < aux.length; j++) {
                 categorias.add(aux[j]);
             }
-            carrinho.add(new Produto(id, restaurante, nome, quantidades.get(i), preco, promocao, categorias));
+            this.carrinho.add(new Produto(id, restaurante, nome, quantidades.get(i), preco, promocao, categorias));
         }
-        return carrinho;
+        return this.carrinho;
     }
 
     public ArrayList<String> getRestaurantesFavoritos() {
-        return ClienteDB.getRestaurantesFavoritos(this.cpf);
+        this.restaurantesFavoritos = ClienteDB.getRestaurantesFavoritos(this.cpf);
+        return this.restaurantesFavoritos;
     }
 
     public ArrayList<Pedido> getPedidos() {
+        this.pedidos.clear();
         ArrayList<String> pedidos_ = ClienteDB.getPedidos(this.cpf);
         ArrayList<String> restaurantes = new ArrayList<>();
         String pedido;
@@ -88,24 +97,24 @@ public class Cliente {
             String endAux = RestauranteDB.getEndereco(restaurantes.get(i));
             aux = endAux.split(";");
             String rest = restaurantes.get(i);
-            pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(rest), rest), this));
+            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(rest), rest), this,status));
         }
-        return pedidos;
+        return this.pedidos;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-        ClienteDB.altera(cpf, nome, endereco, senha);
+        ClienteDB.altera(this.cpf, nome, this.endereco, this.senha);
     }
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-        ClienteDB.altera(cpf, nome, endereco, senha);
+        ClienteDB.altera(this.cpf, this.nome, endereco, this.senha);
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
-        ClienteDB.altera(cpf, nome, endereco, senha);
+        ClienteDB.altera(this.cpf, this.nome, this.endereco, senha);
     }
 
     public void addProdutoAoCarrinho(Produto produto) {
@@ -114,7 +123,7 @@ public class Cliente {
     }
 
     public void removeProdutoDoCarrinho(Produto produto) {
-        ClienteDB.removerProduto(cpf, produto.getCodigo());
+        ClienteDB.removerProduto(this.cpf, produto.getCodigo());
         RestauranteDB.setQuantidade(produto, true);
     }
 
@@ -123,5 +132,9 @@ public class Cliente {
         String endAux = RestauranteDB.getEndereco(restaurante);
         String aux[] = endAux.split(";");
         new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(restaurante), restaurante));
+    }
+    
+    public void addRestauranteFavorito(Restaurante restaurante){
+        ClienteDB.addRestauranteFavorito(this.cpf, restaurante.getCnpj());
     }
 }
