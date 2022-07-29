@@ -1,6 +1,7 @@
 
 package view;
-
+import Controller.*;
+import model.*;
 
 public class CadastroCliente extends javax.swing.JFrame {
 
@@ -253,8 +254,11 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       setVisible(false);
-        new Login().setVisible(true);
+       Cliente cliente = new Cliente(jTextField2.getText(), jTextField1.getText());
+       cliente.setEndereco(new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText()));
+       System.out.println(cliente.getNome() + ", " + cliente.getCpf() + ", " + cliente.getNome() + ", " + cliente.getEndereco().getBairro() + ", " + cliente.getEndereco().getRua() + ", " + cliente.getEndereco().getNumero());
+       ClienteDB clientedb = new ClienteDB();
+       clientedb.cadastra(cliente);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
