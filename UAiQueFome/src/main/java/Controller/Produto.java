@@ -12,22 +12,22 @@ import java.util.ArrayList;
  */
 public class Produto {
 
-    private int codigo;
+    private String codigo;
     private String restaurante;
     private String nome;
     private int quantidade;
-    private double preco;
+    private float preco;
     private ArrayList<String> categorias;
-    private double precoPromocao;
+    private float precoPromocao;
 
-    public double getPreco() {
+    public float getPreco() {
         if (this.precoPromocao == -1) {
             return this.preco;
         }
         return this.precoPromocao;
     }
 
-    public Produto(int codigo, String restaurante, String nome, int quantidade, double preco, double precoPromocao) {
+    public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao) {
         this.codigo = codigo;
         this.restaurante = restaurante;
         this.nome = nome;
@@ -36,7 +36,17 @@ public class Produto {
         this.precoPromocao = precoPromocao;
     }
 
-    public int getCodigo() {
+    public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
+        this.codigo = codigo;
+        this.restaurante = restaurante;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.precoPromocao = precoPromocao;
+        this.categorias = categorias;
+    }
+
+    public String getCodigo() {
         return codigo;
     }
 
@@ -52,8 +62,16 @@ public class Produto {
         return quantidade;
     }
 
-    public double getPrecoPromocao() {
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public float getPrecoPromocao() {
         return precoPromocao;
+    }
+
+    public ArrayList<String> getCategorias() {
+        return categorias;
     }
 
 }

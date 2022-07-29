@@ -13,6 +13,12 @@ public class Endereco {
     private String bairro;
     private int numero;
 
+    Endereco(String rua, String bairro, int numero) {
+        this.rua = rua;
+        this.bairro = bairro;
+        this.numero = numero;
+    }
+
     public String getRua() {
         return rua;
     }

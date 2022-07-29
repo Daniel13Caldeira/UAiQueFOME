@@ -12,17 +12,28 @@ import java.util.ArrayList;
  */
 public class Pedido {
 
-    private int codigo;
+    private String codigo;
     private Cliente cliente;
     private Restaurante restaurante;
     private double valorTotal;
 
-    public Pedido(int codigo, Cliente cliente, Restaurante restaurante) {
+    public Pedido(Cliente cliente, Restaurante restaurante) {
         this.codigo = codigo;
         this.cliente = cliente;
         this.restaurante = restaurante;
-        ArrayList<Produto>produtos = cliente.getCarrinho();
-        valorTotal=0;
+        ArrayList<Produto> produtos = cliente.getCarrinho();
+        valorTotal = 0;
+        for (int i = 0; i < produtos.size(); i++) {
+            this.valorTotal += produtos.get(i).getPreco();
+        }
+    }
+
+    public Pedido(String codigo, Restaurante restaurante, Cliente cliente) {
+        this.codigo = codigo;
+        this.cliente = cliente;
+        this.restaurante = restaurante;
+        ArrayList<Produto> produtos = cliente.getCarrinho();
+        valorTotal = 0;
         for (int i = 0; i < produtos.size(); i++) {
             this.valorTotal += produtos.get(i).getPreco();
         }
@@ -44,7 +55,7 @@ public class Pedido {
         return this.valorTotal;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
