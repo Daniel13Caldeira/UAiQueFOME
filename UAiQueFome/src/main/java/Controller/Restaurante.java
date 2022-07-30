@@ -111,6 +111,18 @@ public class Restaurante {
 
     }
 
+    public void addProduto(String nome, int quantidade, float preco, float precoPromocao) {
+        new Produto(this.cnpj,nome,quantidade,preco,precoPromocao);
+    }
+    
+    public void addProduto(String nome, int quantidade, float preco, float precoPromocao,ArrayList<String> categorias) {
+        new Produto(this.cnpj,nome,quantidade,preco,precoPromocao,categorias);
+    }
+
+    public void removeProduto(String produto) {
+        RestauranteDB.removeProduto(this.cnpj, produto);
+    }
+
     public static ArrayList<String> getRestaurantes() {
         return Restaurantes.getRestaurantes();
     }

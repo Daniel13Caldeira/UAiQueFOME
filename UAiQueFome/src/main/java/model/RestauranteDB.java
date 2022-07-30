@@ -478,6 +478,16 @@ public class RestauranteDB {
         }
     }
 
+    public static void setPreco(Produto produto, float preco) {
+        removeProduto(produto.getRestaurante(), produto.getCodigo());
+        addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), preco, produto.getPrecoPromocao(), produto.getQuantidade(), produto.getCategorias());
+    }
+
+    public static void setPrecoPromocao(Produto produto, float precoPromocao) {
+        removeProduto(produto.getRestaurante(), produto.getCodigo());
+        addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), precoPromocao, produto.getQuantidade(), produto.getCategorias());
+    }
+
     public static void setStatusPedido(String cnpj, Pedido pedido, String status) {
         //String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos
         removePedido(cnpj, pedido.getCodigo());

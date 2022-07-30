@@ -144,7 +144,7 @@ public class Cliente {
         ClienteDB.addRestauranteFavorito(this.cpf, restaurante.getCnpj());
     }
 
-    public ArrayList<String> getClientes() {
+    public static ArrayList<String> getClientes() {
         return Clientes.getClientes();
     }
 }
