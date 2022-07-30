@@ -6,6 +6,7 @@ package Controller;
 
 import java.util.ArrayList;
 import model.ClienteDB;
+import model.Clientes;
 import model.RestauranteDB;
 
 /**
@@ -27,6 +28,7 @@ public class Cliente {
         this.nome = nome;
         this.senha = senha;
         ClienteDB.cadastra(cpf, nome, this.endereco, senha);
+        Clientes.cadastra(cpf);
     }
 
     public Cliente(String cpf, String nome, Endereco endereco) {
@@ -45,6 +47,10 @@ public class Cliente {
 
     public Endereco getEndereco() {
         return this.endereco;
+    }
+
+    public String getSenha() {
+        return ClienteDB.getSenha(this.cpf);
     }
 
     public ArrayList<Produto> getCarrinho() {
@@ -97,7 +103,7 @@ public class Cliente {
             String endAux = RestauranteDB.getEndereco(restaurantes.get(i));
             aux = endAux.split(";");
             String rest = restaurantes.get(i);
-            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(rest), rest), this,status));
+            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(rest), rest), this, status));
         }
         return this.pedidos;
     }
@@ -119,7 +125,7 @@ public class Cliente {
 
     public void addProdutoAoCarrinho(Produto produto) {
         ClienteDB.addProduto(this.cpf, produto.getCodigo(), produto.getQuantidade(), produto.getRestaurante());
-        RestauranteDB.setQuantidade(produto,false);
+        RestauranteDB.setQuantidade(produto, false);
     }
 
     public void removeProdutoDoCarrinho(Produto produto) {
@@ -133,8 +139,12 @@ public class Cliente {
         String aux[] = endAux.split(";");
         new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2])), RestauranteDB.getNome(restaurante), restaurante));
     }
-    
-    public void addRestauranteFavorito(Restaurante restaurante){
+
+    public void addRestauranteFavorito(Restaurante restaurante) {
         ClienteDB.addRestauranteFavorito(this.cpf, restaurante.getCnpj());
+    }
+
+    public ArrayList<String> getClientes() {
+        return Clientes.getClientes();
     }
 }

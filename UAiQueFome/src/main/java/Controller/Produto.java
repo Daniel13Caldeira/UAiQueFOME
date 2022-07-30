@@ -5,6 +5,8 @@
 package Controller;
 
 import java.util.ArrayList;
+import model.Ids;
+import model.RestauranteDB;
 
 /**
  *
@@ -17,7 +19,7 @@ public class Produto {
     private String nome;
     private int quantidade;
     private float preco;
-    private ArrayList<String> categorias;
+    private ArrayList<String> categorias = new ArrayList<>();
     private float precoPromocao;
 
     public float getPreco() {
@@ -29,19 +31,23 @@ public class Produto {
 
     public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao) {
         this.restaurante = restaurante;
+        this.codigo = Ids.setIdProduto();
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.precoPromocao = precoPromocao;
+        RestauranteDB.addProduto(restaurante, this.codigo, nome, preco, precoPromocao, quantidade, categorias);
     }
-    
-        public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao,ArrayList<String> categorias) {
+
+    public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
         this.restaurante = restaurante;
+        this.codigo = Ids.setIdProduto();
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
         this.precoPromocao = precoPromocao;
         this.categorias = categorias;
+        RestauranteDB.addProduto(restaurante, this.codigo, nome, preco, precoPromocao, quantidade, categorias);
     }
 
     public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
@@ -67,11 +73,12 @@ public class Produto {
     }
 
     public int getQuantidade() {
-        return this.quantidade;
+        return RestauranteDB.getQuantidade(this.restaurante, this.codigo);
     }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+        RestauranteDB.setQuantidade(this,quantidade);
     }
 
     public float getPrecoPromocao() {
@@ -81,5 +88,4 @@ public class Produto {
     public ArrayList<String> getCategorias() {
         return this.categorias;
     }
-
 }

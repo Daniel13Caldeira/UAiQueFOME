@@ -3,6 +3,8 @@ package Controller;
 import java.util.ArrayList;
 import model.ClienteDB;
 import model.RestauranteDB;
+import model.Restaurantes;
+
 /**
  *
  * @author Daniel Caldeira, Igor Fam, Márcio Felipe
@@ -22,6 +24,8 @@ public class Restaurante {
         this.cnpj = cnpj;
         this.endereco = endereco;
         this.senha = senha;
+        RestauranteDB.cadastra(cnpj, nome, endereco, senha);
+        Restaurantes.cadastra(cnpj, nome);
     }
 
     public Restaurante(Endereco endereco, String nome, String cnpj) {
@@ -48,7 +52,7 @@ public class Restaurante {
     }
 
     public ArrayList<Produto> getProdutos() {
-        ArrayList<String> prod= RestauranteDB.getProdutos(this.cnpj);
+        ArrayList<String> prod = RestauranteDB.getProdutos(this.cnpj);
         produtos.clear();
         for (int i = 0; i < prod.size(); i++) {
             String aux[] = prod.get(i).split(";");
@@ -62,13 +66,13 @@ public class Restaurante {
             for (int j = 0; j < aux.length; j++) {
                 cat.add(aux[j]);
             }
-            produtos.add(new Produto(id,this.cnpj,nome,quantidade,preco,promocao,cat));
+            produtos.add(new Produto(id, this.cnpj, nome, quantidade, preco, promocao, cat));
         }
         return produtos;
     }
 
     public ArrayList<Pedido> getPedidos() {
-        ArrayList<String> ped= RestauranteDB.getPedidos(this.cnpj);
+        ArrayList<String> ped = RestauranteDB.getPedidos(this.cnpj);
         pedidos.clear();
         for (int i = 0; i < ped.size(); i++) {
             String aux[] = ped.get(i).split(";");
@@ -78,7 +82,7 @@ public class Restaurante {
             String status = aux[3];
             String endAux = ClienteDB.getEndereco(cliente);
             aux = endAux.split(";");
-            pedidos.add(new Pedido(id,this,new Cliente(cliente,ClienteDB.getNome(cliente),new Endereco(aux[1],aux[0],Integer.parseInt(aux[2]))),status));
+            pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]))), status));
         }
         return pedidos;
     }
@@ -93,8 +97,21 @@ public class Restaurante {
         RestauranteDB.altera(this.cnpj, this.nome, endereco, this.senha);
     }
 
-    public void finalizarPedido(Pedido pedido){
-        pedido.setStatus("finalizado");
+    public void setSenha(String senha) {
+        this.senha = senha;
+        RestauranteDB.altera(this.cnpj, this.nome, this.endereco, senha);
     }
-    
+
+    public String getSenha() {
+        return RestauranteDB.getSenha(this.cnpj);
+    }
+
+    public void finalizarPedido(Pedido pedido) {
+        pedido.setStatus("finalizado");
+
+    }
+
+    public static ArrayList<String> getRestaurantes() {
+        return Restaurantes.getRestaurantes();
+    }
 }

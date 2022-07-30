@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  *
  * @author Daniel Caldeira, Igor Fam, Márcio Felipe
@@ -456,23 +457,30 @@ public class RestauranteDB {
         return quantidade;
     }
 
-    public static void setQuantidade(Produto produto,boolean flag) {
+    public static void setQuantidade(Produto produto, boolean flag) {
         int quantidade;
         if (flag) {
-            quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo())+produto.getQuantidade();
-        }else{
-            quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo())-produto.getQuantidade();
+            quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) + produto.getQuantidade();
+        } else {
+            quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) - produto.getQuantidade();
         }
         removeProduto(produto.getRestaurante(), produto.getCodigo());
         if (quantidade > 0) {
             produto.setQuantidade(quantidade);
-            addProduto(produto.getRestaurante(),produto.getCodigo() ,produto.getNome() ,produto.getPreco() ,produto.getPrecoPromocao() ,quantidade ,produto.getCategorias() );
+            addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), produto.getPrecoPromocao(), quantidade, produto.getCategorias());
         }
     }
 
-    public static void setStatusPedido(String cnpj,Pedido pedido,String status){
+    public static void setQuantidade(Produto produto, int quantidade) {
+        removeProduto(produto.getRestaurante(), produto.getCodigo());
+        if (quantidade > 0) {
+            addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), produto.getPrecoPromocao(), quantidade, produto.getCategorias());
+        }
+    }
+
+    public static void setStatusPedido(String cnpj, Pedido pedido, String status) {
         //String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos
-        removePedido(cnpj,pedido.getCodigo());
+        removePedido(cnpj, pedido.getCodigo());
         ArrayList<String> produtos = new ArrayList<>();
         ArrayList<Produto> prod = pedido.getProdutos();
         for (int i = 0; i < prod.size(); i++) {
@@ -480,8 +488,8 @@ public class RestauranteDB {
         }
         addPedido(cnpj, pedido.getCodigo(), pedido.getCliente().getCpf(), pedido.getValorTotal(), status, produtos);
     }
-    
-    public static void removePedido(String cnpj, String pedido){
+
+    public static void removePedido(String cnpj, String pedido) {
         File arquivo = abreArquivo(cnpj);
         ArrayList<String> salvar = new ArrayList<>();
         try {
