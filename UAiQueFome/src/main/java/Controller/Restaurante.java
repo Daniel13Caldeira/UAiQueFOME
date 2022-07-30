@@ -19,6 +19,10 @@ public class Restaurante {
     private ArrayList<Produto> produtos;
     private ArrayList<Pedido> pedidos;
 
+    public Restaurante(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
     public Restaurante(String nome, String cnpj, Endereco endereco, String senha) {
         this.nome = nome;
         this.cnpj = cnpj;
@@ -112,11 +116,11 @@ public class Restaurante {
     }
 
     public void addProduto(String nome, int quantidade, float preco, float precoPromocao) {
-        new Produto(this.cnpj,nome,quantidade,preco,precoPromocao);
+        new Produto(this.cnpj, nome, quantidade, preco, precoPromocao);
     }
-    
-    public void addProduto(String nome, int quantidade, float preco, float precoPromocao,ArrayList<String> categorias) {
-        new Produto(this.cnpj,nome,quantidade,preco,precoPromocao,categorias);
+
+    public void addProduto(String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
+        new Produto(this.cnpj, nome, quantidade, preco, precoPromocao, categorias);
     }
 
     public void removeProduto(String produto) {

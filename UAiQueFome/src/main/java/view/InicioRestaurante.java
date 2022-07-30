@@ -1,5 +1,7 @@
 package view;
 
+import javax.swing.JTextField;
+
 public class InicioRestaurante extends javax.swing.JFrame {
 
     public InicioRestaurante() {
@@ -44,7 +46,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        numeroTF = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
@@ -321,7 +323,20 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
         jTextField4.setText("jTextField4");
 
-        jTextField5.setText("jTextField5");
+        numeroTF.setText("jTextField5");
+        numeroTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroTFActionPerformed(evt);
+            }
+        });
+        numeroTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                numeroTFKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                numeroTFKeyTyped(evt);
+            }
+        });
 
         jTextField6.setText("jTextField6");
 
@@ -355,9 +370,9 @@ public class InicioRestaurante extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextField3))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField5))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numeroTF))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -383,7 +398,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,8 +415,8 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(249, 160, 63));
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setForeground(new java.awt.Color(255, 125, 0));
+        jButton4.setBackground(new java.awt.Color(255, 125, 0));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Editar Perfil");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -530,6 +545,18 @@ public class InicioRestaurante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void numeroTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroTFKeyReleased
+        mascaraInt(numeroTF);
+    }//GEN-LAST:event_numeroTFKeyReleased
+
+    private void numeroTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroTFKeyTyped
+        mascaraInt(numeroTF);
+    }//GEN-LAST:event_numeroTFKeyTyped
+
+    private void numeroTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroTFActionPerformed
+
+    }//GEN-LAST:event_numeroTFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel carrinho;
@@ -567,10 +594,23 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel lista_de_produtos;
+    private javax.swing.JTextField numeroTF;
     private javax.swing.JPanel perfil;
     // End of variables declaration//GEN-END:variables
+        
+    private void mascaraInt(JTextField textField) {
+        //Máscara que aceita apenas números
+        String texto = textField.getText();
+        if (texto.length() > 0) {
+            //Verifica se o último caractere digitado é um número
+            if (texto.charAt(texto.length() - 1) < '0' || texto.charAt(texto.length() - 1) > '9') {
+                //Apaga o caractere digitado
+                texto = texto.substring(0, texto.length() - 1);
+            }
+        }
+        textField.setText(texto);
+    }
 }

@@ -1,5 +1,8 @@
 package view;
 
+import Controller.Cliente;
+import Controller.Restaurante;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -28,11 +31,11 @@ public class Login extends javax.swing.JFrame {
         tituloLB1 = new javax.swing.JLabel();
         tituloLB = new javax.swing.JLabel();
         loginBTN1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        painel_cadastroBTN = new javax.swing.JPanel();
         cadastroBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("UAiQueFome");
+        setTitle("UAiQueFome-Login");
         setPreferredSize(new java.awt.Dimension(717, 503));
         setResizable(false);
 
@@ -46,9 +49,11 @@ public class Login extends javax.swing.JFrame {
         senhaLB.setForeground(new java.awt.Color(255, 255, 255));
         senhaLB.setText("Senha");
 
+        loginTF.setBackground(java.awt.Color.darkGray);
         loginTF.setForeground(new java.awt.Color(249, 160, 63));
         loginTF.setText("jTextField1");
 
+        senhaPF.setBackground(java.awt.Color.darkGray);
         senhaPF.setForeground(new java.awt.Color(249, 160, 63));
         senhaPF.setText("jPasswordField1");
 
@@ -88,8 +93,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        loginBTN1.setBackground(new java.awt.Color(255, 125, 0));
-        loginBTN1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        loginBTN1.setBackground(java.awt.Color.darkGray);
         loginBTN1.setForeground(new java.awt.Color(255, 255, 255));
         loginBTN1.setText("Entrar");
         loginBTN1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,9 +102,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(249, 160, 63));
+        painel_cadastroBTN.setBackground(new java.awt.Color(249, 160, 63));
 
-        cadastroBTN.setBackground(new java.awt.Color(255, 125, 0));
+        cadastroBTN.setBackground(java.awt.Color.darkGray);
         cadastroBTN.setForeground(new java.awt.Color(255, 255, 255));
         cadastroBTN.setText("Cadastro");
         cadastroBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -109,21 +113,21 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout painel_cadastroBTNLayout = new javax.swing.GroupLayout(painel_cadastroBTN);
+        painel_cadastroBTN.setLayout(painel_cadastroBTNLayout);
+        painel_cadastroBTNLayout.setHorizontalGroup(
+            painel_cadastroBTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_cadastroBTNLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cadastroBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(cadastroBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+        painel_cadastroBTNLayout.setVerticalGroup(
+            painel_cadastroBTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_cadastroBTNLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(cadastroBTN)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painel_dos_dadosLayout = new javax.swing.GroupLayout(painel_dos_dados);
@@ -131,20 +135,22 @@ public class Login extends javax.swing.JFrame {
         painel_dos_dadosLayout.setHorizontalGroup(
             painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_dos_dadosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painel_dos_dadosLayout.createSequentialGroup()
-                            .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(senhaLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(loginLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(loginTF, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                                .addComponent(senhaPF)))
-                        .addComponent(painel_do_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(loginBTN1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_dos_dadosLayout.createSequentialGroup()
+                        .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(senhaLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(loginLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loginTF, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                            .addComponent(senhaPF)))
+                    .addComponent(painel_do_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginBTN1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(190, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dos_dadosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painel_cadastroBTN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painel_dos_dadosLayout.setVerticalGroup(
@@ -152,7 +158,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_dos_dadosLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(painel_do_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(painel_dos_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginLB)
                     .addComponent(loginTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -162,9 +168,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(senhaPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginBTN1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(56, 56, 56)
+                .addComponent(painel_cadastroBTN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,10 +189,10 @@ public class Login extends javax.swing.JFrame {
 
     private void loginBTN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTN1ActionPerformed
         boolean flag = true; //Flag auxiliar que define a possibilidade de login
-        
-        //Verifica se o tamanho do id de usuario digitado é diferente de 14 ou 11 , ou se o campo de usuario foi preenchido pela info default. 
-        if((loginTF.getText().length() != 11 && loginTF.getText().length() != 14) && !(loginTF.getText().equals("") || loginTF.getText().equals("Campo Obrigatório!")) ){
-            JOptionPane.showMessageDialog(null,"Digite um usuário válido!", "Aviso", JOptionPane.PLAIN_MESSAGE, null);
+
+        //Verifica se o tamanho do id de usuario digitado é diferente de 14 ou 11 , ou se o campo de usuario foi preenchido pela info default ou está em branco. 
+        if ((loginTF.getText().length() != 11 && loginTF.getText().length() != 14) && !(loginTF.getText().equals("") || loginTF.getText().equals("Campo Obrigatório!"))) {
+            JOptionPane.showMessageDialog(null, "Digite um usuário válido!", "Aviso", JOptionPane.PLAIN_MESSAGE, null);
             flag = false;
         }
         //Checa se os campos foram deixados em branco
@@ -198,11 +204,66 @@ public class Login extends javax.swing.JFrame {
             senhaPF.setText("Campo Obrigatório!");
             flag = false;
         }
-        if (flag) {
-                  
+        //Verificação do tipo de usuário que está fazendo login 
+        if (loginTF.getText().length() == 11) { //Login de Cliente
+            ArrayList<String> listClientes;//Lista com todos os clientes cadastrados no sistema
+            int k = -1;//indice auxiliar que vai guardar o index do id_user encontrado na lista.
+            listClientes = Cliente.getClientes(); //preenchimento da lista de clientes
+            for (int i = 0; i < listClientes.size(); i++) {
+                if (listClientes.get(i).equals(loginTF.getText())) { //Confere se há um id na lista igual ao id digitado pelo usuário.
+                    k = i; //guarda a posição do id na lista
+                    break;
+                }
+            }
+            if (k == -1) { //confere se não achou id na lista igual ao id digitado
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado no sistema", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                flag = false;
+            } else { //caso tenha encontrado o id
+                Cliente cliente = new Cliente(listClientes.get(k)); //cria um novo objeto cliente com o id do usuário que está fazendo login.
+                String senha = cliente.getSenha();
+                if (!senhaPF.getText().equals(senha)) {//verifica se a senha informada não é igual a cadastrada no sistema
+                    JOptionPane.showMessageDialog(null, "Senha Inválida", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                    flag = false;
+                } else {//caso senha seja igual é possivel realizar o login
+                    flag = true;
+                }
+            }
+            if (flag) { //caso seja possivel realizar o login o cliente é direcionado para a tela de inicio
+                Login.user_cod = loginTF.getText();//atualiza o atributo do usuário logado atualmente
+                setVisible(false);
+                new InicioCliente().setVisible(true);
+            }
+        } else { //Login de Restaurante
+            ArrayList<String> listRestaurantes;//Lista com todos os restaurantes cadastrados no sistema
+            int k = -1;//indice auxiliar que vai guardar o index do id_user encontrado na lista.
+            listRestaurantes = Restaurante.getRestaurantes(); //preenchimento da lista de restaurantes
+            for (int i = 0; i < listRestaurantes.size(); i++) {
+                String[] aux_rest = listRestaurantes.get(i).split(";"); // separa cada linha de atributos de restaurante em um vetor de atributos
+                if (aux_rest[0].equals(loginTF.getText())) { //Confere se o id na lista igual ao id digitado pelo usuário.
+                    k = i; //guarda a posição do id na lista
+                    break;
+                }
+            }
+            if (k == -1) { //confere se não achou id na lista igual ao id digitado
+                JOptionPane.showMessageDialog(null, "Usuário não cadastrado no sistema", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                flag = false;
+            } else { //caso tenha encontrado o id
+                String[] aux_restId = listRestaurantes.get(k).split(";");
+                Restaurante restaurante = new Restaurante(aux_restId[0]); //cria um novo objeto restaurante com o id do usuário que está fazendo login.
+                String senha = restaurante.getSenha();
+                if (!senhaPF.getText().equals(senha)) {//verifica se a senha informada não é igual a cadastrada no sistema
+                    JOptionPane.showMessageDialog(null, "Senha Inválida", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                    flag = false;
+                } else {//caso senha seja igual é possivel realizar o login
+                    flag = true;
+                }
+            }
+            if (flag) { //caso seja possivel realizar o login o cliente é direcionado para a tela de inicio
+                Login.user_cod = loginTF.getText();//atualiza o atributo do usuário logado atualmente
+                setVisible(false);
+                new InicioRestaurante().setVisible(true);
+            }
         }
-
-
     }//GEN-LAST:event_loginBTN1ActionPerformed
 
     private void cadastroBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBTNActionPerformed
@@ -213,14 +274,14 @@ public class Login extends javax.swing.JFrame {
         //Encaminhamento adequado para as telas de cadastro
         switch (op) {
             case 0:
-            setVisible(false);
-            new CadastroRestaurante().setVisible(true);
-            break;
+                setVisible(false);
+                new CadastroRestaurante().setVisible(true);
+                break;
             case 1:
-            setVisible(false);
-            new CadastroCliente().setVisible(true);
+                setVisible(false);
+                new CadastroCliente().setVisible(true);
             default:
-            break;
+                break;
         }
     }//GEN-LAST:event_cadastroBTNActionPerformed
 
@@ -234,10 +295,10 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastroBTN;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBTN1;
     private javax.swing.JLabel loginLB;
     private javax.swing.JTextField loginTF;
+    private javax.swing.JPanel painel_cadastroBTN;
     private javax.swing.JPanel painel_do_titulo;
     private javax.swing.JPanel painel_dos_dados;
     private javax.swing.JLabel senhaLB;

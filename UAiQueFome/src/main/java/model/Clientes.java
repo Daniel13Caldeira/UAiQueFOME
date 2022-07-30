@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.io.BufferedReader;
@@ -12,10 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *
- * @author danie
- */
 public class Clientes {
     private static File abreArquivo() {
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
