@@ -130,4 +130,38 @@ public class Restaurante {
     public static ArrayList<String> getRestaurantes() {
         return Restaurantes.getRestaurantes();
     }
+
+    public static boolean validaCnpj(String cnpj) {//Método que valida cnpj
+        //declaração dos vetores que possuem a sequência  usada para validar
+        int[] k1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] k2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int soma = 0;//variavel que vai guardar os resultados das operações feitas
+        String aux_cnpj = cnpj.substring(0, 12);
+        for (int i = 0; i < 12; i++) { // soma recebe soma + o valor da posição i de k1 vezes o valor da posição i do cnpj
+            soma += (k1[i] * Integer.parseInt(aux_cnpj.charAt(i) + ""));
+        }
+        //é feita a divisão da soma encontrada por 11 para encontrar o digito
+        if ((soma % 11) < 2) {//se o resto  da divisão for menor que dois o digito x1 é 0
+            aux_cnpj = aux_cnpj + "0";
+        } else { //se não x1 recebe o valor da subtração a baixo
+            int x1 = 11 - (soma % 11);
+            aux_cnpj = aux_cnpj + Integer.toString(x1);
+        }
+        if (!aux_cnpj.equals(cnpj.substring(0, 13))) {
+            return false;
+        }
+        soma = 0;// zera a variável soma para as novas operações
+        //o mesmo processo é repetido , mas agora é feito a avaliação considerando o digito calculado anteriormente
+        for (int i = 0; i < 13; i++) { // soma recebe soma + o valor da posição i de k1 vezes o valor da posição i do cnpj 
+            soma += (k2[i] * Integer.parseInt(aux_cnpj.charAt(i) + ""));
+        }
+        //é feita a divisão da soma encontrada por 11 para encontrar o digito
+        if ((soma % 11) < 2) {//se o resto  da divisão for menor que dois o digito x1 é 0
+            aux_cnpj = aux_cnpj + "0";
+        } else { //se não x2 recebe o valor da subtração a baixo
+            int x2 = 11 - (soma % 11);
+            aux_cnpj = aux_cnpj + Integer.toString(x2);
+        }
+        return aux_cnpj.equals(cnpj);
+    }
 }
