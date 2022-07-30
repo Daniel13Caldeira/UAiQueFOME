@@ -5,11 +5,13 @@
 package Controller;
 
 import java.util.ArrayList;
+import model.ClienteDB;
 import model.Ids;
+import model.RestauranteDB;
 
 /**
  *
- * @author danie
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
 public class Pedido {
 
@@ -17,22 +19,28 @@ public class Pedido {
     private Cliente cliente;
     private Restaurante restaurante;
     private String status;
-    private double valorTotal;
+    private ArrayList<Produto> produtos = new ArrayList<>();
+    private float valorTotal;
 
     public Pedido(Cliente cliente, Restaurante restaurante) {
         this.codigo = Ids.setIdPedido();
         this.status = "enviado para o restaurante";
         this.cliente = cliente;
         this.restaurante = restaurante;
-        ArrayList<Produto> produtos = cliente.getCarrinho();
+        produtos = cliente.getCarrinho();
+        ArrayList<String> prod = new ArrayList<>();
         valorTotal = 0;
         for (int i = 0; i < produtos.size(); i++) {
             this.valorTotal += produtos.get(i).getPreco();
+            prod.add(produtos.get(i).getCodigo());
         }
+        RestauranteDB.addPedido(restaurante.getCnpj(), codigo, cliente.getCpf(), valorTotal,status, prod);
+        ClienteDB.addPedido(cliente.getCpf(), codigo, restaurante.getCnpj());
     }
 
     public Pedido(String codigo, Restaurante restaurante, Cliente cliente, String status) {
         this.codigo = codigo;
+        this.status = status;
         this.cliente = cliente;
         this.restaurante = restaurante;
         ArrayList<Produto> produtos = cliente.getCarrinho();
@@ -54,7 +62,7 @@ public class Pedido {
         return this.cliente.getCarrinho();
     }
 
-    public double getValorTotal() {
+    public float getValorTotal() {
         return this.valorTotal;
     }
 
@@ -64,10 +72,6 @@ public class Pedido {
 
     public void setStatus(String status) {
         this.status = status;
+        RestauranteDB.setStatusPedido(this.restaurante.getCnpj(), this, status);
     }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
 }

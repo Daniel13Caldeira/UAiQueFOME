@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author danie
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
 public class Ids {
 

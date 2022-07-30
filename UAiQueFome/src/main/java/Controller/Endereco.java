@@ -6,7 +6,7 @@ package Controller;
 
 /**
  *
- * @author danie
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
 public class Endereco {
     private String rua;

@@ -1,6 +1,7 @@
 package model;
 
 import Controller.Endereco;
+import Controller.Pedido;
 import Controller.Produto;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +10,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ *
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
+ */
 public class RestauranteDB {
 
     private static File abreArquivo(String restaurante) {
@@ -463,6 +467,57 @@ public class RestauranteDB {
         if (quantidade > 0) {
             produto.setQuantidade(quantidade);
             addProduto(produto.getRestaurante(),produto.getCodigo() ,produto.getNome() ,produto.getPreco() ,produto.getPrecoPromocao() ,quantidade ,produto.getCategorias() );
+        }
+    }
+
+    public static void setStatusPedido(String cnpj,Pedido pedido,String status){
+        //String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos
+        removePedido(cnpj,pedido.getCodigo());
+        ArrayList<String> produtos = new ArrayList<>();
+        ArrayList<Produto> prod = pedido.getProdutos();
+        for (int i = 0; i < prod.size(); i++) {
+            produtos.add(prod.get(i).getCodigo());
+        }
+        addPedido(cnpj, pedido.getCodigo(), pedido.getCliente().getCpf(), pedido.getValorTotal(), status, produtos);
+    }
+    
+    public static void removePedido(String cnpj, String pedido){
+        File arquivo = abreArquivo(cnpj);
+        ArrayList<String> salvar = new ArrayList<>();
+        try {
+            FileReader leitura = new FileReader(arquivo);//define o leitor
+            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
+            //primeira linha a ser salva
+            String linha = leitor.readLine();
+            while (linha != null) {
+                if (!pedido.equals(linha.split(";")[0])) {
+                    salvar.add(linha);
+                }
+                linha = leitor.readLine();
+            }
+            leitor.close();
+            leitura.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
+            BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
+            for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
+                escritor.write(salvar.get(i));
+                escritor.newLine();
+            }
+            escritor.flush();
+            escrita.close();
+            escritor.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
         }
     }
 }

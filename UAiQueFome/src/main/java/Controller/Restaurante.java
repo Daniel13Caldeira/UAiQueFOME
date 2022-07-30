@@ -3,7 +3,10 @@ package Controller;
 import java.util.ArrayList;
 import model.ClienteDB;
 import model.RestauranteDB;
-
+/**
+ *
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
+ */
 public class Restaurante {
 
     private String nome;

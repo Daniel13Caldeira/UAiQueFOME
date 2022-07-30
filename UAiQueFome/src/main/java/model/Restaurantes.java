@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author danie
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
 public class Restaurantes {
 
