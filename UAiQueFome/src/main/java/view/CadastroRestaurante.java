@@ -323,7 +323,7 @@ public class CadastroRestaurante extends javax.swing.JFrame {
             cadastro = false;
         }
         if(cadastro){
-            //Endereco end = new Endereco();
+            // new Endereco(ruaTF.getText() , bairroTF.getText(),Integer.parseInt(numeroTF.getText()));
         }
         
     }//GEN-LAST:event_cadastrarBTNActionPerformed
