@@ -38,6 +38,10 @@ public class Pedido {
         ClienteDB.addPedido(cliente.getCpf(), codigo, restaurante.getCnpj());
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public Pedido(String codigo, Restaurante restaurante, Cliente cliente, String status) {
         this.codigo = codigo;
         this.status = status;
