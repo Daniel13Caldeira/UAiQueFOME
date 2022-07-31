@@ -8,7 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
+ */
 public class Clientes {
+
     private static File abreArquivo() {
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             //File arquivo = new File("caminho win");
@@ -36,8 +41,8 @@ public class Clientes {
             //erro(arquivo);
         }
     }
-    
-    public static ArrayList<String> getClientes(){
+
+    public static ArrayList<String> getClientes() {
         File arquivo = abreArquivo();
         ArrayList<String> clientes = new ArrayList<String>();
         try {

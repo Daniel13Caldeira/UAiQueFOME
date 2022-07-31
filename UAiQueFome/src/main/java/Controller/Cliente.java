@@ -22,11 +22,11 @@ public class Cliente {
     private ArrayList<Pedido> pedidos;
     private ArrayList<String> restaurantesFavoritos;
     private ArrayList<Produto> carrinho;
-    
-    public Cliente(String cpf){
+
+    public Cliente(String cpf) {
         this.cpf = cpf;
     }
-    
+
     public Cliente(String cpf, String nome, String senha) {
         this.cpf = cpf;
         this.nome = nome;
@@ -53,10 +53,10 @@ public class Cliente {
         return this.endereco;
     }
 
-    public String findEndereco(){
+    public String findEndereco() {
         return ClienteDB.getEndereco(this.cpf);
     }
-    
+
     public String getSenha() {
         return ClienteDB.getSenha(this.cpf);
     }
@@ -139,6 +139,10 @@ public class Cliente {
     public void removeProdutoDoCarrinho(Produto produto) {
         ClienteDB.removerProduto(this.cpf, produto.getCodigo());
         RestauranteDB.setQuantidade(produto, true);
+    }
+
+    public void removeRestauranteFavorito(String restaurante) {
+        ClienteDB.removeRestauranteFavorito(this.cpf, restaurante);
     }
 
     public void finalizarPedido() {

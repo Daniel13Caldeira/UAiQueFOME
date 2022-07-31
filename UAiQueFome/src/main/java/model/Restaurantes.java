@@ -45,8 +45,8 @@ public class Restaurantes {
             //erro(arquivo);
         }
     }
-    
-    public static ArrayList<String> getRestaurantes(){
+
+    public static ArrayList<String> getRestaurantes() {
         File arquivo = abreArquivo();
         ArrayList<String> restaurantes = new ArrayList<String>();
         try {

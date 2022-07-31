@@ -34,7 +34,7 @@ public class Pedido {
             this.valorTotal += produtos.get(i).getPreco();
             prod.add(produtos.get(i).getCodigo());
         }
-        RestauranteDB.addPedido(restaurante.getCnpj(), codigo, cliente.getCpf(), valorTotal,status, prod);
+        RestauranteDB.addPedido(restaurante.getCnpj(), codigo, cliente.getCpf(), valorTotal, status, prod);
         ClienteDB.addPedido(cliente.getCpf(), codigo, restaurante.getCnpj());
     }
 

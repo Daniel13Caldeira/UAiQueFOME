@@ -91,6 +91,10 @@ public class Restaurante {
         return pedidos;
     }
 
+    private void addCategoria(String categoria) {
+        RestauranteDB.addCategoria(this.cnpj, categoria);
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
         RestauranteDB.altera(this.cnpj, nome, this.endereco, this.senha);
@@ -121,6 +125,12 @@ public class Restaurante {
 
     public void addProduto(String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
         new Produto(this.cnpj, nome, quantidade, preco, precoPromocao, categorias);
+        ArrayList<String> categoriasAtuais = RestauranteDB.getCategorias(this.cnpj);
+        for (int i = 0; i < categorias.size(); i++) {
+            if (!categoriasAtuais.contains(categorias.get(i))) {
+                addCategoria(categorias.get(i));
+            }
+        }
     }
 
     public void removeProduto(String produto) {
