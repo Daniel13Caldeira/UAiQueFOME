@@ -66,20 +66,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("CEP");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setText("jTextField5");
-
-        jTextField6.setText("jTextField6");
-
-        jTextField7.setText("jTextField7");
-
         jPanel2.setBackground(new java.awt.Color(249, 160, 63));
 
         jButton1.setText("Cadastrar");
@@ -256,7 +242,6 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        Cliente cliente = new Cliente(jTextField2.getText(), jTextField1.getText());
        cliente.setEndereco(new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText()));
-       System.out.println(cliente.getNome() + ", " + cliente.getCpf() + ", " + cliente.getNome() + ", " + cliente.getEndereco().getBairro() + ", " + cliente.getEndereco().getRua() + ", " + cliente.getEndereco().getNumero());
        ClienteDB clientedb = new ClienteDB();
        clientedb.cadastra(cliente);
     }//GEN-LAST:event_jButton1ActionPerformed
