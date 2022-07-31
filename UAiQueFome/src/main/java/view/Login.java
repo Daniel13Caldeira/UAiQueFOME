@@ -170,6 +170,9 @@ public class Login extends javax.swing.JFrame {
                 .addGap(72, 72, 72))
         );
 
+        loginTF.setText("");
+        senhaPF.setText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,28 +234,30 @@ public class Login extends javax.swing.JFrame {
                 new InicioCliente().setVisible(true);
             }
         } else { //Login de Restaurante
-            ArrayList<String> listRestaurantes;//Lista com todos os restaurantes cadastrados no sistema
-            int k = -1;//indice auxiliar que vai guardar o index do id_user encontrado na lista.
-            listRestaurantes = Restaurante.getRestaurantes(); //preenchimento da lista de restaurantes
-            for (int i = 0; i < listRestaurantes.size(); i++) {
-                String[] aux_rest = listRestaurantes.get(i).split(";"); // separa cada linha de atributos de restaurante em um vetor de atributos
-                if (aux_rest[0].equals(loginTF.getText())) { //Confere se o id na lista igual ao id digitado pelo usuário.
-                    k = i; //guarda a posição do id na lista
-                    break;
+            if (loginTF.getText().length() == 14) {
+                ArrayList<String> listRestaurantes;//Lista com todos os restaurantes cadastrados no sistema
+                int k = -1;//indice auxiliar que vai guardar o index do id_user encontrado na lista.
+                listRestaurantes = Restaurante.getRestaurantes(); //preenchimento da lista de restaurantes
+                for (int i = 0; i < listRestaurantes.size(); i++) {
+                    String[] aux_rest = listRestaurantes.get(i).split(";"); // separa cada linha de atributos de restaurante em um vetor de atributos
+                    if (aux_rest[0].equals(loginTF.getText())) { //Confere se o id na lista igual ao id digitado pelo usuário.
+                        k = i; //guarda a posição do id na lista
+                        break;
+                    }
                 }
-            }
-            if (k == -1) { //confere se não achou id na lista igual ao id digitado
-                JOptionPane.showMessageDialog(null, "Usuário não cadastrado no sistema", "Erro", JOptionPane.PLAIN_MESSAGE, null);
-                flag = false;
-            } else { //caso tenha encontrado o id
-                String[] aux_restId = listRestaurantes.get(k).split(";");
-                Restaurante restaurante = new Restaurante(aux_restId[0]); //cria um novo objeto restaurante com o id do usuário que está fazendo login.
-                String senha = restaurante.getSenha();
-                if (!senhaPF.getText().equals(senha)) {//verifica se a senha informada não é igual a cadastrada no sistema
-                    JOptionPane.showMessageDialog(null, "Senha Inválida", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                if (k == -1) { //confere se não achou id na lista igual ao id digitado
+                    JOptionPane.showMessageDialog(null, "Usuário não cadastrado no sistema", "Erro", JOptionPane.PLAIN_MESSAGE, null);
                     flag = false;
-                } else {//caso senha seja igual é possivel realizar o login
-                    flag = true;
+                } else { //caso tenha encontrado o id
+                    String[] aux_restId = listRestaurantes.get(k).split(";");
+                    Restaurante restaurante = new Restaurante(aux_restId[0]); //cria um novo objeto restaurante com o id do usuário que está fazendo login.
+                    String senha = restaurante.getSenha();
+                    if (!senhaPF.getText().equals(senha)) {//verifica se a senha informada não é igual a cadastrada no sistema
+                        JOptionPane.showMessageDialog(null, "Senha Inválida", "Erro", JOptionPane.PLAIN_MESSAGE, null);
+                        flag = false;
+                    } else {//caso senha seja igual é possivel realizar o login
+                        flag = true;
+                    }
                 }
             }
             if (flag) { //caso seja possivel realizar o login o cliente é direcionado para a tela de inicio

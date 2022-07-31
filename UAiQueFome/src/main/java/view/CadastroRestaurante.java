@@ -282,6 +282,14 @@ public class CadastroRestaurante extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        nomeTF.setText("");
+        cnpjTF.setText("");
+        senhaTF.setText("");
+        ruaTF.setText("");
+        numeroTF.setText("");
+        bairroTF.setText("");
+        cepTF.setText("");
+
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
         painel_principalLayout.setHorizontalGroup(
@@ -318,14 +326,17 @@ public class CadastroRestaurante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso", JOptionPane.PLAIN_MESSAGE);
             cadastro = false;
         }
-        if(!Restaurante.validaCnpj(cnpjTF.getText())){
+        if(!Restaurante.validaCnpj(cnpjTF.getText())){ //verifica se o cnpj informado é valido
             JOptionPane.showMessageDialog(null, "O CNPJ deve ser válido!", "Aviso", JOptionPane.PLAIN_MESSAGE);
             cadastro = false;
         }
-        if(cadastro){
-            // new Endereco(ruaTF.getText() , bairroTF.getText(),Integer.parseInt(numeroTF.getText()));
-        }
-        
+        if(cadastro){ //caso seja possivel é feito o cadastro
+            Endereco end = new Endereco(ruaTF.getText() , bairroTF.getText(),Integer.parseInt(numeroTF.getText()),cepTF.getText());
+            Restaurante new_Rest = new Restaurante(nomeTF.getText(), cnpjTF.getText(),end, senhaTF.getText());
+            JOptionPane.showMessageDialog(null, "Cadastro Feito com sucesso!\nO id de usuário é o CNPJ informado:\n"+new_Rest.getCnpj(), "Cadastro", JOptionPane.PLAIN_MESSAGE);
+            setVisible(false);
+            new Login().setVisible(true);
+        }  
     }//GEN-LAST:event_cadastrarBTNActionPerformed
 
     private void numeroTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroTFKeyReleased
