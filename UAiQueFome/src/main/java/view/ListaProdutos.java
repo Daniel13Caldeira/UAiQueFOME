@@ -38,6 +38,7 @@ public class ListaProdutos extends javax.swing.JFrame {
         voltarBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("UAiQueFome");
         setPreferredSize(new java.awt.Dimension(736, 503));
         setResizable(false);
 
