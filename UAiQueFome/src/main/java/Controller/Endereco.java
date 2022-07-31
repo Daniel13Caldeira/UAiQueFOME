@@ -13,11 +13,17 @@ public class Endereco {
     private String rua;
     private String bairro;
     private int numero;
+    private String cep;
 
-    Endereco(String rua, String bairro, int numero) {
+    Endereco(String rua, String bairro, int numero, String cep) {
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
+        this.cep = cep;
+    }
+
+    public String getCep() {
+        return cep;
     }
 
     public String getRua() {

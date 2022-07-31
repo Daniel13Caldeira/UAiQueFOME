@@ -31,7 +31,7 @@ public class ClienteDB {
 
     public static void cadastra(String cpf, String nome, Endereco endereco, String senha) {
         //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
-        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";";
+        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";"+ endereco.getCep()+";";
         //define o arquivo de salvamento
         File arquivo = abreArquivo(cpf);
         boolean flag = false;
