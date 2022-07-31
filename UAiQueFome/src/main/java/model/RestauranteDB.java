@@ -77,6 +77,9 @@ public class RestauranteDB {
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
+            leitor.readLine();
+            leitor.readLine();
+            leitor.readLine();
             String linha = leitor.readLine();
             while (linha != null) {//linha null = final do arquivo
                 salvar.add(linha);
@@ -93,9 +96,16 @@ public class RestauranteDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
+        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep() + ";";
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
+            escritor.write(nome);
+            escritor.newLine();
+            escritor.write(endereco_);
+            escritor.newLine();
+            escritor.write(senha);
+            escritor.newLine();
             for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
                 escritor.write(salvar.get(i));
                 escritor.newLine();
