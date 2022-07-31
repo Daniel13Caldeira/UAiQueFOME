@@ -1,13 +1,27 @@
-
 package view;
 
+import Controller.Cliente;
+import Controller.Produto;
+import Controller.Restaurante;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.Restaurantes;
 
 public class ListaProdutos extends javax.swing.JFrame {
 
+    private static String cod_prod; //variavel que vai guardar o codigo do produto
+
+    private static String cnpj_rest;//variavel que vair guardar o codigo do restaurante
+
+    public static String getCod_prod() {
+        return cod_prod;
+    }
 
     public ListaProdutos() {
         initComponents();
+        preencheTab();
     }
 
 
@@ -21,6 +35,7 @@ public class ListaProdutos extends javax.swing.JFrame {
         quantTF = new javax.swing.JTextField();
         quantLB = new javax.swing.JLabel();
         add_carrinBTN = new javax.swing.JButton();
+        voltarBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(736, 503));
@@ -46,8 +61,7 @@ public class ListaProdutos extends javax.swing.JFrame {
         painel_BTN.setBackground(new java.awt.Color(249, 160, 63));
 
         quantTF.setBackground(java.awt.Color.darkGray);
-        quantTF.setForeground(new java.awt.Color(255, 255, 255));
-        quantTF.setText("jTextField1");
+        quantTF.setForeground(new java.awt.Color(249, 160, 63));
         quantTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quantTFActionPerformed(evt);
@@ -69,21 +83,42 @@ public class ListaProdutos extends javax.swing.JFrame {
         add_carrinBTN.setBackground(java.awt.Color.darkGray);
         add_carrinBTN.setForeground(new java.awt.Color(255, 255, 255));
         add_carrinBTN.setText("Adicionar ao Carrinho");
+        add_carrinBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_carrinBTNActionPerformed(evt);
+            }
+        });
+
+        voltarBTN.setBackground(java.awt.Color.darkGray);
+        voltarBTN.setForeground(new java.awt.Color(255, 255, 255));
+        voltarBTN.setText("Voltar");
+        voltarBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarBTNActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_BTNLayout = new javax.swing.GroupLayout(painel_BTN);
         painel_BTN.setLayout(painel_BTNLayout);
         painel_BTNLayout.setHorizontalGroup(
             painel_BTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_BTNLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(quantLB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(quantTF, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(painel_BTNLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(add_carrinBTN)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painel_BTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_BTNLayout.createSequentialGroup()
+                        .addContainerGap(26, Short.MAX_VALUE)
+                        .addComponent(quantLB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(quantTF, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_BTNLayout.createSequentialGroup()
+                        .addGroup(painel_BTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_BTNLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(add_carrinBTN))
+                            .addGroup(painel_BTNLayout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(voltarBTN)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painel_BTNLayout.setVerticalGroup(
             painel_BTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,8 +129,12 @@ public class ListaProdutos extends javax.swing.JFrame {
                     .addComponent(quantLB))
                 .addGap(40, 40, 40)
                 .addComponent(add_carrinBTN)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(voltarBTN)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+
+        quantTF.setText("");//inicializa o campo de texto vazio
 
         javax.swing.GroupLayout painel_listProdutosLayout = new javax.swing.GroupLayout(painel_listProdutos);
         painel_listProdutos.setLayout(painel_listProdutosLayout);
@@ -142,6 +181,35 @@ public class ListaProdutos extends javax.swing.JFrame {
         mascaraInt(quantTF);
     }//GEN-LAST:event_quantTFKeyTyped
 
+    private void add_carrinBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_carrinBTNActionPerformed
+        boolean flag = true; //flag que define se o produto pode ser adicionado
+        if (lista_prodTB.getSelectedRow() != -1) {
+            cod_prod = lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 3).toString(); //guarda o codigo do produto selecionado
+            if (quantTF.getText().equals("")) { //verifica se o campo de quantidade está em branco
+                JOptionPane.showMessageDialog(null, "O campo de quantidade precisa ser informado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+                flag = false;
+            } else {
+                if (Integer.parseInt(quantTF.getText()) <= 0 || Integer.parseInt(quantTF.getText()) > Integer.parseInt(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 2).toString())) {
+                    JOptionPane.showMessageDialog(null, "A quantidade informada é inválida!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+                    flag = false;
+                } else {
+                    Cliente client = new Cliente(Login.getUser_cod());
+                    Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(quantTF.getText()),Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
+                    client.addProdutoAoCarrinho(produto);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+            flag = false;
+        }
+    }//GEN-LAST:event_add_carrinBTNActionPerformed
+
+    private void voltarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBTNActionPerformed
+        //volta para a tela de inicio do cliente
+        setVisible(false);
+        new InicioCliente().setVisible(true);
+    }//GEN-LAST:event_voltarBTNActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_carrinBTN;
     private javax.swing.JScrollPane jScrollPane1;
@@ -150,8 +218,9 @@ public class ListaProdutos extends javax.swing.JFrame {
     private javax.swing.JPanel painel_listProdutos;
     private javax.swing.JLabel quantLB;
     private javax.swing.JTextField quantTF;
+    private javax.swing.JButton voltarBTN;
     // End of variables declaration//GEN-END:variables
-    
+
     private void mascaraInt(JTextField textField) {
         //Máscara que aceita apenas números
         String texto = textField.getText();
@@ -163,5 +232,28 @@ public class ListaProdutos extends javax.swing.JFrame {
             }
         }
         textField.setText(texto);
+    }
+
+    private void preencheTab() {//Função que vai preencher as tabelas com os produtos do restaurante
+        ArrayList<String> list_rests = Restaurantes.getRestaurantes(); //Lista com todos os restaurantes cadastrados
+        int k = -1;//variavel para guardar o indice do restaurante
+        String[] aux_rest; //Array que vai receber os atributos dos restaurantes no formato {"cnpj","nome"}
+        for (int i = 0; i < list_rests.size(); i++) {//loop que vai localizar o indice do restaurante
+            aux_rest = list_rests.get(i).split(";"); //separa a linha de atributos do restaurante
+            if (aux_rest[1].equals(InicioCliente.getIdRest())) {//verifica se os nomes são iguais e guarda o indice e o cnpj do restaurante
+                cnpj_rest = aux_rest[0];
+                k = i;
+                break;
+            }
+        }
+        if (k != -1) {//cria um novo objeto restaurante com os atributos encontrados  
+            Restaurante rest = new Restaurante(cnpj_rest); //cria um objeto com o cnpj encontrado
+            ArrayList<Produto> list_Prod = rest.getProdutos(); //obtem a lista de produtos do restaurante
+            DefaultTableModel model = (DefaultTableModel) lista_prodTB.getModel();
+            for (int i = 0; i < list_Prod.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+                Object[] linha = {list_Prod.get(i).getNome(), list_Prod.get(i).getPreco(), list_Prod.get(i).getQuantidade(), list_Prod.get(i).getCodigo()};
+                model.addRow(linha);
+            }
+        }
     }
 }

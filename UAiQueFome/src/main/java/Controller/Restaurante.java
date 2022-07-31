@@ -86,7 +86,7 @@ public class Restaurante {
             String status = aux[3];
             String endAux = ClienteDB.getEndereco(cliente);
             aux = endAux.split(";");
-            pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]),aux[3])), status));
+            pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3])), status));
         }
         return pedidos;
     }

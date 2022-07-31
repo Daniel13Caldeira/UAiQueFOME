@@ -82,11 +82,9 @@ public class CadastroRestaurante extends javax.swing.JFrame {
 
         nomeTF.setBackground(java.awt.Color.darkGray);
         nomeTF.setForeground(new java.awt.Color(249, 160, 63));
-        nomeTF.setText("jTextField1");
 
         cnpjTF.setBackground(java.awt.Color.darkGray);
         cnpjTF.setForeground(new java.awt.Color(249, 160, 63));
-        cnpjTF.setText("jTextField2");
         cnpjTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cnpjTFKeyReleased(evt);
@@ -98,15 +96,12 @@ public class CadastroRestaurante extends javax.swing.JFrame {
 
         senhaTF.setBackground(java.awt.Color.darkGray);
         senhaTF.setForeground(new java.awt.Color(249, 160, 63));
-        senhaTF.setText("jTextField3");
 
         ruaTF.setBackground(java.awt.Color.darkGray);
         ruaTF.setForeground(new java.awt.Color(249, 160, 63));
-        ruaTF.setText("jTextField4");
 
         numeroTF.setBackground(java.awt.Color.darkGray);
         numeroTF.setForeground(new java.awt.Color(249, 160, 63));
-        numeroTF.setText("jTextField5");
         numeroTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 numeroTFKeyReleased(evt);
@@ -118,11 +113,9 @@ public class CadastroRestaurante extends javax.swing.JFrame {
 
         bairroTF.setBackground(java.awt.Color.darkGray);
         bairroTF.setForeground(new java.awt.Color(249, 160, 63));
-        bairroTF.setText("jTextField6");
 
         cepTF.setBackground(java.awt.Color.darkGray);
         cepTF.setForeground(new java.awt.Color(249, 160, 63));
-        cepTF.setText("jTextField7");
         cepTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cepTFActionPerformed(evt);
@@ -282,13 +275,13 @@ public class CadastroRestaurante extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        nomeTF.setText("");
-        cnpjTF.setText("");
-        senhaTF.setText("");
-        ruaTF.setText("");
-        numeroTF.setText("");
-        bairroTF.setText("");
-        cepTF.setText("");
+        nomeTF.setText(""); //Inicializa o campo de texto vazio
+        cnpjTF.setText(""); //Inicializa o campo de texto vazio
+        senhaTF.setText(""); //Inicializa o campo de texto vazio
+        ruaTF.setText(""); //Inicializa o campo de texto vazio
+        numeroTF.setText(""); //Inicializa o campo de texto vazio
+        bairroTF.setText(""); //Inicializa o campo de texto vazio
+        cepTF.setText(""); //Inicializa o campo de texto vazio
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);

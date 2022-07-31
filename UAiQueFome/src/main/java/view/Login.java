@@ -51,11 +51,9 @@ public class Login extends javax.swing.JFrame {
 
         loginTF.setBackground(java.awt.Color.darkGray);
         loginTF.setForeground(new java.awt.Color(249, 160, 63));
-        loginTF.setText("jTextField1");
 
         senhaPF.setBackground(java.awt.Color.darkGray);
         senhaPF.setForeground(new java.awt.Color(249, 160, 63));
-        senhaPF.setText("jPasswordField1");
 
         painel_do_titulo.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -118,9 +116,9 @@ public class Login extends javax.swing.JFrame {
         painel_cadastroBTNLayout.setHorizontalGroup(
             painel_cadastroBTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_cadastroBTNLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(127, Short.MAX_VALUE)
                 .addComponent(cadastroBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         painel_cadastroBTNLayout.setVerticalGroup(
             painel_cadastroBTNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,8 +168,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(72, 72, 72))
         );
 
-        loginTF.setText("");
-        senhaPF.setText("");
+        loginTF.setText(""); //Inicializa o campo de texto vazio
+        senhaPF.setText(""); //Inicializa o campo de texto vazio
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

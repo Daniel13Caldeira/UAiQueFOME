@@ -60,6 +60,13 @@ public class Produto {
         this.categorias = categorias;
     }
 
+    public Produto(String codigo, String restaurante, String nome, int quantidade, float preco) {
+        this.codigo = codigo;
+        this.restaurante = restaurante;
+        this.nome = nome;
+        this.quantidade = quantidade;
+    }
+
     public String getCodigo() {
         return this.codigo;
     }
