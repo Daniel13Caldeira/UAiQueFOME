@@ -10,24 +10,25 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
-public class PedidoDB {
+public class Restaurantes {
 
     private static File abreArquivo() {
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             //File arquivo = new File("caminho win");
-            return new File("dados\\pedidos.txt");
+            return new File("dados\\restaurantes.txt");
         } else {
             //File arquivo = new File("caminho linux");
-            return new File("dados//pedidos.txt");
+            return new File("dados//restaurantes.txt");
         }
     }
 
-    public static void cadastra(String pedido, String restaurante) {
+    public static void cadastra(String cnpj, String nome) {
         //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
         //define o arquivo de salvamento
         File arquivo = abreArquivo();
@@ -35,7 +36,7 @@ public class PedidoDB {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
             //escreve no arquivo e vai pra próxima linha
-            escritor.write(pedido + " " + restaurante);
+            escritor.write(cnpj + ";" + nome + ";");
             escritor.newLine();
             escritor.flush();
             escritor.close();//fecha o buffer
@@ -45,19 +46,15 @@ public class PedidoDB {
         }
     }
 
-    public static String getPedido(String id) {
+    public static ArrayList<String> getRestaurantes() {
         File arquivo = abreArquivo();
+        ArrayList<String> restaurantes = new ArrayList<String>();
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             String linha = leitor.readLine();//primeira linha a ser salvo
             while (linha != null) {//linha null = final do arquivo
-                String sub = linha.substring(0, linha.indexOf(" "));
-                if (sub.equals(id)) {
-                    leitor.close();//fecha o buffer
-                    leitura.close();//fecha o leitor
-                    return linha;
-                }
+                restaurantes.add(linha);
                 linha = leitor.readLine();//pega proxima linha
             }
             leitor.close();//fecha o buffer
@@ -65,6 +62,6 @@ public class PedidoDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        return null;
+        return restaurantes;
     }
 }

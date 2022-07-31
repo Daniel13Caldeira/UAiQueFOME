@@ -6,19 +6,24 @@ package Controller;
 
 /**
  *
- * @author danie
+ * @author Daniel Caldeira, Igor Fam, Márcio Felipe
  */
 public class Endereco {
+
     private String rua;
     private String bairro;
     private int numero;
     private String cep;
-    
-    public Endereco(String rua, String bairro, int numero, String cep){
+
+    public Endereco(String rua, String bairro, int numero, String cep) {
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
         this.cep = cep;
+    }
+
+    public String getCep() {
+        return cep;
     }
 
     public String getRua() {
