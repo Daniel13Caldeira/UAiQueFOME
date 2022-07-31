@@ -29,7 +29,7 @@ public class RestauranteDB {
 
     public static void cadastra(String cnpj, String nome, Endereco endereco, String senha) {
         //cria uma String com os dados do endereço do restaurante no formato padrão que está sendo utilizado
-        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";";
+        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep();
         //define o arquivo de salvamento
         File arquivo = abreArquivo(cnpj);
         boolean flag = false;
@@ -49,20 +49,18 @@ public class RestauranteDB {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
             //escreve no arquivo e vai pra próxima linha
-            escritor.write(cnpj);
+            escritor.write(nome);
             escritor.newLine();
             escritor.write(endereco_);
             escritor.newLine();
             escritor.write(senha);
             escritor.newLine();
-            if (flag) {
-                escritor.write("#:produtos:#");
-                escritor.newLine();
-                escritor.write("#:categorias:#");
-                escritor.newLine();
-                escritor.write("#:pedidos:#");
-                escritor.newLine();
-            }
+            escritor.write("#:produtos:#");
+            escritor.newLine();
+            escritor.write("#:categorias:#");
+            escritor.newLine();
+            escritor.write("#:pedidos:#");
+            escritor.newLine();
             escritor.flush();
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
@@ -79,9 +77,6 @@ public class RestauranteDB {
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            leitor.readLine();
-            leitor.readLine();
-            leitor.readLine();
             String linha = leitor.readLine();
             while (linha != null) {//linha null = final do arquivo
                 salvar.add(linha);
@@ -98,7 +93,6 @@ public class RestauranteDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        cadastra(cnpj, nome, endereco, senha);
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita

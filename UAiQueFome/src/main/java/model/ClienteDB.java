@@ -31,7 +31,7 @@ public class ClienteDB {
 
     public static void cadastra(String cpf, String nome, Endereco endereco, String senha) {
         //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
-        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";"+ endereco.getCep()+";";
+        String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep() + ";";
         //define o arquivo de salvamento
         File arquivo = abreArquivo(cpf);
         boolean flag = false;
@@ -57,14 +57,12 @@ public class ClienteDB {
             escritor.newLine();
             escritor.write(senha);
             escritor.newLine();
-            if (flag) {
-                escritor.write("#:produtos:#");
-                escritor.newLine();
-                escritor.write("#:pedidos:#");
-                escritor.newLine();
-                escritor.write("#:restaurantes favoritos:#");
-                escritor.newLine();
-            }
+            escritor.write("#:produtos:#");
+            escritor.newLine();
+            escritor.write("#:pedidos:#");
+            escritor.newLine();
+            escritor.write("#:restaurantes favoritos:#");
+            escritor.newLine();
             escritor.flush();
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
@@ -81,9 +79,6 @@ public class ClienteDB {
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            leitor.readLine();
-            leitor.readLine();
-            leitor.readLine();
             String linha = leitor.readLine();//primeira linha a ser salva
             while (linha != null) {//linha null = final do arquivo
                 salvar.add(linha);
@@ -100,7 +95,6 @@ public class ClienteDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        cadastra(cpf, nome, endereco, senha);
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
