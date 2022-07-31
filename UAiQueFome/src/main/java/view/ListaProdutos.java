@@ -184,24 +184,25 @@ public class ListaProdutos extends javax.swing.JFrame {
 
     private void add_carrinBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_carrinBTNActionPerformed
         boolean flag = true; //flag que define se o produto pode ser adicionado
-        if (lista_prodTB.getSelectedRow() != -1) {
+        if (lista_prodTB.getSelectedRow() != -1) { //verifica se alguma linha foi selecionada
             cod_prod = lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 3).toString(); //guarda o codigo do produto selecionado
             if (quantTF.getText().equals("")) { //verifica se o campo de quantidade está em branco
                 JOptionPane.showMessageDialog(null, "O campo de quantidade precisa ser informado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
                 flag = false;
             } else {
-                if (Integer.parseInt(quantTF.getText()) <= 0 || Integer.parseInt(quantTF.getText()) > Integer.parseInt(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 2).toString())) {
+                if (Integer.parseInt(quantTF.getText()) <= 0 || Integer.parseInt(quantTF.getText()) > Integer.parseInt(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 2).toString())) {//verifica se a quantidade informada está fora do intervalo válido
                     JOptionPane.showMessageDialog(null, "A quantidade informada é inválida!", "Aviso", JOptionPane.PLAIN_MESSAGE);
                     flag = false;
-                } else {
-                    Cliente client = new Cliente(Login.getUser_cod());
-                    Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(quantTF.getText()),Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
-                    client.addProdutoAoCarrinho(produto);
                 }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
             flag = false;
+        }
+        if (flag) {//adiciona ao carrinho caso seja possível
+            Cliente client = new Cliente(Login.getUser_cod());
+            Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(quantTF.getText()), Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
+            client.addProdutoAoCarrinho(produto);
         }
     }//GEN-LAST:event_add_carrinBTNActionPerformed
 

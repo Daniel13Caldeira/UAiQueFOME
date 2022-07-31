@@ -55,6 +55,14 @@ public class Restaurante {
         return categorias;
     }
 
+    public String findNome(){
+        return RestauranteDB.getNome(cnpj);
+    }
+    
+    public String findProduto(String id){
+        return RestauranteDB.getProduto(cnpj,id);
+    }
+    
     public ArrayList<Produto> getProdutos() {
         ArrayList<String> prod = RestauranteDB.getProdutos(this.cnpj);
         produtos.clear();

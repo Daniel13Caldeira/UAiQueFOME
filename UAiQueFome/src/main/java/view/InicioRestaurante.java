@@ -1,8 +1,15 @@
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class InicioRestaurante extends javax.swing.JFrame {
+
+    private static String id_prod;
+
+    public static String getId_prod() {
+        return id_prod;
+    }
 
     public InicioRestaurante() {
         initComponents();
@@ -537,8 +544,14 @@ public class InicioRestaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        setVisible(false);
-        new EditarProduto().setVisible(true);
+        if (jTable1.getSelectedRow() != -1) {//verifica se alguma linha foi selecionada
+            id_prod = jTable1.getValueAt(jTable1.getSelectedRow(),0).toString();//atuliza a variavel com o valor do id do produto da linha selecionada
+            //encaminha para a tela de edição do produto
+            setVisible(false);
+            new EditarProduto().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -600,7 +613,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private javax.swing.JTextField numeroTF;
     private javax.swing.JPanel perfil;
     // End of variables declaration//GEN-END:variables
-        
+
     private void mascaraInt(JTextField textField) {
         //Máscara que aceita apenas números
         String texto = textField.getText();
