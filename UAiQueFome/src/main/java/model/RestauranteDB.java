@@ -169,14 +169,20 @@ public class RestauranteDB {
     public static String getProduto(String cnpj, String id) {
         //id;nome;preco;promocao;quantidade;categoria1,categoria2,;
         File arquivo = abreArquivo(cnpj);
-        boolean flag = false;
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             //primeira linha a ser salva
+            leitor.readLine();
+            leitor.readLine();
+            leitor.readLine();
+            leitor.readLine();
             String linha = leitor.readLine();
+            System.out.println(linha);
             while (!linha.equals("#:categorias:#")) {
-                if (id.equals(linha.split(";")[0])) {
+                String[] aux = linha.split(";");
+                System.out.println(aux[0]);
+                if (id.equals(aux[0])) {
                     leitor.close();
                     leitura.close();
                     return linha;
@@ -188,7 +194,7 @@ public class RestauranteDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        return null;
+        return ";";
     }
 
     public static ArrayList<String> getProdutos(String cnpj) {
@@ -469,6 +475,18 @@ public class RestauranteDB {
         }
     }
 
+    public static void setQuantidade(Produto produto, int quantidade, boolean flag) {
+        int new_quantidade;
+        if (flag) {
+            new_quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) + quantidade;
+        } else {
+            new_quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) - quantidade;
+        }
+        removeProduto(produto.getRestaurante(), produto.getCodigo());
+        produto.setQuantidade(new_quantidade);
+
+    }
+
     public static void setQuantidade(Produto produto, boolean flag) {
         int quantidade;
         if (flag) {
@@ -477,10 +495,8 @@ public class RestauranteDB {
             quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) - produto.getQuantidade();
         }
         removeProduto(produto.getRestaurante(), produto.getCodigo());
-        if (quantidade > 0) {
             produto.setQuantidade(quantidade);
             addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), produto.getPrecoPromocao(), quantidade, produto.getCategorias());
-        }
     }
 
     public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos) {

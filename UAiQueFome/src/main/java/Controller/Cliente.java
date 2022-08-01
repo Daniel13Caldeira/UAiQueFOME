@@ -19,16 +19,16 @@ public class Cliente {
     private String nome;
     private String senha;
     private Endereco endereco;
-    private ArrayList<Pedido> pedidos;
-    private ArrayList<String> restaurantesFavoritos;
-    private ArrayList<Produto> carrinho;
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+    private ArrayList<String> restaurantesFavoritos = new ArrayList<>();
+    private ArrayList<Produto> carrinho = new ArrayList<>();
 
     public Cliente(String cpf) {
         this.cpf = cpf;
         this.nome = ClienteDB.getNome(this.cpf);
         String aux[] = ClienteDB.getEndereco(this.cpf).split(";");
         this.endereco = new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]);
-        this.senha= ClienteDB.getSenha(this.cpf);
+        this.senha = ClienteDB.getSenha(this.cpf);
         this.restaurantesFavoritos = getRestaurantesFavoritos();
         this.pedidos = getPedidos();
         this.carrinho = getCarrinho();
@@ -47,7 +47,7 @@ public class Cliente {
         this.cpf = cpf;
         this.nome = nome;
         this.endereco = endereco;
-        this.senha= ClienteDB.getSenha(this.cpf);
+        this.senha = ClienteDB.getSenha(this.cpf);
         this.restaurantesFavoritos = getRestaurantesFavoritos();
         this.pedidos = getPedidos();
         this.carrinho = getCarrinho();
@@ -75,19 +75,18 @@ public class Cliente {
     }
 
     public ArrayList<Produto> getCarrinho() {
-        if ((this.carrinho == null)) {
-            return new ArrayList<Produto>();
+        if (!carrinho.isEmpty()) {
+            this.carrinho.clear();
         }
-        this.carrinho.clear();
         String restaurante = ClienteDB.getRestaurante(this.cpf);
         ArrayList<String> produtos = ClienteDB.getProdutos(this.cpf);
         ArrayList<Integer> quantidades = new ArrayList<>();
         String produto;
-        for (int i = 0; i < produtos.size(); i++) {
+        for (int i = 0; i < produtos.size()-1; i++) {
             String aux[] = produtos.get(i).split(";");
             produtos.set(i, aux[0]);
             quantidades.add(Integer.parseInt(aux[1]));
-            produto = RestauranteDB.getProduto(this.cpf, produtos.get(i));
+            produto = RestauranteDB.getProduto(restaurante, produtos.get(i));
             aux = produto.split(";");
             String id = aux[0];
             String nome = aux[1];
@@ -103,31 +102,37 @@ public class Cliente {
         return this.carrinho;
     }
 
+    public String getRestaurante() {
+        return ClienteDB.getRestaurante(this.cpf);
+    }
+
     public ArrayList<String> getRestaurantesFavoritos() {
         this.restaurantesFavoritos = ClienteDB.getRestaurantesFavoritos(this.cpf);
         return this.restaurantesFavoritos;
     }
 
     public ArrayList<Pedido> getPedidos() {
-        this.pedidos.clear();
-        ArrayList<String> pedidos_ = ClienteDB.getPedidos(this.cpf);
-        ArrayList<String> restaurantes = new ArrayList<>();
-        String pedido;
-        for (int i = 0; i < pedidos_.size(); i++) {
-            String aux[] = pedidos_.get(i).split(";");
-            pedidos_.set(i, aux[0]);
-            restaurantes.add(aux[1]);
-            pedido = RestauranteDB.getPedido(this.cpf, pedidos_.get(i));
-            aux = pedido.split(";");
-            //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
-            String id = aux[0];
-            String idCliente = aux[1];
-            float valorTotal = Float.parseFloat(aux[2]);
-            String status = aux[3];
-            String endAux = RestauranteDB.getEndereco(restaurantes.get(i));
-            aux = endAux.split(";");
-            String rest = restaurantes.get(i);
-            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]), RestauranteDB.getNome(rest), rest), this, status));
+        if (!pedidos.isEmpty()) {
+            this.pedidos.clear();
+            ArrayList<String> pedidos_ = ClienteDB.getPedidos(this.cpf);
+            ArrayList<String> restaurantes = new ArrayList<>();
+            String pedido;
+            for (int i = 0; i < pedidos_.size(); i++) {
+                String aux[] = pedidos_.get(i).split(";");
+                pedidos_.set(i, aux[0]);
+                restaurantes.add(aux[1]);
+                pedido = RestauranteDB.getPedido(this.cpf, pedidos_.get(i));
+                aux = pedido.split(";");
+                //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
+                String id = aux[0];
+                String idCliente = aux[1];
+                float valorTotal = Float.parseFloat(aux[2]);
+                String status = aux[3];
+                String endAux = RestauranteDB.getEndereco(restaurantes.get(i));
+                aux = endAux.split(";");
+                String rest = restaurantes.get(i);
+                this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]), RestauranteDB.getNome(rest), rest), this, status));
+            }
         }
         return this.pedidos;
     }
@@ -149,7 +154,7 @@ public class Cliente {
 
     public void addProdutoAoCarrinho(Produto produto, int quantidade) {
         ArrayList<String> prod = ClienteDB.getProdutos(this.cpf);
-        int quantAtual=0;
+        int quantAtual = 0;
         for (int i = 0; i < prod.size(); i++) {
             if (prod.get(i).split(";")[0].equals(produto.getCodigo())) {
                 quantAtual = Integer.parseInt(prod.get(i).split(";")[1]);
@@ -157,12 +162,12 @@ public class Cliente {
             prod.set(i, prod.get(i).split(";")[0]);
         }
         if (prod.contains(produto.getCodigo())) {
-            
-            ClienteDB.alteraProduto(this.cpf, produto.getCodigo(), quantAtual+quantidade, produto.getRestaurante());
+
+            ClienteDB.alteraProduto(this.cpf, produto.getCodigo(), quantAtual + quantidade, produto.getRestaurante());
         } else {
             ClienteDB.addProduto(this.cpf, produto.getCodigo(), quantidade, produto.getRestaurante());
         }
-        RestauranteDB.setQuantidade(produto, false);
+        RestauranteDB.setQuantidade(produto, quantidade, false);
     }
 
     public void removeProdutoDoCarrinho(Produto produto) {

@@ -185,7 +185,7 @@ public class ClienteDB {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        return null;
+        return "";
     }
 
     public static ArrayList<String> getProdutos(String cpf) {
@@ -203,7 +203,6 @@ public class ClienteDB {
                 produtos.add(linha);
                 linha = leitor.readLine();//pega proxima linha
             }
-            produtos.remove(produtos.size()-1);
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {

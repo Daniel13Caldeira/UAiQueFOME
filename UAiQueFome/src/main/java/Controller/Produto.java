@@ -145,8 +145,9 @@ public class Produto {
     public ArrayList<String> getCategorias() {
         ArrayList<String> categorias = new ArrayList<>();
         String aux = RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[5];
-        for (int i = 0; i < aux.length(); i++) {
-            categorias.add(aux.split(",")[i]);
+        String[] cate = aux.split(",");
+        for (int i = 0; i < cate.length; i++) {
+            categorias.add(cate[i]);
         }
         return categorias;
     }

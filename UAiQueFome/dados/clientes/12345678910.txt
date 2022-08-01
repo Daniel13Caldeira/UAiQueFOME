@@ -1,9 +1,10 @@
-igro
-asd;asa;123;123;
-123
+q
+q;q;12;q;
+q
 #:produtos:#
-1 99
+13;41
+12;32
 10557004000129
-2 99
 #:pedidos:#
 #:restaurantes favoritos:#
+10557004000129

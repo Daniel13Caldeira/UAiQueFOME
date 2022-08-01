@@ -18,11 +18,11 @@ import model.Restaurantes;
 public class InicioCliente extends javax.swing.JFrame {
 
     private final Cliente aux_cliente = new Cliente(Login.getUser_cod());//declara um objeto com o id do usuario logado
+    private static String pk_rest;
+    private static ArrayList<String> list_rest = Restaurantes.getRestaurantes();
 
-    private static String nomeRest; //variavel para guardar o nome do restaurante selecionado na lista de restaurantes ou na lista de favoritos
-
-    public static String getIdRest() {
-        return nomeRest;
+    public static String getPk_rest() {
+        return pk_rest;
     }
 
     public InicioCliente() {
@@ -114,11 +114,11 @@ public class InicioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CNPJ"
+                "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,7 +128,6 @@ public class InicioCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jPanel3.setBackground(new java.awt.Color(249, 160, 63));
@@ -145,6 +144,11 @@ public class InicioCliente extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(255, 125, 0));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Pesquisar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(java.awt.Color.darkGray);
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,11 +225,11 @@ public class InicioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Restaurante", "Produto", "Quantidade", "Preço"
+                "Nome", "Quantidade", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -237,7 +241,6 @@ public class InicioCliente extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel4.setBackground(new java.awt.Color(249, 160, 63));
@@ -560,17 +563,14 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nome", "CNPJ"
+                "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -580,7 +580,6 @@ public class InicioCliente extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTable4);
         if (jTable4.getColumnModel().getColumnCount() > 0) {
             jTable4.getColumnModel().getColumn(0).setResizable(false);
-            jTable4.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jPanel9.setBackground(new java.awt.Color(249, 160, 63));
@@ -667,7 +666,7 @@ public class InicioCliente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -732,7 +731,12 @@ public class InicioCliente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTable1.getSelectedRow() != -1) {
-            nomeRest = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+            for (int i = 0; i < list_rest.size(); i++) {
+                String[] aux = list_rest.get(i).split(";");
+                if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString().equals(aux[1])) {
+                    pk_rest = aux[0];
+                }
+            }
             setVisible(false);
             new ListaProdutos().setVisible(true);
         } else {
@@ -742,7 +746,12 @@ public class InicioCliente extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         if (jTable4.getSelectedRow() != -1) {
-            nomeRest = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
+            for (int i = 0; i < list_rest.size(); i++) {
+                String[] aux = list_rest.get(i).split(";");
+                if (jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString().equals(aux[1])) {
+                    pk_rest = aux[0];
+                }
+            }
             setVisible(false);
             new ListaProdutos().setVisible(true);
         } else {
@@ -752,8 +761,13 @@ public class InicioCliente extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         if (jTable4.getSelectedRow() != -1) {
-            nomeRest = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
-            aux_cliente.removeRestauranteFavorito(nomeRest);
+            for (int i = 0; i < list_rest.size(); i++) {
+                String[] aux = list_rest.get(i).split(";");
+                if (jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString().equals(aux[1])) {
+                    pk_rest = aux[0];
+                }
+            }
+            aux_cliente.removeRestauranteFavorito(pk_rest);
             getTabelaRestaurantesFavoritos();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
@@ -762,8 +776,13 @@ public class InicioCliente extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (jTable1.getSelectedRow() != -1) {
-            nomeRest = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
-            aux_cliente.addRestauranteFavorito(nomeRest);
+            for (int i = 0; i < list_rest.size(); i++) {
+                String[] aux = list_rest.get(i).split(";");
+                if (jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString().equals(aux[1])) {
+                    pk_rest = aux[0];
+                }
+            }
+            aux_cliente.addRestauranteFavorito(pk_rest);
             getTabelaRestaurantesFavoritos();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
@@ -829,32 +848,28 @@ public class InicioCliente extends javax.swing.JFrame {
     private javax.swing.JPanel perfil;
     // End of variables declaration//GEN-END:variables
     private void getTabelaRestaurantes() {
-        ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
-        restaurantes.removeAll(Arrays.asList("", null));
-        //System.out.println(restaurantes.toString());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
-            String[] restaurante = restaurantes.get(i).split(";");
-            String[] linha = {restaurante[1], restaurante[0]};
+        for (int i = 0; i < list_rest.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            String[] restaurante = list_rest.get(i).split(";");
+            Object[] linha = {restaurante[1]};
             model.addRow(linha);
         }
-        jTable1.removeColumn(jTable1.getColumnModel().getColumn(1));
     }
 
     private void getTabelaRestaurantesFavoritos() {
         ArrayList<String> restaurantes = aux_cliente.getRestaurantesFavoritos();
-        //restaurantes.removeAll(Arrays.asList("", null));
         DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
         model.setRowCount(0);
         for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
-            Object[] linha = {restaurantes.get(i)};
+            Restaurante aux = new Restaurante(restaurantes.get(i));
+            String nome = aux.getNome();
+            Object[] linha = {nome};
             model.addRow(linha);
         }
-        jTable4.removeColumn(jTable4.getColumnModel().getColumn(1));
     }
-    
-    private void getListaCategorias(){
+
+    private void getListaCategorias() {
         ArrayList<String> categorias = Categorias.getCategorias();
         DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox1.getModel();
         model.addElement(" ");
@@ -871,24 +886,24 @@ public class InicioCliente extends javax.swing.JFrame {
         jTextField6.setText(endereco.getBairro());
         jTextField7.setText(endereco.getCep());
     }
-    
-    private void pesquisar(){
+
+    private void pesquisar() {
         String pesquisa = jTextField8.getText();
         String categoria = (String) jComboBox1.getSelectedItem();
         ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
         ArrayList<String> resultados = new ArrayList<String>();
         restaurantes.removeAll(Arrays.asList("", null));
 //        System.out.println(restaurantes.toString());
-        if(!categoria.equals(" ")){
-            for(int i = 0; i < restaurantes.size(); i++){
+        if (!categoria.equals(" ")) {
+            for (int i = 0; i < restaurantes.size(); i++) {
                 String restaurante = restaurantes.get(i).split(";")[0];
                 ArrayList<String> categoriasRestaurante = RestauranteDB.getCategorias(restaurante);
-                if(categoriasRestaurante.contains(categoria)){
+                if (categoriasRestaurante.contains(categoria)) {
                     resultados.add(restaurante);
                 }
             }
         } else {
-            for(int i = 0; i < restaurantes.size(); i++){
+            for (int i = 0; i < restaurantes.size(); i++) {
                 String restaurante = restaurantes.get(i).split(";")[0];
                 ArrayList<String> categoriasRestaurante = RestauranteDB.getCategorias(restaurante);
                 resultados.add(restaurante);
@@ -896,18 +911,17 @@ public class InicioCliente extends javax.swing.JFrame {
         }
 //        System.out.println(resultados.toString());
         ArrayList<String> resultados2 = new ArrayList<String>();
-       
-        for(String resultado : resultados){
-            if(!(pesquisa.equals(""))){
+
+        for (String resultado : resultados) {
+            if (!(pesquisa.equals(""))) {
                 String nome = new Restaurante(resultado).getNome();
-                if((nome.contains(pesquisa))){
+                if ((nome.contains(pesquisa))) {
                     resultados2.add(resultado);
                 }
             } else {
                 resultados2.add(resultado);
             }
         }
-
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -917,19 +931,16 @@ public class InicioCliente extends javax.swing.JFrame {
             model.addRow(linha);
         }
     }
-    
-    private void getTabelaCarrinho(){
+
+    private void getTabelaCarrinho() {
         ArrayList<Produto> produtos = aux_cliente.getCarrinho();
-        System.out.println(produtos.toString());
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         for (int i = 0; i < produtos.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             Produto produto = produtos.get(i);
-            JOptionPane.showMessageDialog(null, produto.getNome() + ": " + produto.getRestaurante() , "Aviso", JOptionPane.PLAIN_MESSAGE);
-            String[] linha = {produto.getRestaurante() };
+            String[] linha = {produto.getNome(), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getPreco())};
             model.addRow(linha);
         }
-        //jTable1.removeColumn(jTable1.getColumnModel().getColumn(1));
     }
 
 }

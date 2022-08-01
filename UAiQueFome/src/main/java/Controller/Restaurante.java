@@ -15,9 +15,9 @@ public class Restaurante {
     private String cnpj;
     private Endereco endereco;
     private String senha;
-    private ArrayList<String> categorias;
-    private ArrayList<Produto> produtos;
-    private ArrayList<Pedido> pedidos;
+    private ArrayList<String> categorias = new ArrayList<>();
+    private ArrayList<Produto> produtos = new ArrayList<>();
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
 
     public Restaurante(String cnpj) {
         this.cnpj = cnpj;
@@ -73,9 +73,7 @@ public class Restaurante {
 
     public ArrayList<Produto> getProdutos() {
         ArrayList<String> prod = RestauranteDB.getProdutos(this.cnpj);
-        if (!produtos.isEmpty()) {
-            produtos.clear();
-        }
+        produtos.clear();
         for (int i = 0; i < prod.size(); i++) {
             String aux[] = prod.get(i).split(";");
             String id = aux[0];
@@ -97,16 +95,16 @@ public class Restaurante {
         ArrayList<String> ped = RestauranteDB.getPedidos(this.cnpj);
         if (!pedidos.isEmpty()) {
             pedidos.clear();
-        }
-        for (int i = 0; i < ped.size(); i++) {
-            String aux[] = ped.get(i).split(";");
-            String id = aux[0];
-            String cliente = aux[1];
-            float valor = Float.parseFloat(aux[2]);
-            String status = aux[3];
-            String endAux = ClienteDB.getEndereco(cliente);
-            aux = endAux.split(";");
-            pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3])), status));
+            for (int i = 0; i < ped.size(); i++) {
+                String aux[] = ped.get(i).split(";");
+                String id = aux[0];
+                String cliente = aux[1];
+                float valor = Float.parseFloat(aux[2]);
+                String status = aux[3];
+                String endAux = ClienteDB.getEndereco(cliente);
+                aux = endAux.split(";");
+                pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3])), status));
+            }
         }
         return pedidos;
     }

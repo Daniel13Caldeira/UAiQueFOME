@@ -16,7 +16,7 @@ public class ListaProdutos extends javax.swing.JFrame {
 
     private static String cod_prod; //variavel que vai guardar o codigo do produto
 
-    private static String cnpj_rest;//variavel que vair guardar o codigo do restaurante
+    private static String cnpj_rest;//variavel que vai guardar o codigo do restaurante
 
     public static String getCod_prod() {
         return cod_prod;
@@ -51,10 +51,7 @@ public class ListaProdutos extends javax.swing.JFrame {
         lista_prodTB.setForeground(new java.awt.Color(255, 255, 255));
         lista_prodTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nome", "Preço", "Quantidade", "Codigo"
@@ -194,6 +191,7 @@ public class ListaProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_quantTFKeyTyped
 
     private void add_carrinBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_carrinBTNActionPerformed
+        Cliente client = new Cliente(Login.getUser_cod());
         boolean flag = true; //flag que define se o produto pode ser adicionado
         if (lista_prodTB.getSelectedRow() != -1) { //verifica se alguma linha foi selecionada
             cod_prod = lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 3).toString(); //guarda o codigo do produto selecionado
@@ -207,14 +205,18 @@ public class ListaProdutos extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
             flag = false;
         }
+        if (!client.getRestaurante().equals(InicioCliente.getPk_rest()) && client.getRestaurante().equals("")) {
+            flag = false;
+            JOptionPane.showMessageDialog(null, "Não é possível adicionar produtos de restaurantes diferentes em um mesmo carrinho!\nPor favor primeiro finalize seu pedido em aberto.", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }
         if (flag) {//adiciona ao carrinho caso seja possível
-            Cliente client = new Cliente(Login.getUser_cod());
-            Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 2).toString()), Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
+            Produto produto = new Produto(cod_prod, cnpj_rest);
             int quantidade = Integer.parseInt(quantTF.getText());
-            client.addProdutoAoCarrinho(produto,quantidade);
+            client.addProdutoAoCarrinho(produto, quantidade);
+            atualizaTab();
         }
     }//GEN-LAST:event_add_carrinBTNActionPerformed
 
@@ -255,7 +257,7 @@ public class ListaProdutos extends javax.swing.JFrame {
         String[] aux_rest; //Array que vai receber os atributos dos restaurantes no formato {"cnpj","nome"}
         for (int i = 0; i < list_rests.size(); i++) {//loop que vai localizar o indice do restaurante
             aux_rest = list_rests.get(i).split(";"); //separa a linha de atributos do restaurante
-            if (aux_rest[1].equals(InicioCliente.getIdRest())) {//verifica se os nomes são iguais e guarda o indice e o cnpj do restaurante
+            if (aux_rest[0].equals(InicioCliente.getPk_rest())) {//verifica se os nomes são iguais e guarda o indice e o cnpj do restaurante
                 cnpj_rest = aux_rest[0];
                 k = i;
                 break;
@@ -271,12 +273,18 @@ public class ListaProdutos extends javax.swing.JFrame {
             }
         }
         //Os passos abaixo mudam a cor do header da tabela
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer(); 
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(Color.DARK_GRAY);
         headerRenderer.setForeground(Color.WHITE);
 
         for (int i = 0; i < lista_prodTB.getModel().getColumnCount(); i++) {
             lista_prodTB.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+    }
+
+    private void atualizaTab() {
+        DefaultTableModel model = (DefaultTableModel) lista_prodTB.getModel();
+        model.setRowCount(0);
+        preencheTab();
     }
 }

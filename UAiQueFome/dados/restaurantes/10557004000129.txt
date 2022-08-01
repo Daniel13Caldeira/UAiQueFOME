@@ -1,8 +1,11 @@
 teste
-bairro;rua;4444;44444444
-senha
+bairro;rua;44441;22222222;
+1
 #:produtos:#
+13;3;5.0;-1.0;58;jTextField3,;
+12;2;4.0;-1.0;67;jTextField3,;
 #:categorias:#
+1ield3
 jTextField3
 cat
 pão
