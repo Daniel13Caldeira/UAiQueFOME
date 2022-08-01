@@ -141,6 +141,11 @@ public class InicioCliente extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(255, 125, 0));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Pesquisar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(java.awt.Color.darkGray);
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
@@ -675,6 +680,10 @@ public class InicioCliente extends javax.swing.JFrame {
         new Login().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        pesquisar();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -811,6 +820,32 @@ public class InicioCliente extends javax.swing.JFrame {
         jTextField5.setText(String.valueOf(endereco.getNumero()));
         jTextField6.setText(endereco.getBairro());
         jTextField7.setText(endereco.getCep());
+    }
+    
+    private void pesquisar(){
+        String categoria = (String) jComboBox1.getSelectedItem();
+        ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
+        ArrayList<String> resultados = Restaurantes.getRestaurantes();
+        restaurantes.removeAll(Arrays.asList("", null));
+        //System.out.println(restaurantes.toString());
+        if(!categoria.equals(" ")){
+            for(int i = 0; i < restaurantes.size(); i++){
+                String restaurante = restaurantes.get(i);
+                ArrayList<String> categoriasRestaurante = RestauranteDB.getCategorias(restaurante);
+                JOptionPane.showMessageDialog(null, restaurante + ": " + categoriasRestaurante.toString() , "Aviso", JOptionPane.PLAIN_MESSAGE);
+                if(categoriasRestaurante.contains(categoria)){
+                    resultados.add(restaurante);
+                }
+            }
+        }
+        System.out.println(resultados.toString());
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < resultados.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            String[] restaurante = resultados.get(i).split(";");
+            String[] linha = {restaurante[0]};
+            model.addRow(linha);
+        }
     }
 
 }
