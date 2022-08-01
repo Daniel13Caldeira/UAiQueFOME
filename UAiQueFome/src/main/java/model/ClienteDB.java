@@ -125,14 +125,16 @@ public class ClienteDB {
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            leitor.readLine();
-            leitor.readLine();
-            leitor.readLine();
-            leitor.readLine();
-            String linha = leitor.readLine();//primeira linha a ser salvo
+
+            String linha = leitor.readLine();//primeira linha a ser salv
+            String linhaAux=linha;
+            while (!linha.equals("#:pedidos:#")) {
+                linhaAux = linha;
+                linha = leitor.readLine();//pega proxima linha
+            }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
-            return linha;
+            return linhaAux;
         } catch (IOException ex) {
             //erro(arquivo);
         }
@@ -149,12 +151,12 @@ public class ClienteDB {
             leitor.readLine();
             leitor.readLine();
             leitor.readLine();
-            leitor.readLine();
             String linha = leitor.readLine();//primeira linha a ser salvo
-            while (linha != null) {//linha null = final do arquivo
+            while (!linha.equals("#:pedidos:#")) {//linha null = final do arquivo
                 produtos.add(linha);
                 linha = leitor.readLine();//pega proxima linha
             }
+            produtos.remove(produtos.size()-1);
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
@@ -280,12 +282,12 @@ public class ClienteDB {
                 escritor.newLine();
 
                 if (salvar.get(i).equals("#:produtos:#")) {
+                    escritor.write(produto + ";" + String.valueOf(quantidade));
+                    escritor.newLine();
                     if (salvar.get(i + 1).equals("#:pedidos:#")) {
                         escritor.write(restaurante);
                         escritor.newLine();
                     }
-                    escritor.write(produto + ";" + String.valueOf(quantidade));
-                    escritor.newLine();
                 }
             }
             escritor.flush();
