@@ -42,7 +42,9 @@ public class Produto {
         this.quantidade = Integer.parseInt(prod[4]);
         prod = prod[5].split(",");
         for (int i = 0; i < prod.length; i++) {
-            this.categorias.add(prod[i]);
+            if (!categorias.contains(prod[i])) {
+                this.categorias.add(prod[i]);
+            }
         }
     }
 

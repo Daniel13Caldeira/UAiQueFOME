@@ -21,8 +21,13 @@ public class Restaurante {
 
     public Restaurante(String cnpj) {
         this.cnpj = cnpj;
-        produtos = new ArrayList<>();
-        pedidos = new ArrayList<>();
+        this.senha = RestauranteDB.getSenha(this.cnpj);
+        this.nome = RestauranteDB.getNome(this.cnpj);
+        String aux[] = RestauranteDB.getEndereco(this.cnpj).split(";");
+        this.endereco = new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]);
+        this.categorias = RestauranteDB.getCategorias(this.cnpj);
+        this.produtos = this.getProdutos();
+        this.pedidos = this.getPedidos();
     }
 
     public Restaurante(String nome, String cnpj, Endereco endereco, String senha) {
@@ -38,6 +43,10 @@ public class Restaurante {
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;
+        this.categorias = RestauranteDB.getCategorias(this.cnpj);
+        this.produtos = this.getProdutos();
+        this.pedidos = this.getPedidos();
+        this.senha = RestauranteDB.getSenha(this.cnpj);
     }
 
     public String getNome() {
@@ -86,7 +95,7 @@ public class Restaurante {
 
     public ArrayList<Pedido> getPedidos() {
         ArrayList<String> ped = RestauranteDB.getPedidos(this.cnpj);
-        if(!pedidos.isEmpty()){
+        if (!pedidos.isEmpty()) {
             pedidos.clear();
         }
         for (int i = 0; i < ped.size(); i++) {

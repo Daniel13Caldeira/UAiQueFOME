@@ -25,6 +25,13 @@ public class Cliente {
 
     public Cliente(String cpf) {
         this.cpf = cpf;
+        this.nome = ClienteDB.getNome(this.cpf);
+        String aux[] = ClienteDB.getEndereco(this.cpf).split(";");
+        this.endereco = new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]);
+        this.senha= ClienteDB.getSenha(this.cpf);
+        this.restaurantesFavoritos = getRestaurantesFavoritos();
+        this.pedidos = getPedidos();
+        this.carrinho = getCarrinho();
     }
 
     public Cliente(String cpf, String nome, String senha, Endereco endereco) {
@@ -40,6 +47,10 @@ public class Cliente {
         this.cpf = cpf;
         this.nome = nome;
         this.endereco = endereco;
+        this.senha= ClienteDB.getSenha(this.cpf);
+        this.restaurantesFavoritos = getRestaurantesFavoritos();
+        this.pedidos = getPedidos();
+        this.carrinho = getCarrinho();
     }
 
     public String getNome() {
