@@ -29,7 +29,7 @@ public class Ids {
 
     public static String setIdProduto() {
         File arquivo = abreArquivo();
-        String idProduto = "", idPedido = "";
+        String idProduto = "0", idPedido = "0";
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
@@ -72,7 +72,7 @@ public class Ids {
 
     public static String setIdPedido() {
         File arquivo = abreArquivo();
-        String idProduto = "", idPedido = "";
+        String idProduto = "0", idPedido = "0";
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
