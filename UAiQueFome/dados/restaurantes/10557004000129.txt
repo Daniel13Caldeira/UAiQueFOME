@@ -2,5 +2,8 @@ t
 bairro;rua;4444;44444444
 senha
 #:produtos:#
+2;jTextField1;13.0;-1.0;99;jTextField3,;
+1;jTextField1;12.0;-1.0;99;jTextField3,;
 #:categorias:#
+jTextField3
 #:pedidos:#

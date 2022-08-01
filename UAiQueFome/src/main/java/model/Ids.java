@@ -27,88 +27,90 @@ public class Ids {
         }
     }
 
-    public static String setIdProduto() {
+    //busca o código do próximo produto a ser adicionado
+    public static int buscaProduto() {
+        //arquivo onde será feita a leitura
         File arquivo = abreArquivo();
-        String idProduto = "0", idPedido = "0";
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            idProduto = leitor.readLine();
-            if (idProduto == null) {
-                idProduto = "0";
-                idPedido = "0";
-            } else {
-                idProduto = leitor.readLine() ;
-                idPedido = leitor.readLine();
+            String linha = leitor.readLine();//primeira linha
+            if (linha != null) {
+                //retorna a linha 1, onde está o código do produto
+                return Integer.parseInt(linha);
             }
-            leitor.close();//fecha o buffer
-            leitura.close();//fecha o leitor
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        idProduto = String.valueOf(idProduto == null || idProduto.equals("") ? 1 : (Integer.parseInt(idProduto) + 1));
-        System.out.println(idProduto);
-        try {
-            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
-            escritaAux.close();//fecha o escritot
-        } catch (IOException ex) {
-            //erro(arquivo);
-        }
-        try {
-            FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
-            BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
-            //escreve no arquivo e vai pra próxima linha
-            escritor.write(idProduto);
-            escritor.newLine();
-            escritor.write(idPedido);
-            escritor.flush();
-            escritor.close();//fecha o buffer
-            escrita.close();//fecha o escritor
-        } catch (IOException ex) {
-            //erro(arquivo);
-        }
-        return idProduto;
+        //se a linha estiver vazia retorna o valor 0
+        return 0;
     }
 
-    public static String setIdPedido() {
+    //busca o código do próximo funcionário a ser adicionado
+    public static int buscaPedido() {
+        //arquivo onde vai ser feita a leitura
         File arquivo = abreArquivo();
-        String idProduto = "0", idPedido = "0";
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            idProduto = leitor.readLine();
-            if (idProduto == null) {
-                idProduto = "0";
-                idPedido = "0";
-            } else {
-                idProduto = leitor.readLine() ;
-                idPedido = leitor.readLine();
+            leitor.readLine();
+            String linha = leitor.readLine();
+            if (linha != null) {
+                //retorna a linha 2, onde está o código do funcionário
+                return Integer.parseInt(linha);
             }
-            leitor.close();//fecha o buffer
-            leitura.close();//fecha o leitor
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        idPedido = String.valueOf(Integer.parseInt(idPedido) + 1);
-        try {
-            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
-            escritaAux.close();//fecha o escritot
-        } catch (IOException ex) {
-            //erro(arquivo);
-        }
+        //se a linha estiver vazia retorna o valor 0
+        return 0;
+    }
+
+    public static void alteraPedido() {
+        //pega o código do carrinho, do produto e do funcionário
+        int produto = buscaProduto();
+        int pedido = buscaPedido() + 1;//adiciona 1 no funcionário
+        //apaga todo o arquivo
+        apagar();
+        //insere os códigos atualizados
+        escreve(produto, pedido);
+    }
+
+    public static void alterarPrduto() {
+        //pega o código do carrinho, do produto e do funcionário
+        int produto = buscaProduto() + 1;//adiciona 1 no produto
+        int pedido = buscaPedido();
+        //apaga todo o arquivo
+        apagar();
+        //insere os códigos atualizados
+        escreve(produto, pedido);
+    }
+
+    private static void escreve(int codProduto, int codFuncionario) {
+        //arquivo onde será feita a escrita
+        File arquivo = abreArquivo();
         try {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
-            //escreve no arquivo e vai pra próxima linha
-            escritor.write(idProduto);
+            //insere os códigos
+            escritor.write(codProduto + "");
             escritor.newLine();
-            escritor.write(idPedido);
+            escritor.write(codFuncionario + "");
             escritor.flush();
-            escritor.close();//fecha o buffer
-            escrita.close();//fecha o escritor
+            escritor.close();
+            escrita.close();
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        return idPedido;
+    }
+
+    private static void apagar() {
+        File arquivo = abreArquivo();
+        try {
+            FileWriter escrita = new FileWriter(arquivo, false); //apaga todo o arquivo
+            escrita.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
     }
 }

@@ -24,7 +24,8 @@ public class Pedido {
     private float valorTotal;
 
     public Pedido(Cliente cliente, Restaurante restaurante) {
-        this.codigo = Ids.setIdPedido();
+        Ids.alteraPedido();
+        this.codigo = String.valueOf(Ids.buscaPedido());
         this.status = "enviado para o restaurante";
         this.cliente = cliente;
         this.restaurante = restaurante;

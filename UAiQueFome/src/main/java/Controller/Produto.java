@@ -48,7 +48,8 @@ public class Produto {
 
     public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao) {
         this.restaurante = restaurante;
-        this.codigo = Ids.setIdProduto();
+        Ids.alterarPrduto();
+        this.codigo = String.valueOf(Ids.buscaProduto());
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
@@ -59,7 +60,8 @@ public class Produto {
 
     public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
         this.restaurante = restaurante;
-        this.codigo = Ids.setIdProduto();
+        Ids.alterarPrduto();
+        this.codigo = String.valueOf(Ids.buscaProduto());
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
