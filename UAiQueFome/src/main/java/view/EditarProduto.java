@@ -1,6 +1,8 @@
 package view;
 
+import Controller.Produto;
 import Controller.Restaurante;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -10,6 +12,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
     public EditarProduto() {
         initComponents();
+        nomeTF.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -236,15 +239,35 @@ public class EditarProduto extends javax.swing.JFrame {
 
     private void editarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBTNActionPerformed
         boolean flag = true;//flag que vai definir a possibilidade da edição
-        if (nomeTF.getText().equals("") || precoTF.getText().equals("")) {
+        if (precoTF.getText().equals("")) {//verifica se o campo foi deixado em branco
             flag = false;
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
-        if (!precoNormal.isSelected() && !precoPromo.isSelected()) {
+        if (!precoNormal.isSelected() && !precoPromo.isSelected()) {//ferifica se nenhuma opção do tipo de preço foi selecionada
             flag = false;
             JOptionPane.showMessageDialog(null, "Selecione o tipo do preço!", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
-        
+        if (flag) {//caso seja possivel realizar o cadastro
+            String prod = aux_rest.findProduto(InicioRestaurante.getId_prod());//string com todos os atributos do produto
+            String[] atributos_Prod = prod.split(";");//separa a linha de atributos em um vetor de string
+            ArrayList<String> categorias = new ArrayList<>();//array list que vai receber as categorias do produto
+            String[] aux_categorias = atributos_Prod[5].split(",");//separa as categorias em um vetor de strings
+            for (int i = 0; i < aux_categorias.length; i++) {//atualiza a lista de categorias com as categorias do produto
+                categorias.add(aux_categorias[i]);
+            }
+            //cria um novo objeto que receber os atributos do produto alvo
+            Produto produto = new Produto(atributos_Prod[0], aux_rest.getCnpj(), atributos_Prod[1], Integer.parseInt(atributos_Prod[4]), Float.parseFloat(atributos_Prod[2]), Float.parseFloat(atributos_Prod[3]), categorias);
+            if (precoNormal.isSelected()) {//verifica se o tipo de preço é o normal
+                produto.setPreco(Float.parseFloat(precoTF.getText()));//muda o preço do produto
+                setVisible(false);
+                new InicioRestaurante().setVisible(true);
+            } else {
+                //mesma coisa com o preço normal mas agora o preço promoção que é atualizado
+                produto.setPrecoPromocao(Float.parseFloat(precoTF.getText()));
+                setVisible(false);
+                new InicioRestaurante().setVisible(true);
+            }
+        }
     }//GEN-LAST:event_editarBTNActionPerformed
 
     private void cancelarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBTNActionPerformed

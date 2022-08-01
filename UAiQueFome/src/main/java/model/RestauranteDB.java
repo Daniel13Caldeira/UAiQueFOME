@@ -454,7 +454,8 @@ public class RestauranteDB {
     }
 
     public static int getQuantidade(String cnpj, String produto) {
-        int quantidade = Integer.parseInt(getProduto(cnpj, produto).split(";")[4]);
+        String[] prod = getProduto(cnpj, produto).split(";");
+        int quantidade = Integer.parseInt(prod[4]);
         if (quantidade == 0) {
             removeProduto(cnpj, produto);
         }
