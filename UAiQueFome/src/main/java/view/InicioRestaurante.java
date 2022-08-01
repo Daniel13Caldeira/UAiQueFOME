@@ -1,5 +1,6 @@
 package view;
 
+import Controller.Endereco;
 import Controller.Pedido;
 import Controller.Produto;
 import Controller.Restaurante;
@@ -417,6 +418,14 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
         cepTF.setBackground(java.awt.Color.darkGray);
         cepTF.setForeground(new java.awt.Color(249, 160, 63));
+        cepTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cepTFKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cepTFKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_dadosLayout = new javax.swing.GroupLayout(painel_dados);
         painel_dados.setLayout(painel_dadosLayout);
@@ -624,7 +633,25 @@ public class InicioRestaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_finalize_pedActionPerformed
 
     private void edit_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_BTNActionPerformed
-        // TODO add your handling code here:
+        boolean flag = true; //flag que vai verificar a possibilidade de edição
+        if (senhaTF.getText().equals("") || ruaTF.getText().equals("") || bairroTF.getText().equals("") || numeroTF.getText().equals("") || cepTF.getText().equals("")) {//verifica se algum campo editavel está vazio
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            flag = false;
+        }
+        Endereco end_antigo = aux_rest.getEndereco();
+        if (!bairroTF.getText().equals(end_antigo.getBairro()) && !ruaTF.getText().equals(end_antigo.getRua()) && !cepTF.getText().equals(end_antigo.getCep()) && !(Integer.parseInt(numeroTF.getText()) == end_antigo.getNumero())) {
+            JOptionPane.showMessageDialog(null, "Caso queira editar o endereço todos os campos devem ser alterados!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            flag = false;
+        }
+        if (flag) {
+            Endereco new_end = new Endereco(ruaTF.getText(), bairroTF.getText(), Integer.parseInt(numeroTF.getText()), cepTF.getText());
+            aux_rest.setEndereco(new_end);
+            if (!senhaTF.getText().equals(aux_rest.getSenha())) {
+                aux_rest.setSenha(senhaTF.getText());
+            }
+            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            atualizaDados();
+        }
     }//GEN-LAST:event_edit_BTNActionPerformed
 
     private void remove_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_prodActionPerformed
@@ -713,6 +740,14 @@ public class InicioRestaurante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_remove_pedActionPerformed
 
+    private void cepTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cepTFKeyReleased
+        mascaraCEP(cepTF);
+    }//GEN-LAST:event_cepTFKeyReleased
+
+    private void cepTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cepTFKeyTyped
+        mascaraCEP(cepTF);
+    }//GEN-LAST:event_cepTFKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_prod;
@@ -763,6 +798,19 @@ public class InicioRestaurante extends javax.swing.JFrame {
         if (texto.length() > 0) {
             //Verifica se o último caractere digitado é um número
             if (texto.charAt(texto.length() - 1) < '0' || texto.charAt(texto.length() - 1) > '9') {
+                //Apaga o caractere digitado
+                texto = texto.substring(0, texto.length() - 1);
+            }
+        }
+        textField.setText(texto);
+    }
+
+    private void mascaraCEP(JTextField textField) {
+        //Máscara que aceita apenas 8 números
+        String texto = textField.getText();
+        if (texto.length() > 0) {
+            //Verifica o tamanho da string excedeu 8 caracteres e se o último caractere digitado é um número
+            if (texto.length() > 8 || texto.charAt(texto.length() - 1) < '0' || texto.charAt(texto.length() - 1) > '9') {
                 //Apaga o caractere digitado
                 texto = texto.substring(0, texto.length() - 1);
             }
@@ -826,5 +874,14 @@ public class InicioRestaurante extends javax.swing.JFrame {
         for (int i = 0; i < list_vendasTB.getModel().getColumnCount(); i++) {
             list_vendasTB.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+    }
+
+    private void atualizaDados() {
+        senhaTF.setText(aux_rest.getSenha());
+        Endereco end = aux_rest.getEndereco();
+        bairroTF.setText(end.getBairro());
+        numeroTF.setText(String.valueOf(end.getNumero()));
+        cepTF.setText(end.getCep());
+        ruaTF.setText(end.getRua());
     }
 }
