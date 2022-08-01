@@ -71,6 +71,54 @@ public class ClienteDB {
         }
     }
 
+    public static void esvaziaCarrinho(String cpf){
+        //arquivo de onde ele será removido
+        File arquivo = abreArquivo(cpf);
+        //lista com os clientes que não serão removidos
+        ArrayList<String> salvar = new ArrayList<>();//armazena as linhas que não serão apagadas
+        try {
+            boolean flag = true;
+            FileReader leitura = new FileReader(arquivo);//define o leitor
+            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
+            String linha = leitor.readLine();//primeira linha a ser salva
+            while (linha != null) {//linha null = final do arquivo
+                if (linha.equals("#:pedidos:#")) {
+                    flag = true;
+                }
+                if (flag) {
+                    salvar.add(linha);
+                }
+                if (linha.equals("#:produtos:#")) {
+                    flag = false;
+                }
+                linha = leitor.readLine();//pega proxima linha
+            }
+            leitor.close();//fecha o buffer
+            leitura.close();//fecha o leitor
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
+            BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
+            for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
+                escritor.write(salvar.get(i));
+                escritor.newLine();
+            }
+            escritor.flush();
+            escrita.close();
+            escritor.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+    }
+    
     public static void altera(String cpf, String nome, Endereco endereco, String senha) {
         //arquivo de onde ele será removido
         File arquivo = abreArquivo(cpf);

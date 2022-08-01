@@ -43,7 +43,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(249, 160, 63));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Validade");
+        jLabel1.setText("Quantidade");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Nome");
@@ -51,16 +51,18 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Preço");
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
-        jTextField5.setText("jTextField5");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -68,8 +70,6 @@ public class CadastroProduto extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Categoria");
-
-        jTextField3.setText("jTextField3");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -237,7 +237,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ArrayList<String> categorias = new ArrayList<String>();
         categorias.add(jTextField3.getText());
-        aux_rest.addProduto(jTextField1.getText(), 99, Float.parseFloat(jTextField5.getText()), -1, categorias);
+        aux_rest.addProduto(jTextField1.getText(), Integer.parseInt(jTextField2.getText()), Float.parseFloat(jTextField5.getText()), -1, categorias);
         setVisible(false);
         new InicioRestaurante().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -245,6 +245,10 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

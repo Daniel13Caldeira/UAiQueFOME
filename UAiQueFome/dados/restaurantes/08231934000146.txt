@@ -1,8 +1,0 @@
-rest
-asd;asd;1;123
-123
-#:produtos:#
-#:categorias:#
-cat2
-cat
-#:pedidos:#

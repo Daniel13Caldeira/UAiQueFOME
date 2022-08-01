@@ -32,6 +32,16 @@ public class Produto {
         return this.precoPromocao;
     }
 
+    public Produto(String codigo, String nome, String quantidade, String preco) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.quantidade = Integer.parseInt(quantidade);
+        this.preco = Float.parseFloat(preco);
+        this.restaurante = getRestaurante();
+    }
+
+
+    
     public Produto(String codigo, String restaurante) {
         this.codigo = codigo;
         this.restaurante = restaurante;
@@ -117,6 +127,10 @@ public class Produto {
         } else {
             return Float.parseFloat(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[2]);
         }
+    }
+
+    public void alteraQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public float getPrecoPromocao() {

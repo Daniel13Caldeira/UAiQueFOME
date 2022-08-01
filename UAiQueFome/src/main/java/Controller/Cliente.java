@@ -82,7 +82,7 @@ public class Cliente {
         ArrayList<String> produtos = ClienteDB.getProdutos(this.cpf);
         ArrayList<Integer> quantidades = new ArrayList<>();
         String produto;
-        for (int i = 0; i < produtos.size()-1; i++) {
+        for (int i = 0; i < produtos.size() - 1; i++) {
             String aux[] = produtos.get(i).split(";");
             produtos.set(i, aux[0]);
             quantidades.add(Integer.parseInt(aux[1]));
@@ -97,7 +97,9 @@ public class Cliente {
             for (int j = 0; j < aux.length; j++) {
                 categorias.add(aux[j]);
             }
+            preco *= quantidades.get(i);
             this.carrinho.add(new Produto(id, restaurante, nome, quantidades.get(i), preco, promocao, categorias));
+
         }
         return this.carrinho;
     }
@@ -172,7 +174,6 @@ public class Cliente {
 
     public void removeProdutoDoCarrinho(Produto produto) {
         ClienteDB.removerProduto(this.cpf, produto.getCodigo());
-        RestauranteDB.setQuantidade(produto, true);
     }
 
     public void removeRestauranteFavorito(String cnpj) {
@@ -184,8 +185,14 @@ public class Cliente {
         String endAux = RestauranteDB.getEndereco(restaurante);
         String aux[] = endAux.split(";");
         new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]), RestauranteDB.getNome(restaurante), restaurante));
+        esvaziaCarrinho();
     }
 
+    public void esvaziaCarrinho(){
+        ClienteDB.esvaziaCarrinho(this.cpf);
+        
+    }
+    
     public void addRestauranteFavorito(String cnpj) {
         ArrayList<String> rest = ClienteDB.getRestaurantesFavoritos(this.cpf);
         if (!rest.contains(cnpj)) {

@@ -71,6 +71,10 @@ public class Pedido {
         return this.restaurante;
     }
 
+    public void esvaziaCarrinho(){
+        
+    }
+    
     public ArrayList<Produto> getProdutos() {
         this.produtos = this.cliente.getCarrinho();
         return this.produtos;

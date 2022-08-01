@@ -225,11 +225,11 @@ public class InicioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Quantidade", "Preço"
+                "Nome", "Quantidade", "Preço", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -241,6 +241,7 @@ public class InicioCliente extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel4.setBackground(new java.awt.Color(249, 160, 63));
@@ -666,7 +667,7 @@ public class InicioCliente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -700,7 +701,8 @@ public class InicioCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        aux_cliente.finalizarPedido();
+        getTabelaCarrinho();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -709,11 +711,18 @@ public class InicioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        aux_cliente.esvaziaCarrinho();
+        getTabelaCarrinho();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        /*if (jTable2.getSelectedRow() != -1) {
+            aux_cliente.removeProdutoDoCarrinho(new Produto(jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString(),jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString(),jTable2.getValueAt(jTable2.getSelectedRow(), 1).toString(),jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString()));
+            DefaultTableModel defaultTablemodel = (DefaultTableModel) jTable2.getModel();
+            defaultTablemodel.removeRow(jTable2.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -938,7 +947,7 @@ public class InicioCliente extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < produtos.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             Produto produto = produtos.get(i);
-            String[] linha = {produto.getNome(), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getPreco())};
+            String[] linha = {produto.getNome(), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getPreco() * produto.getQuantidade()), produto.getCodigo()};
             model.addRow(linha);
         }
     }
