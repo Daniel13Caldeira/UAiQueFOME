@@ -46,7 +46,7 @@ public class Ids {
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        idProduto = String.valueOf(Integer.parseInt(idProduto) + 1);
+        idProduto = String.valueOf(idProduto == null || idProduto.equals("") ? 1 : (Integer.parseInt(idProduto) + 1));
         System.out.println(idProduto);
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
