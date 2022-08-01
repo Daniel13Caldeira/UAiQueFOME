@@ -70,7 +70,7 @@ public class Cliente {
         ArrayList<Integer> quantidades = new ArrayList<>();
         String produto;
         for (int i = 0; i < produtos.size(); i++) {
-            String aux[] = produtos.get(i).split(" ");
+            String aux[] = produtos.get(i).split(";");
             produtos.set(i, aux[0]);
             quantidades.add(Integer.parseInt(aux[1]));
             produto = RestauranteDB.getProduto(this.cpf, produtos.get(i));

@@ -483,7 +483,7 @@ public class RestauranteDB {
         }
     }
 
-    public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos){
+    public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos) {
         removePedido(cnpj, id);
         addPedido(cnpj, id, cliente, valorTotal, status, produtos);
     }

@@ -35,7 +35,7 @@ public class PedidoDB {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
             //escreve no arquivo e vai pra próxima linha
-            escritor.write(pedido + " " + restaurante);
+            escritor.write(pedido + ";" + restaurante);
             escritor.newLine();
             escritor.flush();
             escritor.close();//fecha o buffer

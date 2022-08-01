@@ -149,12 +149,12 @@ public class ClienteDB {
             leitor.readLine();
             leitor.readLine();
             leitor.readLine();
+            leitor.readLine();
             String linha = leitor.readLine();//primeira linha a ser salvo
             while (linha != null) {//linha null = final do arquivo
                 produtos.add(linha);
                 linha = leitor.readLine();//pega proxima linha
             }
-            produtos.remove(0);
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
@@ -217,7 +217,7 @@ public class ClienteDB {
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             String linha = leitor.readLine();//primeira linha a ser salvo
             while (linha != null) {//linha null = final do arquivo
-                if (!produto.equals(linha.split(" ")[0])) {
+                if (!produto.equals(linha.split(";")[0])) {
                     salvar.add(linha);
                 }
                 linha = leitor.readLine();//pega proxima linha
@@ -280,13 +280,11 @@ public class ClienteDB {
                 escritor.newLine();
 
                 if (salvar.get(i).equals("#:produtos:#")) {
-                    if (i < salvar.size() - 1) {
-                        if (salvar.get(i + 1).equals("#:pedidos:#")) {
-                            escritor.write(restaurante);
-                            escritor.newLine();
-                        }
+                    if (salvar.get(i + 1).equals("#:pedidos:#")) {
+                        escritor.write(restaurante);
+                        escritor.newLine();
                     }
-                    escritor.write(produto + " " + String.valueOf(quantidade));
+                    escritor.write(produto + ";" + String.valueOf(quantidade));
                     escritor.newLine();
                 }
             }
@@ -328,7 +326,7 @@ public class ClienteDB {
                 escritor.write(salvar.get(i));
                 escritor.newLine();
                 if (salvar.get(i).equals("#:pedidos:#")) {
-                    escritor.write(id + " " + restaurante);
+                    escritor.write(id + ";" + restaurante);
                     escritor.newLine();
                 }
             }
@@ -365,9 +363,7 @@ public class ClienteDB {
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             String linha = leitor.readLine();//primeira linha a ser salvo
             while (linha != null) {//linha null = final do arquivo
-                System.out.println(linha + " " + cnpj);
                 if (!cnpj.equals(linha)) {
-                    System.out.println("entrou");
                     salvar.add(linha);
                 }
                 linha = leitor.readLine();//pega proxima linha
