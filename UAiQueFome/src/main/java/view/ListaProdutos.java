@@ -3,10 +3,12 @@ package view;
 import Controller.Cliente;
 import Controller.Produto;
 import Controller.Restaurante;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Restaurantes;
 
@@ -266,6 +268,14 @@ public class ListaProdutos extends javax.swing.JFrame {
                 Object[] linha = {list_Prod.get(i).getNome(), list_Prod.get(i).getPreco(), list_Prod.get(i).getQuantidade(), list_Prod.get(i).getCodigo()};
                 model.addRow(linha);
             }
+        }
+        //Os passos abaixo mudam a cor do header da tabela
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer(); 
+        headerRenderer.setBackground(Color.DARK_GRAY);
+        headerRenderer.setForeground(Color.WHITE);
+
+        for (int i = 0; i < lista_prodTB.getModel().getColumnCount(); i++) {
+            lista_prodTB.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
     }
 }

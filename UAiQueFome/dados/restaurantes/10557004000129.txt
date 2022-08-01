@@ -4,4 +4,7 @@ senha
 #:produtos:#
 #:categorias:#
 jTextField3
+cat
+pão
+ffasa
 #:pedidos:#

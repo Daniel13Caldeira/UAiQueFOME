@@ -22,7 +22,7 @@ public class Restaurante {
     public Restaurante(String cnpj) {
         this.cnpj = cnpj;
         produtos = new ArrayList<>();
-
+        pedidos = new ArrayList<>();
     }
 
     public Restaurante(String nome, String cnpj, Endereco endereco, String senha) {
@@ -86,7 +86,9 @@ public class Restaurante {
 
     public ArrayList<Pedido> getPedidos() {
         ArrayList<String> ped = RestauranteDB.getPedidos(this.cnpj);
-        pedidos.clear();
+        if(!pedidos.isEmpty()){
+            pedidos.clear();
+        }
         for (int i = 0; i < ped.size(); i++) {
             String aux[] = ped.get(i).split(";");
             String id = aux[0];
