@@ -1,8 +1,19 @@
 package view;
 
+import Controller.Cliente;
+import Controller.Endereco;
+import Controller.Restaurante;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.ClienteDB;
+import model.RestauranteDB;
+import model.Restaurantes;
 
 public class InicioCliente extends javax.swing.JFrame {
+    
+    private final Cliente aux_cliente = new Cliente(Login.getUser_cod());//declara um objeto com o id do usuario logado
 
     private static String nomeRest; //variavel para guardar o nome do restaurante selecionado na lista de restaurantes ou na lista de favoritos
 
@@ -12,7 +23,11 @@ public class InicioCliente extends javax.swing.JFrame {
 
     public InicioCliente() {
         initComponents();
+        getTabelaRestaurantes();
+        getTabelaRestaurantesFavoritos();
+        getPerfil();
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -371,6 +386,7 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
+        jTextField2.setEditable(false);
         jTextField2.setText("jTextField2");
 
         jTextField3.setText("jTextField3");
@@ -508,15 +524,20 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTable4);
 
         jPanel9.setBackground(new java.awt.Color(249, 160, 63));
@@ -594,7 +615,7 @@ public class InicioCliente extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton6))
@@ -603,7 +624,7 @@ public class InicioCliente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -641,7 +662,8 @@ public class InicioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+       Endereco endereco = new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText());
+       ClienteDB.altera(aux_cliente.getCpf(), jTextField1.getText(), endereco, jTextField3.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -672,15 +694,33 @@ public class InicioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        if (jTable4.getSelectedRow() != -1) {
+            nomeRest = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
+            setVisible(false);
+            new ListaProdutos().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        if (jTable4.getSelectedRow() != -1) {
+            nomeRest = jTable4.getValueAt(jTable4.getSelectedRow(), 0).toString();
+            aux_cliente.removeRestauranteFavorito(nomeRest);
+            getTabelaRestaurantesFavoritos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        if (jTable1.getSelectedRow() != -1) {
+            nomeRest = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+            aux_cliente.addRestauranteFavorito(nomeRest);
+            getTabelaRestaurantesFavoritos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
 
@@ -736,4 +776,41 @@ public class InicioCliente extends javax.swing.JFrame {
     private javax.swing.JPanel lista_de_produtos;
     private javax.swing.JPanel perfil;
     // End of variables declaration//GEN-END:variables
+    private void getTabelaRestaurantes(){
+        ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
+        restaurantes.removeAll(Arrays.asList("", null));
+        //System.out.println(restaurantes.toString());
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            String[] restaurante = restaurantes.get(i).split(";");
+            String[] linha = {restaurante[0]};
+            model.addRow(linha);
+        }
+    }
+    
+    private void getTabelaRestaurantesFavoritos(){
+        ArrayList<String> restaurantes = aux_cliente.getRestaurantesFavoritos();
+        restaurantes.removeAll(Arrays.asList("", null));
+        System.out.println("restaurantes:" + restaurantes.toString());
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            Object[] linha = {restaurantes.get(i)};
+            model.addRow(linha);
+        }
+    }
+    
+    private void getPerfil(){
+        jTextField1.setText(aux_cliente.getNome());
+        jTextField2.setText(aux_cliente.getCpf());
+        jTextField3.setText(aux_cliente.getSenha());
+        Endereco endereco = aux_cliente.getEndereco();
+        jTextField4.setText(endereco.getRua());
+        jTextField5.setText(String.valueOf(endereco.getNumero()));
+        jTextField6.setText(endereco.getBairro());
+        jTextField7.setText(endereco.getCep());
+    }
+    
+
+
 }
+

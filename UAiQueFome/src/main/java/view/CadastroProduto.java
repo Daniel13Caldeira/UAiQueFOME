@@ -1,6 +1,13 @@
 package view;
 
+import Controller.Restaurante;
+import java.util.ArrayList;
+import view.Login;
+import model.RestauranteDB;
+
 public class CadastroProduto extends javax.swing.JFrame {
+    
+    private final Restaurante aux_rest = new Restaurante(Login.getUser_cod());//declara um objeto com o id do usuario logado
 
     public CadastroProduto() {
         initComponents();
@@ -45,6 +52,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel6.setText("Preço");
 
         jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setText("jTextField2");
 
@@ -223,9 +235,16 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ArrayList<String> categorias = new ArrayList<String>();
+        categorias.add(jTextField3.getText());
+        aux_rest.addProduto(jTextField1.getText(), 99, Float.parseFloat(jTextField5.getText()), -1, categorias);
         setVisible(false);
         new InicioRestaurante().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

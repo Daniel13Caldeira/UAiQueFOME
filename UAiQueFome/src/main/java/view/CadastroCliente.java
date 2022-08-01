@@ -1,6 +1,7 @@
 
 package view;
 import Controller.*;
+import javax.swing.JOptionPane;
 import model.*;
 
 public class CadastroCliente extends javax.swing.JFrame {
@@ -240,10 +241,12 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Cliente cliente = new Cliente(jTextField2.getText(), jTextField1.getText());
-       cliente.setEndereco(new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText()));
-       ClienteDB clientedb = new ClienteDB();
-       clientedb.cadastra(cliente);
+       Endereco endereco = new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText());
+       Cliente cliente = new Cliente(jTextField2.getText(), jTextField1.getText(), jTextField3.getText(), endereco);
+       JOptionPane.showMessageDialog(null, "Cadastro Feito com sucesso!\nO id de usuário é o CPF informado:\n"+cliente.getCpf(), "Cadastro", JOptionPane.PLAIN_MESSAGE);
+       setVisible(false);
+       new Login().setVisible(true);
+//       cliente.setEndereco(endereco);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

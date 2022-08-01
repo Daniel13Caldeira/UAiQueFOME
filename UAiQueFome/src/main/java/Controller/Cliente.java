@@ -27,10 +27,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Cliente(String cpf, String nome, String senha) {
+    public Cliente(String cpf, String nome, String senha, Endereco endereco) {
         this.cpf = cpf;
         this.nome = nome;
         this.senha = senha;
+        this.endereco = endereco;
         ClienteDB.cadastra(cpf, nome, this.endereco, senha);
         Clientes.cadastra(cpf);
     }
@@ -42,7 +43,7 @@ public class Cliente {
     }
 
     public String getNome() {
-        return this.nome;
+        return ClienteDB.getNome(this.cpf);
     }
 
     public String getCpf() {
@@ -50,7 +51,8 @@ public class Cliente {
     }
 
     public Endereco getEndereco() {
-        return this.endereco;
+        String aux[] = ClienteDB.getEndereco(this.cpf).split(";");
+        return new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]);
     }
 
     public String findEndereco() {
@@ -141,8 +143,8 @@ public class Cliente {
         RestauranteDB.setQuantidade(produto, true);
     }
 
-    public void removeRestauranteFavorito(String restaurante) {
-        ClienteDB.removeRestauranteFavorito(this.cpf, restaurante);
+    public void removeRestauranteFavorito(String cnpj) {
+        ClienteDB.removeRestauranteFavorito(this.cpf, cnpj);
     }
 
     public void finalizarPedido() {
@@ -152,25 +154,11 @@ public class Cliente {
         new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]),aux[3]), RestauranteDB.getNome(restaurante), restaurante));
     }
 
-    public void addRestauranteFavorito(Restaurante restaurante) {
-        ClienteDB.addRestauranteFavorito(this.cpf, restaurante.getCnpj());
+    public void addRestauranteFavorito(String cnpj) {
+        ClienteDB.addRestauranteFavorito(this.cpf, cnpj);
     }
 
     public static ArrayList<String> getClientes() {
         return Clientes.getClientes();
     }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    
-    
 }

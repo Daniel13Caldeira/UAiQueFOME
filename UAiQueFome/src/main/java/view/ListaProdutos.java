@@ -4,6 +4,7 @@ import Controller.Cliente;
 import Controller.Produto;
 import Controller.Restaurante;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -237,7 +238,8 @@ public class ListaProdutos extends javax.swing.JFrame {
     }
 
     private void preencheTab() {//Função que vai preencher as tabelas com os produtos do restaurante
-        ArrayList<String> list_rests = Restaurantes.getRestaurantes(); //Lista com todos os restaurantes cadastrados
+        ArrayList<String> list_rests = Restaurantes.getRestaurantes();
+        list_rests.removeAll(Arrays.asList("", null));//Lista com todos os restaurantes cadastrados
         int k = -1;//variavel para guardar o indice do restaurante
         String[] aux_rest; //Array que vai receber os atributos dos restaurantes no formato {"cnpj","nome"}
         for (int i = 0; i < list_rests.size(); i++) {//loop que vai localizar o indice do restaurante
