@@ -12,7 +12,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
     public EditarProduto() {
         initComponents();
-        nomeTF.setEnabled(false);
+        nomeTF.setEnabled(false);//bloqueia a edição do nome do produto
     }
 
     @SuppressWarnings("unchecked")
@@ -108,8 +108,8 @@ public class EditarProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(editarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addComponent(cancelarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_buttonsLayout.setVerticalGroup(
             painel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
