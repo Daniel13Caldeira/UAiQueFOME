@@ -2,9 +2,6 @@ teste
 bairro;rua;4444;44444444
 senha
 #:produtos:#
-3;teste3;12.0;11.0;99;teste,teste,;
-2;teste2;16.0;-1.0;99;jTextField3,;
-1;teste1;12.0;-1.0;99;jTextField3,;
 #:categorias:#
 jTextField3
 #:pedidos:#

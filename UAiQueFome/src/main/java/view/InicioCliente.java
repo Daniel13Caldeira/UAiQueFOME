@@ -2,6 +2,7 @@ package view;
 
 import Controller.Cliente;
 import Controller.Endereco;
+import Controller.Produto;
 import Controller.Restaurante;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class InicioCliente extends javax.swing.JFrame {
         getTabelaRestaurantesFavoritos();
         getPerfil();
         getListaCategorias();
+        getTabelaCarrinho();
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +58,7 @@ public class InicioCliente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         historico_de_compras = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -111,11 +114,11 @@ public class InicioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                ""
+                "Nome", "CNPJ"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -125,6 +128,7 @@ public class InicioCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jPanel3.setBackground(new java.awt.Color(249, 160, 63));
@@ -222,10 +226,24 @@ public class InicioCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                ""
+                "Restaurante", "Produto", "Quantidade", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jPanel4.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -264,7 +282,7 @@ public class InicioCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -286,21 +304,38 @@ public class InicioCliente extends javax.swing.JFrame {
                     .addContainerGap(61, Short.MAX_VALUE)))
         );
 
+        jButton12.setBackground(new java.awt.Color(255, 125, 0));
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Atualizar Carrinho");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout carrinhoLayout = new javax.swing.GroupLayout(carrinho);
         carrinho.setLayout(carrinhoLayout);
         carrinhoLayout.setHorizontalGroup(
             carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(carrinhoLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                .addGroup(carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(carrinhoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, carrinhoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
         );
         carrinhoLayout.setVerticalGroup(
             carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
             .addGroup(carrinhoLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(80, 80, 80)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -530,16 +565,28 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-
+                "Nome", "CNPJ"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(jTable4);
+        if (jTable4.getColumnModel().getColumnCount() > 0) {
+            jTable4.getColumnModel().getColumn(0).setResizable(false);
+            jTable4.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         jPanel9.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -728,6 +775,10 @@ public class InicioCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        getTabelaCarrinho();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel carrinho;
@@ -735,6 +786,7 @@ public class InicioCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -789,9 +841,10 @@ public class InicioCliente extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             String[] restaurante = restaurantes.get(i).split(";");
-            String[] linha = {restaurante[0]};
+            String[] linha = {restaurante[1], restaurante[0]};
             model.addRow(linha);
         }
+        jTable1.removeColumn(jTable1.getColumnModel().getColumn(1));
     }
 
     private void getTabelaRestaurantesFavoritos() {
@@ -803,11 +856,13 @@ public class InicioCliente extends javax.swing.JFrame {
             Object[] linha = {restaurantes.get(i)};
             model.addRow(linha);
         }
+        jTable4.removeColumn(jTable4.getColumnModel().getColumn(1));
     }
     
     private void getListaCategorias(){
         ArrayList<String> categorias = Categorias.getCategorias();
         DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox1.getModel();
+        model.addElement(" ");
         model.addAll(categorias);
     }
 
@@ -823,29 +878,63 @@ public class InicioCliente extends javax.swing.JFrame {
     }
     
     private void pesquisar(){
+        String pesquisa = jTextField8.getText();
         String categoria = (String) jComboBox1.getSelectedItem();
         ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
-        ArrayList<String> resultados = Restaurantes.getRestaurantes();
+        ArrayList<String> resultados = new ArrayList<String>();
         restaurantes.removeAll(Arrays.asList("", null));
-        //System.out.println(restaurantes.toString());
+//        System.out.println(restaurantes.toString());
         if(!categoria.equals(" ")){
             for(int i = 0; i < restaurantes.size(); i++){
-                String restaurante = restaurantes.get(i);
+                String restaurante = restaurantes.get(i).split(";")[0];
                 ArrayList<String> categoriasRestaurante = RestauranteDB.getCategorias(restaurante);
-                JOptionPane.showMessageDialog(null, restaurante + ": " + categoriasRestaurante.toString() , "Aviso", JOptionPane.PLAIN_MESSAGE);
                 if(categoriasRestaurante.contains(categoria)){
                     resultados.add(restaurante);
                 }
             }
+        } else {
+            for(int i = 0; i < restaurantes.size(); i++){
+                String restaurante = restaurantes.get(i).split(";")[0];
+                ArrayList<String> categoriasRestaurante = RestauranteDB.getCategorias(restaurante);
+                resultados.add(restaurante);
+            }
         }
         System.out.println(resultados.toString());
+        ArrayList<String> resultados2 = new ArrayList<String>();
+       
+        for(String resultado : resultados){
+            if(!(pesquisa.equals(""))){
+                String nome = new Restaurante(resultado).getNome();
+                if((nome.contains(pesquisa))){
+                    resultados2.add(resultado);
+                }
+            } else {
+                resultados2.add(resultado);
+            }
+        }
+
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for (int i = 0; i < resultados.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
-            String[] restaurante = resultados.get(i).split(";");
-            String[] linha = {restaurante[0]};
+        for (int i = 0; i < resultados2.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            String restaurante = resultados2.get(i);
+            String[] linha = {new Restaurante(restaurante).getNome(), restaurante};
             model.addRow(linha);
         }
+    }
+    
+    private void getTabelaCarrinho(){
+        ArrayList<Produto> produtos = aux_cliente.getCarrinho();
+        //System.out.println(produtos.toString());
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < produtos.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            Produto produto = produtos.get(i);
+            JOptionPane.showMessageDialog(null, produto.getNome() + ": " + produto.getRestaurante() , "Aviso", JOptionPane.PLAIN_MESSAGE);
+            String[] linha = {produto.getRestaurante() };
+            model.addRow(linha);
+        }
+        //jTable1.removeColumn(jTable1.getColumnModel().getColumn(1));
     }
 
 }

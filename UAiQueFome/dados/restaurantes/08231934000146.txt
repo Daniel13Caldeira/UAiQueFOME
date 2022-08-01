@@ -2,7 +2,6 @@ rest
 asd;asd;1;123
 123
 #:produtos:#
-1;jTextField1;345.0;-1.0;99;cat,;
 #:categorias:#
 cat
 #:pedidos:#

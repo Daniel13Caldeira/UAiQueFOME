@@ -64,6 +64,8 @@ public class Cliente {
     }
 
     public ArrayList<Produto> getCarrinho() {
+        if((this.carrinho == null))
+            return new ArrayList<Produto>();
         this.carrinho.clear();
         String restaurante = ClienteDB.getRestaurante(this.cpf);
         ArrayList<String> produtos = ClienteDB.getProdutos(this.cpf);

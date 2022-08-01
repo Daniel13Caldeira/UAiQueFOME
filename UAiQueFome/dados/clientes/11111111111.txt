@@ -2,7 +2,8 @@ igro
 asd;asa;123;123;
 123
 #:produtos:#
+1 99
+10557004000129
+2 99
 #:pedidos:#
 #:restaurantes favoritos:#
-10557004000129
-15131280000144
