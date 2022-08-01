@@ -7,6 +7,7 @@ package Controller;
 import java.util.ArrayList;
 import model.ClienteDB;
 import model.Ids;
+import model.PedidoDB;
 import model.RestauranteDB;
 
 /**
@@ -31,7 +32,7 @@ public class Pedido {
         ArrayList<String> prod = new ArrayList<>();
         valorTotal = 0;
         for (int i = 0; i < produtos.size(); i++) {
-            this.valorTotal += produtos.get(i).getPreco();
+            this.valorTotal += produtos.get(i).getPreco_();
             prod.add(produtos.get(i).getCodigo());
         }
         RestauranteDB.addPedido(restaurante.getCnpj(), codigo, cliente.getCpf(), valorTotal, status, prod);
@@ -39,7 +40,7 @@ public class Pedido {
     }
 
     public String getStatus() {
-        return status;
+        return RestauranteDB.getPedido(this.restaurante.getCnpj(), this.codigo).split(";")[3];
     }
 
     public Pedido(String codigo, Restaurante restaurante, Cliente cliente, String status) {
@@ -54,6 +55,13 @@ public class Pedido {
         }
     }
 
+    public Pedido(String codigo, Cliente cliente, Restaurante restaurante) {
+        this.codigo = codigo;
+        this.cliente = cliente;
+        this.restaurante = restaurante;
+        this.status = getStatus();
+    }
+
     public Cliente getCliente() {
         return this.cliente;
     }
@@ -63,19 +71,24 @@ public class Pedido {
     }
 
     public ArrayList<Produto> getProdutos() {
-        return this.cliente.getCarrinho();
+        this.produtos = this.cliente.getCarrinho();
+        return this.produtos;
     }
 
     public float getValorTotal() {
-        return this.valorTotal;
+        return Float.parseFloat(RestauranteDB.getPedido(this.restaurante.getCnpj(), this.codigo).split(";")[2]);
     }
 
     public String getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public void setStatus(String status) {
         this.status = status;
-        RestauranteDB.setStatusPedido(this.restaurante.getCnpj(), this, status);
+        ArrayList<String> produtos = new ArrayList<>();
+        for (int i = 0; i < this.produtos.size(); i++) {
+            produtos.add(this.produtos.get(i).getCodigo());
+        }
+        RestauranteDB.alteraPedido(this.restaurante.getCnpj(), codigo, this.cliente.getCpf(), valorTotal, status, produtos);
     }
 }

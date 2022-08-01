@@ -41,7 +41,7 @@ public class Restaurante {
     }
 
     public String getNome() {
-        return nome;
+        return RestauranteDB.getNome(this.cnpj);
     }
 
     public String getCnpj() {
@@ -49,16 +49,13 @@ public class Restaurante {
     }
 
     public Endereco getEndereco() {
-        return endereco;
+        String aux[] = RestauranteDB.getEndereco(this.cnpj).split(";");
+        return new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]);
     }
 
     public ArrayList<String> getCategorias() {
         categorias = RestauranteDB.getCategorias(this.cnpj);
         return categorias;
-    }
-
-    public String findNome() {
-        return RestauranteDB.getNome(cnpj);
     }
 
     public String findProduto(String id) {

@@ -64,7 +64,7 @@ public class EditarProduto extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        nome_restLB.setText(aux_rest.findNome());//preenche o label com o nome do restaurante
+        nome_restLB.setText(aux_rest.getNome());//preenche o label com o nome do restaurante
 
         painel_buttons.setBackground(new java.awt.Color(249, 160, 63));
 

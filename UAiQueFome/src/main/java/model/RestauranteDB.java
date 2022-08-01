@@ -454,12 +454,19 @@ public class RestauranteDB {
     }
 
     public static int getQuantidade(String cnpj, String produto) {
-        String[] prod = getProduto(cnpj, produto).split(";");
+        String prod[] = getProduto(cnpj, produto).split(";");
         int quantidade = Integer.parseInt(prod[4]);
         if (quantidade == 0) {
             removeProduto(cnpj, produto);
         }
         return quantidade;
+    }
+
+    public static void alteraProduto(String cnpj, String id, String nome, float preco, float promocao, int quantidade, ArrayList<String> categorias) {
+        removeProduto(cnpj, id);
+        if (quantidade > 0) {
+            addProduto(cnpj, id, nome, preco, promocao, quantidade, categorias);
+        }
     }
 
     public static void setQuantidade(Produto produto, boolean flag) {
@@ -476,32 +483,9 @@ public class RestauranteDB {
         }
     }
 
-    public static void setQuantidade(Produto produto, int quantidade) {
-        removeProduto(produto.getRestaurante(), produto.getCodigo());
-        if (quantidade > 0) {
-            addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), produto.getPrecoPromocao(), quantidade, produto.getCategorias());
-        }
-    }
-
-    public static void setPreco(Produto produto, float preco) {
-        removeProduto(produto.getRestaurante(), produto.getCodigo());
-        addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), preco, produto.getPrecoPromocao(), produto.getQuantidade(), produto.getCategorias());
-    }
-
-    public static void setPrecoPromocao(Produto produto, float precoPromocao) {
-        removeProduto(produto.getRestaurante(), produto.getCodigo());
-        addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), precoPromocao, produto.getQuantidade(), produto.getCategorias());
-    }
-
-    public static void setStatusPedido(String cnpj, Pedido pedido, String status) {
-        //String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos
-        removePedido(cnpj, pedido.getCodigo());
-        ArrayList<String> produtos = new ArrayList<>();
-        ArrayList<Produto> prod = pedido.getProdutos();
-        for (int i = 0; i < prod.size(); i++) {
-            produtos.add(prod.get(i).getCodigo());
-        }
-        addPedido(cnpj, pedido.getCodigo(), pedido.getCliente().getCpf(), pedido.getValorTotal(), status, produtos);
+    public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos){
+        removePedido(cnpj, id);
+        addPedido(cnpj, id, cliente, valorTotal, status, produtos);
     }
 
     public static void removePedido(String cnpj, String pedido) {
