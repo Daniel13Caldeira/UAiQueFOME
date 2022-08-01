@@ -96,35 +96,4 @@ public class Ids {
         }
         return idPedido;
     }
-
-    public static String getIdProduto() {
-        File arquivo = abreArquivo();
-        try {
-            FileReader leitura = new FileReader(arquivo);//define o leitor
-            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            String linha = leitor.readLine();//primeira linha a ser salvo
-            leitor.close();//fecha o buffer
-            leitura.close();//fecha o leitor
-            return linha;
-        } catch (IOException ex) {
-            //erro(arquivo);
-        }
-        return "";
-    }
-
-    public static String getIdPedido() {
-        File arquivo = abreArquivo();
-        try {
-            FileReader leitura = new FileReader(arquivo);//define o leitor
-            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
-            leitor.readLine();
-            String linha = leitor.readLine();//primeira linha a ser salvo
-            leitor.close();//fecha o buffer
-            leitura.close();//fecha o leitor
-            return linha;
-        } catch (IOException ex) {
-            //erro(arquivo);
-        }
-        return "";
-    }
 }
