@@ -38,14 +38,22 @@ public class Ids {
                 idProduto = "0";
                 idPedido = "0";
             } else {
-                idPedido = leitor.readLine();//primeira linha a ser salvo
+                idProduto = leitor.readLine() ;
+                idPedido = leitor.readLine();
             }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
             //erro(arquivo);
         }
-        idProduto = String.valueOf(Integer.parseInt(idProduto) + 1);
+        idProduto = String.valueOf(idProduto == null || idProduto.equals("") ? 1 : (Integer.parseInt(idProduto) + 1));
+        System.out.println(idProduto);
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
         try {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
@@ -73,7 +81,8 @@ public class Ids {
                 idProduto = "0";
                 idPedido = "0";
             } else {
-                idPedido = leitor.readLine();//primeira linha a ser salvo
+                idProduto = leitor.readLine() ;
+                idPedido = leitor.readLine();
             }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
@@ -81,6 +90,12 @@ public class Ids {
             //erro(arquivo);
         }
         idPedido = String.valueOf(Integer.parseInt(idPedido) + 1);
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
         try {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita

@@ -5,8 +5,11 @@ import Controller.Endereco;
 import Controller.Restaurante;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Categorias;
 import model.ClienteDB;
 import model.RestauranteDB;
 import model.Restaurantes;
@@ -26,6 +29,7 @@ public class InicioCliente extends javax.swing.JFrame {
         getTabelaRestaurantes();
         getTabelaRestaurantesFavoritos();
         getPerfil();
+        getListaCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -137,8 +141,6 @@ public class InicioCliente extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(255, 125, 0));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Pesquisar");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton11.setBackground(java.awt.Color.darkGray);
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
@@ -523,20 +525,15 @@ public class InicioCliente extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                ""
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane4.setViewportView(jTable4);
 
         jPanel9.setBackground(new java.awt.Color(249, 160, 63));
@@ -715,6 +712,7 @@ public class InicioCliente extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (jTable1.getSelectedRow() != -1) {
             nomeRest = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
+            aux_cliente.addRestauranteFavorito(nomeRest);
             getTabelaRestaurantesFavoritos();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
@@ -789,14 +787,19 @@ public class InicioCliente extends javax.swing.JFrame {
 
     private void getTabelaRestaurantesFavoritos() {
         ArrayList<String> restaurantes = aux_cliente.getRestaurantesFavoritos();
-        restaurantes.removeAll(Arrays.asList("", null));
-        System.out.println("restaurantes:" + restaurantes.toString());
+        //restaurantes.removeAll(Arrays.asList("", null));
         DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
         model.setRowCount(0);
         for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             Object[] linha = {restaurantes.get(i)};
             model.addRow(linha);
         }
+    }
+    
+    private void getListaCategorias(){
+        ArrayList<String> categorias = Categorias.getCategorias();
+        DefaultComboBoxModel model = (DefaultComboBoxModel) jComboBox1.getModel();
+        model.addAll(categorias);
     }
 
     private void getPerfil() {
