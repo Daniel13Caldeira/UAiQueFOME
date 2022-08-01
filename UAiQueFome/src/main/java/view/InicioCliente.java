@@ -145,11 +145,6 @@ public class InicioCliente extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(255, 125, 0));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Pesquisar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
 
         jButton11.setBackground(java.awt.Color.darkGray);
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,8 +321,8 @@ public class InicioCliente extends javax.swing.JFrame {
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, carrinhoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))))
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
         );
         carrinhoLayout.setVerticalGroup(
             carrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -899,7 +894,7 @@ public class InicioCliente extends javax.swing.JFrame {
                 resultados.add(restaurante);
             }
         }
-        System.out.println(resultados.toString());
+//        System.out.println(resultados.toString());
         ArrayList<String> resultados2 = new ArrayList<String>();
        
         for(String resultado : resultados){
@@ -925,7 +920,7 @@ public class InicioCliente extends javax.swing.JFrame {
     
     private void getTabelaCarrinho(){
         ArrayList<Produto> produtos = aux_cliente.getCarrinho();
-        //System.out.println(produtos.toString());
+        System.out.println(produtos.toString());
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         for (int i = 0; i < produtos.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
