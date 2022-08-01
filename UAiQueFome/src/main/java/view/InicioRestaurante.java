@@ -1,11 +1,16 @@
 package view;
 
+import Controller.Produto;
+import Controller.Restaurante;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class InicioRestaurante extends javax.swing.JFrame {
 
     private static String id_prod;
+    private final Restaurante aux_rest = new Restaurante(Login.getUser_cod());//declara um objeto com o id do usuario logado
 
     public static String getId_prod() {
         return id_prod;
@@ -25,7 +30,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         lista_de_produtos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        list_prodTB = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -77,7 +82,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
         lista_de_produtos.setBackground(new java.awt.Color(249, 160, 63));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        list_prodTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -93,7 +98,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(list_prodTB);
 
         jPanel3.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -545,8 +550,8 @@ public class InicioRestaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if (jTable1.getSelectedRow() != -1) {//verifica se alguma linha foi selecionada
-            id_prod = jTable1.getValueAt(jTable1.getSelectedRow(),0).toString();//atuliza a variavel com o valor do id do produto da linha selecionada
+        if (list_prodTB.getSelectedRow() != -1) {//verifica se alguma linha foi selecionada
+            id_prod = list_prodTB.getValueAt(list_prodTB.getSelectedRow(), 0).toString();//atuliza a variavel com o valor do id do produto da linha selecionada
             //encaminha para a tela de edição do produto
             setVisible(false);
             new EditarProduto().setVisible(true);
@@ -601,7 +606,6 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
@@ -610,6 +614,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTable list_prodTB;
     private javax.swing.JPanel lista_de_produtos;
     private javax.swing.JTextField numeroTF;
     private javax.swing.JPanel perfil;
@@ -629,6 +634,15 @@ public class InicioRestaurante extends javax.swing.JFrame {
     }
 
     private void preencherTab() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Produto> list_Prod = new ArrayList<>(); //lista de produtos
+        list_Prod = aux_rest.getProdutos();
+        for (int i = 0; i < list_Prod.size(); i++) {
+            
+        }
+        DefaultTableModel model = (DefaultTableModel) list_prodTB.getModel();
+        for (int i = 0; i < list_Prod.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
+            Object[] linha = {list_Prod.get(i).getNome(), list_Prod.get(i).getPreco(), list_Prod.get(i).getQuantidade(), list_Prod.get(i).getCodigo()};
+            model.addRow(linha);
+        }
     }
 }

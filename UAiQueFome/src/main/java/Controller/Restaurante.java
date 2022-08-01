@@ -21,6 +21,8 @@ public class Restaurante {
 
     public Restaurante(String cnpj) {
         this.cnpj = cnpj;
+        produtos = new ArrayList<>();
+
     }
 
     public Restaurante(String nome, String cnpj, Endereco endereco, String senha) {
@@ -55,17 +57,19 @@ public class Restaurante {
         return categorias;
     }
 
-    public String findNome(){
+    public String findNome() {
         return RestauranteDB.getNome(cnpj);
     }
-    
-    public String findProduto(String id){
-        return RestauranteDB.getProduto(cnpj,id);
+
+    public String findProduto(String id) {
+        return RestauranteDB.getProduto(cnpj, id);
     }
-    
+
     public ArrayList<Produto> getProdutos() {
         ArrayList<String> prod = RestauranteDB.getProdutos(this.cnpj);
-        produtos.clear();
+        if (!produtos.isEmpty()) {
+            produtos.clear();
+        }
         for (int i = 0; i < prod.size(); i++) {
             String aux[] = prod.get(i).split(";");
             String id = aux[0];
