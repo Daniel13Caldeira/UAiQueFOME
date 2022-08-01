@@ -120,6 +120,53 @@ public class ClienteDB {
         }
     }
 
+    public static void alteraProduto(String cpf, String id,int quantidade,String restaurante){
+        removeProduto(cpf, id);
+        if (quantidade > 0) {
+            addProduto(cpf, id, quantidade,restaurante);
+        }
+    }
+    
+    public static void removeProduto(String cpf, String produto){
+        File arquivo = abreArquivo(cpf);
+        ArrayList<String> salvar = new ArrayList<>();
+        try {
+            FileReader leitura = new FileReader(arquivo);//define o leitor
+            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
+            //primeira linha a ser salva
+            String linha = leitor.readLine();
+            while (linha != null) {
+                if (!produto.equals(linha.split(";")[0])) {
+                    salvar.add(linha);
+                }
+                linha = leitor.readLine();
+            }
+            leitor.close();
+            leitura.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+        try {
+            FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
+            BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
+            for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
+                escritor.write(salvar.get(i));
+                escritor.newLine();
+            }
+            escritor.flush();
+            escrita.close();
+            escritor.close();
+        } catch (IOException ex) {
+            //erro(arquivo);
+        }
+    }
+    
     public static String getRestaurante(String cpf) {
         File arquivo = abreArquivo(cpf);
         try {

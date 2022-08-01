@@ -64,8 +64,9 @@ public class Cliente {
     }
 
     public ArrayList<Produto> getCarrinho() {
-        if((this.carrinho == null))
+        if ((this.carrinho == null)) {
             return new ArrayList<Produto>();
+        }
         this.carrinho.clear();
         String restaurante = ClienteDB.getRestaurante(this.cpf);
         ArrayList<String> produtos = ClienteDB.getProdutos(this.cpf);
@@ -135,8 +136,21 @@ public class Cliente {
         ClienteDB.altera(this.cpf, this.nome, this.endereco, senha);
     }
 
-    public void addProdutoAoCarrinho(Produto produto) {
-        ClienteDB.addProduto(this.cpf, produto.getCodigo(), produto.getQuantidade(), produto.getRestaurante());
+    public void addProdutoAoCarrinho(Produto produto, int quantidade) {
+        ArrayList<String> prod = ClienteDB.getProdutos(this.cpf);
+        int quantAtual=0;
+        for (int i = 0; i < prod.size(); i++) {
+            if (prod.get(i).split(";")[0].equals(produto.getCodigo())) {
+                quantAtual = Integer.parseInt(prod.get(i).split(";")[1]);
+            }
+            prod.set(i, prod.get(i).split(";")[0]);
+        }
+        if (prod.contains(produto.getCodigo())) {
+            
+            ClienteDB.alteraProduto(this.cpf, produto.getCodigo(), quantAtual+quantidade, produto.getRestaurante());
+        } else {
+            ClienteDB.addProduto(this.cpf, produto.getCodigo(), quantidade, produto.getRestaurante());
+        }
         RestauranteDB.setQuantidade(produto, false);
     }
 

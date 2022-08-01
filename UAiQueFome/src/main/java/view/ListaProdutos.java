@@ -212,8 +212,9 @@ public class ListaProdutos extends javax.swing.JFrame {
         }
         if (flag) {//adiciona ao carrinho caso seja possível
             Cliente client = new Cliente(Login.getUser_cod());
-            Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(quantTF.getText()), Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
-            client.addProdutoAoCarrinho(produto);
+            Produto produto = new Produto(cod_prod, cnpj_rest, lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 0).toString(), Integer.parseInt(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 2).toString()), Float.parseFloat(lista_prodTB.getValueAt(lista_prodTB.getSelectedRow(), 1).toString()));
+            int quantidade = Integer.parseInt(quantTF.getText());
+            client.addProdutoAoCarrinho(produto,quantidade);
         }
     }//GEN-LAST:event_add_carrinBTNActionPerformed
 
