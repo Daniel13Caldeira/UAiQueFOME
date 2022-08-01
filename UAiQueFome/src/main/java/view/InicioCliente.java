@@ -781,6 +781,7 @@ public class InicioCliente extends javax.swing.JFrame {
         restaurantes.removeAll(Arrays.asList("", null));
         //System.out.println(restaurantes.toString());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
         for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             String[] restaurante = restaurantes.get(i).split(";");
             String[] linha = {restaurante[0]};
@@ -793,6 +794,7 @@ public class InicioCliente extends javax.swing.JFrame {
         restaurantes.removeAll(Arrays.asList("", null));
         System.out.println("restaurantes:" + restaurantes.toString());
         DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
         for (int i = 0; i < restaurantes.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
             Object[] linha = {restaurantes.get(i)};
             model.addRow(linha);
