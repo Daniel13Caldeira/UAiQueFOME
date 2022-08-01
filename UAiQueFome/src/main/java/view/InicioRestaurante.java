@@ -634,13 +634,17 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
     private void edit_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_BTNActionPerformed
         boolean flag = true; //flag que vai verificar a possibilidade de edição
-        if (senhaTF.getText().equals("") || ruaTF.getText().equals("") || bairroTF.getText().equals("") || numeroTF.getText().equals("") || cepTF.getText().equals("")) {//verifica se algum campo editavel está vazio
+        if (senhaTF.getText().equals("")) {//verifica se algum campo editavel está vazio
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
             flag = false;
         }
         Endereco end_antigo = aux_rest.getEndereco();
-        if (!bairroTF.getText().equals(end_antigo.getBairro()) && !ruaTF.getText().equals(end_antigo.getRua()) && !cepTF.getText().equals(end_antigo.getCep()) && !(Integer.parseInt(numeroTF.getText()) == end_antigo.getNumero())) {
-            JOptionPane.showMessageDialog(null, "Caso queira editar o endereço todos os campos devem ser alterados!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+        if (!bairroTF.getText().equals(end_antigo.getBairro()) || !ruaTF.getText().equals(end_antigo.getRua()) || !cepTF.getText().equals(end_antigo.getCep()) || !(Integer.parseInt(numeroTF.getText()) == end_antigo.getNumero())) {
+            if (ruaTF.getText().equals("") || bairroTF.getText().equals("") || numeroTF.getText().equals("") || cepTF.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Caso queira editar o endereço todos os campos devem ser alterados!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            }
             flag = false;
         }
         if (flag) {
