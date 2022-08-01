@@ -5,6 +5,7 @@
 package Controller;
 
 import java.util.ArrayList;
+import model.Categorias;
 import model.Ids;
 import model.RestauranteDB;
 
@@ -53,6 +54,7 @@ public class Produto {
         this.preco = preco;
         this.precoPromocao = precoPromocao;
         RestauranteDB.addProduto(restaurante, this.codigo, nome, preco, precoPromocao, quantidade, categorias);
+
     }
 
     public Produto(String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
@@ -64,6 +66,12 @@ public class Produto {
         this.precoPromocao = precoPromocao;
         this.categorias = categorias;
         RestauranteDB.addProduto(restaurante, this.codigo, nome, preco, precoPromocao, quantidade, categorias);
+        ArrayList<String> categorias_ = Categorias.getCategorias();
+        for (int i = 0; i < categorias.size(); i++) {
+            if (!categorias_.contains(categorias.get(i))) {
+                Categorias.cadastra(categorias.get(i));
+            }
+        }
     }
 
     public Produto(String codigo, String restaurante, String nome, int quantidade, float preco, float precoPromocao, ArrayList<String> categorias) {
