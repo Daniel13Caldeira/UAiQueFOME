@@ -113,7 +113,7 @@ public class Cliente {
             String endAux = RestauranteDB.getEndereco(restaurantes.get(i));
             aux = endAux.split(";");
             String rest = restaurantes.get(i);
-            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]),aux[3]), RestauranteDB.getNome(rest), rest), this, status));
+            this.pedidos.add(new Pedido(pedidos_.get(i), new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]), RestauranteDB.getNome(rest), rest), this, status));
         }
         return this.pedidos;
     }
@@ -151,11 +151,14 @@ public class Cliente {
         String restaurante = ClienteDB.getRestaurante(this.cpf);
         String endAux = RestauranteDB.getEndereco(restaurante);
         String aux[] = endAux.split(";");
-        new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]),aux[3]), RestauranteDB.getNome(restaurante), restaurante));
+        new Pedido(this, new Restaurante(new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3]), RestauranteDB.getNome(restaurante), restaurante));
     }
 
     public void addRestauranteFavorito(String cnpj) {
-        ClienteDB.addRestauranteFavorito(this.cpf, cnpj);
+        ArrayList<String> rest = ClienteDB.getRestaurantesFavoritos(this.cpf);
+        if (!rest.contains(cnpj)) {
+            ClienteDB.addRestauranteFavorito(this.cpf, cnpj);
+        }
     }
 
     public static ArrayList<String> getClientes() {

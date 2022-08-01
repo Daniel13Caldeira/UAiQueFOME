@@ -12,7 +12,7 @@ import model.RestauranteDB;
 import model.Restaurantes;
 
 public class InicioCliente extends javax.swing.JFrame {
-    
+
     private final Cliente aux_cliente = new Cliente(Login.getUser_cod());//declara um objeto com o id do usuario logado
 
     private static String nomeRest; //variavel para guardar o nome do restaurante selecionado na lista de restaurantes ou na lista de favoritos
@@ -27,7 +27,6 @@ public class InicioCliente extends javax.swing.JFrame {
         getTabelaRestaurantesFavoritos();
         getPerfil();
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -662,8 +661,8 @@ public class InicioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       Endereco endereco = new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText());
-       ClienteDB.altera(aux_cliente.getCpf(), jTextField1.getText(), endereco, jTextField3.getText());
+        Endereco endereco = new Endereco(jTextField4.getText(), jTextField6.getText(), Integer.parseInt(jTextField5.getText()), jTextField7.getText());
+        ClienteDB.altera(aux_cliente.getCpf(), jTextField1.getText(), endereco, jTextField3.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -716,7 +715,6 @@ public class InicioCliente extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (jTable1.getSelectedRow() != -1) {
             nomeRest = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
-            aux_cliente.addRestauranteFavorito(nomeRest);
             getTabelaRestaurantesFavoritos();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum restaurante selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
@@ -776,7 +774,7 @@ public class InicioCliente extends javax.swing.JFrame {
     private javax.swing.JPanel lista_de_produtos;
     private javax.swing.JPanel perfil;
     // End of variables declaration//GEN-END:variables
-    private void getTabelaRestaurantes(){
+    private void getTabelaRestaurantes() {
         ArrayList<String> restaurantes = Restaurantes.getRestaurantes();
         restaurantes.removeAll(Arrays.asList("", null));
         //System.out.println(restaurantes.toString());
@@ -788,8 +786,8 @@ public class InicioCliente extends javax.swing.JFrame {
             model.addRow(linha);
         }
     }
-    
-    private void getTabelaRestaurantesFavoritos(){
+
+    private void getTabelaRestaurantesFavoritos() {
         ArrayList<String> restaurantes = aux_cliente.getRestaurantesFavoritos();
         restaurantes.removeAll(Arrays.asList("", null));
         System.out.println("restaurantes:" + restaurantes.toString());
@@ -800,8 +798,8 @@ public class InicioCliente extends javax.swing.JFrame {
             model.addRow(linha);
         }
     }
-    
-    private void getPerfil(){
+
+    private void getPerfil() {
         jTextField1.setText(aux_cliente.getNome());
         jTextField2.setText(aux_cliente.getCpf());
         jTextField3.setText(aux_cliente.getSenha());
@@ -811,8 +809,5 @@ public class InicioCliente extends javax.swing.JFrame {
         jTextField6.setText(endereco.getBairro());
         jTextField7.setText(endereco.getCep());
     }
-    
-
 
 }
-

@@ -219,8 +219,8 @@ public class ClienteDB {
             while (linha != null) {//linha null = final do arquivo
                 if (!produto.equals(linha.split(" ")[0])) {
                     salvar.add(linha);
-                    linha = leitor.readLine();//pega proxima linha
                 }
+                linha = leitor.readLine();//pega proxima linha
             }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
@@ -358,16 +358,19 @@ public class ClienteDB {
     public static void removeRestauranteFavorito(String cpf, String cnpj) {
         File arquivo = abreArquivo(cpf);
         ArrayList<String> salvar = new ArrayList<String>();
+
         boolean flag = false;
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             String linha = leitor.readLine();//primeira linha a ser salvo
             while (linha != null) {//linha null = final do arquivo
+                System.out.println(linha + " " + cnpj);
                 if (!cnpj.equals(linha)) {
+                    System.out.println("entrou");
                     salvar.add(linha);
-                    linha = leitor.readLine();//pega proxima linha
                 }
+                linha = leitor.readLine();//pega proxima linha
             }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
