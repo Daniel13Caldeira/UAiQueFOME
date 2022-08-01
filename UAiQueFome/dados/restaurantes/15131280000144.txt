@@ -1,7 +1,0 @@
-teste
-121;12;12;12121212
-1
-#:produtos:#
-1;t;15;-1;2;teste,teste,teste;
-#:categorias:#
-#:pedidos:#

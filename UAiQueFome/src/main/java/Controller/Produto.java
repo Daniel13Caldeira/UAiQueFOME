@@ -110,7 +110,11 @@ public class Produto {
     }
 
     public float getPreco() {
-        return Float.parseFloat(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[2]);
+        if (Float.parseFloat(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[3]) != -1) {
+            return Float.parseFloat(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[3]);
+        } else {
+            return Float.parseFloat(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[2]);
+        }
     }
 
     public float getPrecoPromocao() {

@@ -49,15 +49,23 @@ public class ListaProdutos extends javax.swing.JFrame {
         lista_prodTB.setForeground(new java.awt.Color(255, 255, 255));
         lista_prodTB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Nome", "Preço", "Quantidade", "Codigo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(lista_prodTB);
 
         painel_BTN.setBackground(new java.awt.Color(249, 160, 63));

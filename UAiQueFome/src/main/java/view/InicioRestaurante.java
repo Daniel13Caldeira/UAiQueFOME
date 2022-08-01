@@ -87,11 +87,11 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
             },
             new String [] {
-                ""
+                "Nome", "Preco", "Quantidade", "Codigo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -551,7 +551,12 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (list_prodTB.getSelectedRow() != -1) {//verifica se alguma linha foi selecionada
-            id_prod = list_prodTB.getValueAt(list_prodTB.getSelectedRow(), 0).toString();//atuliza a variavel com o valor do id do produto da linha selecionada
+            id_prod = list_prodTB.getValueAt(list_prodTB.getSelectedRow(), 3).toString();//atuliza a variavel com o valor do id do produto da linha selecionada
+            String prod = aux_rest.findProduto(id_prod);//string com todos os atributos do produto
+            String[] atributos_Prod = prod.split(";");//separa a linha de atributos em um vetor de string
+            if (Float.parseFloat(atributos_Prod[3]) != -1.0) {//verifica se o produto está em promoção
+                JOptionPane.showMessageDialog(null, "Produto está em promoção!\nPara retirar a promoção sem alterar o preço antigo selecione o botão Preço Normal e aperte Editar.\nCaso deseje alterar o preço Promocional ou Normal prossiga com a edição normalmente.", "Aviso!", JOptionPane.PLAIN_MESSAGE);
+            }
             //encaminha para a tela de edição do produto
             setVisible(false);
             new EditarProduto().setVisible(true);
@@ -637,7 +642,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
         ArrayList<Produto> list_Prod = new ArrayList<>(); //lista de produtos
         list_Prod = aux_rest.getProdutos();
         for (int i = 0; i < list_Prod.size(); i++) {
-            
+
         }
         DefaultTableModel model = (DefaultTableModel) list_prodTB.getModel();
         for (int i = 0; i < list_Prod.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha

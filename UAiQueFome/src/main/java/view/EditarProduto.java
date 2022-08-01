@@ -105,10 +105,10 @@ public class EditarProduto extends javax.swing.JFrame {
                 .addComponent(precoNormal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(precoPromo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                .addComponent(editarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cancelarBTN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addComponent(editarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelarBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
         painel_buttonsLayout.setVerticalGroup(
@@ -132,7 +132,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
         precoLB.setBackground(new java.awt.Color(249, 160, 63));
         precoLB.setForeground(new java.awt.Color(255, 255, 255));
-        precoLB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        precoLB.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         precoLB.setText("Preço");
 
         nomeTF.setBackground(java.awt.Color.darkGray);
@@ -159,16 +159,14 @@ public class EditarProduto extends javax.swing.JFrame {
         painel_dadosLayout.setHorizontalGroup(
             painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_dadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(precoLB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nomeLB, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_dadosLayout.createSequentialGroup()
-                        .addComponent(precoLB, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(precoTF, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painel_dadosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nomeLB, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(nomeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(precoTF, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         painel_dadosLayout.setVerticalGroup(
@@ -185,9 +183,14 @@ public class EditarProduto extends javax.swing.JFrame {
                 .addGap(53, 53, 53))
         );
 
-        String[] aux_prod = aux_rest.findProduto(InicioRestaurante.getId_prod()).split(";");//variavel aux que vai receber os atributos do produto
+        String prod = aux_rest.findProduto(InicioRestaurante.getId_prod());//variavel aux que vai receber a linha dos atributos do produto
+        String[] aux_prod = prod.split(";");
         nomeTF.setText(aux_prod[1]);//preenche o campo de texto com o nome antigo
-        precoTF.setText(aux_prod[2]);//preenche o campo de texto com o preco antigo
+        if(Float.parseFloat(aux_prod[3]) != -1.0){//verifica se o produto está em promoção
+            precoTF.setText(aux_prod[3]);
+        }else{
+            precoTF.setText(aux_prod[2]);//preenche o campo de texto com o preço antigo
+        }
 
         javax.swing.GroupLayout painel_principalLayout = new javax.swing.GroupLayout(painel_principal);
         painel_principal.setLayout(painel_principalLayout);
@@ -239,6 +242,13 @@ public class EditarProduto extends javax.swing.JFrame {
 
     private void editarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBTNActionPerformed
         boolean flag = true;//flag que vai definir a possibilidade da edição
+        String prod = aux_rest.findProduto(InicioRestaurante.getId_prod());//string com todos os atributos do produto
+        String[] atributos_Prod = prod.split(";");//separa a linha de atributos em um vetor de string
+        ArrayList<String> categorias = new ArrayList<>();//array list que vai receber as categorias do produto
+        String[] aux_categorias = atributos_Prod[5].split(",");//separa as categorias em um vetor de strings
+        for (int i = 0; i < aux_categorias.length; i++) {//atualiza a lista de categorias com as categorias do produto
+            categorias.add(aux_categorias[i]);
+        }
         if (precoTF.getText().equals("")) {//verifica se o campo foi deixado em branco
             flag = false;
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso", JOptionPane.PLAIN_MESSAGE);
@@ -248,17 +258,19 @@ public class EditarProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione o tipo do preço!", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
         if (flag) {//caso seja possivel realizar o cadastro
-            String prod = aux_rest.findProduto(InicioRestaurante.getId_prod());//string com todos os atributos do produto
-            String[] atributos_Prod = prod.split(";");//separa a linha de atributos em um vetor de string
-            ArrayList<String> categorias = new ArrayList<>();//array list que vai receber as categorias do produto
-            String[] aux_categorias = atributos_Prod[5].split(",");//separa as categorias em um vetor de strings
-            for (int i = 0; i < aux_categorias.length; i++) {//atualiza a lista de categorias com as categorias do produto
-                categorias.add(aux_categorias[i]);
-            }
             //cria um novo objeto que receber os atributos do produto alvo
             Produto produto = new Produto(atributos_Prod[0], aux_rest.getCnpj(), atributos_Prod[1], Integer.parseInt(atributos_Prod[4]), Float.parseFloat(atributos_Prod[2]), Float.parseFloat(atributos_Prod[3]), categorias);
             if (precoNormal.isSelected()) {//verifica se o tipo de preço é o normal
-                produto.setPreco(Float.parseFloat(precoTF.getText()));//muda o preço do produto
+                if (Float.parseFloat(atributos_Prod[3]) != -1.0) {//verifica se está em promoção
+                    if (precoTF.getText().equals(atributos_Prod[3])) {//verifica se o preço normal não foi alterado
+                        produto.retirarPromocao();
+                    }else{//edita o preço normal com o novo preço
+                        produto.retirarPromocao();
+                        produto.setPreco(Float.parseFloat(precoTF.getText()));//muda o preço do produto
+                    }
+                } else {
+                    produto.setPreco(Float.parseFloat(precoTF.getText()));//muda o preço do produto
+                }
                 setVisible(false);
                 new InicioRestaurante().setVisible(true);
             } else {

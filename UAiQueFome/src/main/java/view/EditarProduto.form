@@ -126,7 +126,7 @@
                 <Property name="text" type="java.lang.String" value="Nome do Restaurante"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="nome_restLB.setText(aux_rest.findNome());//preenche o label com o nome do restaurante&#xd;&#xa;"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="nome_restLB.setText(aux_rest.getNome());//preenche o label com o nome do restaurante&#xd;&#xa;"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -146,10 +146,10 @@
                       <Component id="precoNormal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="precoPromo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="189" max="32767" attributes="0"/>
-                      <Component id="editarBTN" min="-2" pref="57" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cancelarBTN" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="161" max="32767" attributes="0"/>
+                      <Component id="editarBTN" min="-2" pref="85" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cancelarBTN" min="-2" pref="74" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -239,18 +239,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="precoLB" max="32767" attributes="0"/>
+                          <Component id="nomeLB" pref="43" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="precoLB" min="-2" pref="43" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="precoTF" min="-2" pref="147" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nomeLB" min="-2" pref="43" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="nomeTF" min="-2" pref="480" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="nomeTF" min="-2" pref="480" max="-2" attributes="0"/>
+                          <Component id="precoTF" min="-2" pref="142" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="49" max="32767" attributes="0"/>
                   </Group>
@@ -295,7 +292,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
               </Properties>
             </Component>
@@ -309,7 +306,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String[] aux_prod = aux_rest.findProduto(InicioRestaurante.getId_prod()).split(&quot;;&quot;);//variavel aux que vai receber os atributos do produto&#xd;&#xa;nomeTF.setText(aux_prod[1]);//preenche o campo de texto com o nome antigo&#xd;&#xa;"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="String prod = aux_rest.findProduto(InicioRestaurante.getId_prod());//variavel aux que vai receber a linha dos atributos do produto&#xd;&#xa;String[] aux_prod = prod.split(&quot;;&quot;);&#xd;&#xa;nomeTF.setText(aux_prod[1]);//preenche o campo de texto com o nome antigo&#xd;&#xa;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="precoTF">
@@ -327,7 +324,7 @@
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="precoTFKeyTyped"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="precoTF.setText(aux_prod[2]);//preenche o campo de texto com o preco antigo&#xd;&#xa;"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="if(Float.parseFloat(aux_prod[3]) != -1.0){//verifica se o produto est&#xe1; em promo&#xe7;&#xe3;o&#xd;&#xa;        precoTF.setText(aux_prod[3]);&#xd;&#xa;}else{&#xd;&#xa;        precoTF.setText(aux_prod[2]);//preenche o campo de texto com o pre&#xe7;o antigo&#xd;&#xa;}&#xd;&#xa;"/>
               </AuxValues>
             </Component>
           </SubComponents>
