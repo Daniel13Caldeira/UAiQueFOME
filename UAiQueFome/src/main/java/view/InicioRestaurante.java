@@ -13,6 +13,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
 
     public InicioRestaurante() {
         initComponents();
+        preencherTab();
     }
 
     @SuppressWarnings("unchecked")
@@ -625,5 +626,9 @@ public class InicioRestaurante extends javax.swing.JFrame {
             }
         }
         textField.setText(texto);
+    }
+
+    private void preencherTab() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
