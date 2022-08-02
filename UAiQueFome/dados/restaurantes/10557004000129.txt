@@ -1,0 +1,10 @@
+MCking
+bairo;Rua treze;1;35950000;
+senha
+#:produtos:#
+1;Arroz;10.0;-1.0;79;Alimento,;
+2;Feijão;12.0;-1.0;15;Alimento,;
+#:categorias:#
+Alimento
+#:pedidos:#
+1;14745587635;10.0;enviado para o restaurante;1,;

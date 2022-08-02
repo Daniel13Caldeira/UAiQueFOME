@@ -1,0 +1,7 @@
+Cliente
+bairro;rua;567;23451890;
+123
+#:produtos:#
+#:pedidos:#
+1;10557004000129
+#:restaurantes favoritos:#
