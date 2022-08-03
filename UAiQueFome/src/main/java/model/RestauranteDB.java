@@ -28,7 +28,6 @@ public class RestauranteDB {
     }
 
     public static void cadastra(String cnpj, String nome, Endereco endereco, String senha) {
-        //cria uma String com os dados do endereço do restaurante no formato padrão que está sendo utilizado
         String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep();
         //define o arquivo de salvamento
         File arquivo = abreArquivo(cnpj);
@@ -43,7 +42,6 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
@@ -65,7 +63,6 @@ public class RestauranteDB {
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -88,13 +85,11 @@ public class RestauranteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep() + ";";
         try {
@@ -114,7 +109,6 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -139,13 +133,11 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -162,7 +154,6 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -178,10 +169,8 @@ public class RestauranteDB {
             leitor.readLine();
             leitor.readLine();
             String linha = leitor.readLine();
-            System.out.println(linha);
             while (!linha.equals("#:categorias:#")) {
                 String[] aux = linha.split(";");
-                System.out.println(aux[0]);
                 if (id.equals(aux[0])) {
                     leitor.close();
                     leitura.close();
@@ -192,7 +181,6 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return ";";
     }
@@ -220,7 +208,6 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return produtos;
     }
@@ -240,13 +227,11 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -263,7 +248,6 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -289,12 +273,11 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return categorias;
     }
 
-    //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
+    //id;cliente;valorTotal;status;produto1,produto2,;
     public static void addPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos) {
         File arquivo = abreArquivo(cnpj);
         String info = id + ";" + cliente + ";" + String.valueOf(valorTotal) + ";" + status + ";";
@@ -311,11 +294,10 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
-    //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
+    //id;cliente;valorTotal;status;produto1,produto2,;
     public static String getPedido(String cnpj, String id) {
         File arquivo = abreArquivo(cnpj);
         boolean flag = false;
@@ -324,6 +306,10 @@ public class RestauranteDB {
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             //primeira linha a ser salva
             String linha = leitor.readLine();
+            while (!linha.equals("#:pedidos:#")) {
+                linha = leitor.readLine();
+            }
+            linha = leitor.readLine();
             while (linha != null) {
                 if (id.equals(linha.split(";")[0])) {
                     leitor.close();
@@ -335,7 +321,6 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return null;
     }
@@ -362,7 +347,6 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return pedidos;
     }
@@ -379,7 +363,6 @@ public class RestauranteDB {
             leitura.close();
             return linha;
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return "";
     }
@@ -396,7 +379,6 @@ public class RestauranteDB {
             leitura.close();
             return linha;
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return "";
     }
@@ -414,7 +396,6 @@ public class RestauranteDB {
             leitura.close();
             return linha;
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return "";
     }
@@ -436,13 +417,11 @@ public class RestauranteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -455,24 +434,19 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
     public static int getQuantidade(String cnpj, String produto) {
         String prod[] = getProduto(cnpj, produto).split(";");
         int quantidade = Integer.parseInt(prod[4]);
-        if (quantidade == 0) {
-            removeProduto(cnpj, produto);
-        }
+        removeProduto(cnpj, produto);
         return quantidade;
     }
 
     public static void alteraProduto(String cnpj, String id, String nome, float preco, float promocao, int quantidade, ArrayList<String> categorias) {
         removeProduto(cnpj, id);
-        if (quantidade > 0) {
-            addProduto(cnpj, id, nome, preco, promocao, quantidade, categorias);
-        }
+        addProduto(cnpj, id, nome, preco, promocao, quantidade, categorias);
     }
 
     public static void setQuantidade(Produto produto, int quantidade, boolean flag) {
@@ -495,16 +469,14 @@ public class RestauranteDB {
             quantidade = getQuantidade(produto.getRestaurante(), produto.getCodigo()) - produto.getQuantidade();
         }
         removeProduto(produto.getRestaurante(), produto.getCodigo());
-            produto.setQuantidade(quantidade);
-            addProduto(produto.getRestaurante(), produto.getCodigo(), produto.getNome(), produto.getPreco(), produto.getPrecoPromocao(), quantidade, produto.getCategorias());
+        produto.setQuantidade(quantidade);
     }
 
-    public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status, ArrayList<String> produtos) {
-        removePedido(cnpj, id);
-        addPedido(cnpj, id, cliente, valorTotal, status, produtos);
+    public static void alteraPedido(String cnpj, String id, String cliente, float valorTotal, String status) {
+        mudaStatus(cnpj, id, status);
     }
 
-    public static void removePedido(String cnpj, String pedido) {
+    public static void mudaStatus(String cnpj, String pedido, String status) {
         File arquivo = abreArquivo(cnpj);
         ArrayList<String> salvar = new ArrayList<>();
         try {
@@ -512,22 +484,30 @@ public class RestauranteDB {
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
             //primeira linha a ser salva
             String linha = leitor.readLine();
+            String aux_newPed = "";
             while (linha != null) {
                 if (!pedido.equals(linha.split(";")[0])) {
                     salvar.add(linha);
+                } else {
+                    //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
+                    String[] aux_Ped = linha.split(";");
+                    for (int i = 0; i <= 2; i++) {
+                        aux_newPed += aux_Ped[i] + ";";
+                    }
+                    aux_newPed += status + ";";
+                    aux_newPed += aux_Ped[4]+";";
+                    salvar.add(aux_newPed);
                 }
                 linha = leitor.readLine();
             }
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -540,7 +520,6 @@ public class RestauranteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 }

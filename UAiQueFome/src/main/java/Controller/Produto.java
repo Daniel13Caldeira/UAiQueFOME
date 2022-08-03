@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import java.util.ArrayList;
@@ -23,6 +20,10 @@ public class Produto {
     private ArrayList<String> categorias = new ArrayList<>();
     private float precoPromocao;
 
+    public Produto(String cod) {
+        this.codigo = cod;
+    }
+
     public float getPreco_() {
         this.precoPromocao = getPrecoPromocao();
         if (this.precoPromocao == -1) {
@@ -40,8 +41,6 @@ public class Produto {
         this.restaurante = getRestaurante();
     }
 
-
-    
     public Produto(String codigo, String restaurante) {
         this.codigo = codigo;
         this.restaurante = restaurante;
@@ -105,6 +104,23 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
+    public Produto(String codigo, String restaurante, String nome, int quantidade) {
+
+        this.codigo = codigo;
+        this.restaurante = restaurante;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        String prod[] = RestauranteDB.getProduto(restaurante, codigo).split(";");
+        this.preco = Float.parseFloat(prod[2]);
+        this.precoPromocao = Float.parseFloat(prod[3]);
+        prod = prod[5].split(",");
+        for (int i = 0; i < prod.length; i++) {
+            if (!categorias.contains(prod[i])) {
+                this.categorias.add(prod[i]);
+            }
+        }
+    }
+
     public String getCodigo() {
         return this.codigo;
     }
@@ -119,6 +135,14 @@ public class Produto {
 
     public int getQuantidade() {
         return Integer.parseInt(RestauranteDB.getProduto(this.restaurante, this.codigo).split(";")[4]);
+    }
+
+    public int getQuantCarrinho() {
+        return this.quantidade;
+    }
+
+    public float getPrecoCarrinho() {
+        return this.preco;
     }
 
     public float getPreco() {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.BufferedReader;
@@ -28,7 +25,6 @@ public class PedidoDB {
     }
 
     public static void cadastra(String pedido, String restaurante) {
-        //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
         //define o arquivo de salvamento
         File arquivo = abreArquivo();
         try {
@@ -41,7 +37,6 @@ public class PedidoDB {
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -63,7 +58,6 @@ public class PedidoDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return null;
     }

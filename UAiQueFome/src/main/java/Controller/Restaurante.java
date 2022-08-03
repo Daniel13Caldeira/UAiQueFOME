@@ -49,6 +49,10 @@ public class Restaurante {
         this.senha = RestauranteDB.getSenha(this.cnpj);
     }
 
+    public String getPedido(String cod){
+        return RestauranteDB.getPedido(this.cnpj, cod);
+    }
+    
     public String getNome() {
         return RestauranteDB.getNome(this.cnpj);
     }
@@ -95,16 +99,16 @@ public class Restaurante {
         ArrayList<String> ped = RestauranteDB.getPedidos(this.cnpj);
         if (!pedidos.isEmpty()) {
             pedidos.clear();
-            for (int i = 0; i < ped.size(); i++) {
-                String aux[] = ped.get(i).split(";");
-                String id = aux[0];
-                String cliente = aux[1];
-                float valor = Float.parseFloat(aux[2]);
-                String status = aux[3];
-                String endAux = ClienteDB.getEndereco(cliente);
-                aux = endAux.split(";");
-                pedidos.add(new Pedido(id, this, new Cliente(cliente, ClienteDB.getNome(cliente), new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3])), status));
-            }
+        }
+        for (int i = 0; i < ped.size(); i++) {
+            String aux[] = ped.get(i).split(";");
+            String id = aux[0];
+            String cliente = aux[1];
+            float valor = Float.parseFloat(aux[2]);
+            String status = aux[3];
+            String endAux = ClienteDB.getEndereco(cliente);
+            aux = endAux.split(";");
+            pedidos.add(new Pedido(id, new Cliente(cliente,new Endereco(aux[1], aux[0], Integer.parseInt(aux[2]), aux[3])), this, status,valor));
         }
         return pedidos;
     }
@@ -133,7 +137,7 @@ public class Restaurante {
     }
 
     public void finalizarPedido(Pedido pedido) {
-        pedido.setStatus("finalizado");
+        pedido.setStatus("Finalizado");
 
     }
 

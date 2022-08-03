@@ -1,10 +1,16 @@
-MCking
-bairo;Rua treze;1;35950000;
-senha
+restteste
+q;q;123;12345678
+s
 #:produtos:#
-1;Arroz;10.0;-1.0;79;Alimento,;
-2;Feijão;12.0;-1.0;15;Alimento,;
+2;r2;12.0;-1.0;0;qw,;
+4;t4;12.0;-1.0;2;qw,;
+5;t5;12.0;-1.0;2;qw,;
+1;t1;12.0;-1.0;2;qw,;
+3;t3;12.0;-1.0;12;qw,;
 #:categorias:#
-Alimento
+qw
 #:pedidos:#
-1;14745587635;10.0;enviado para o restaurante;1,;
+P1;02851528076;120.0;Finalizado;1,;
+P2;02851528076;120.0;Finalizado;5,;
+P3;02851528076;144.0;Finalizado;2,4,;
+P4;02851528076;120.0;Enviado para o restaurante;2,;

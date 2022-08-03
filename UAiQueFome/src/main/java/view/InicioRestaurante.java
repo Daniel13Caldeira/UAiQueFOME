@@ -48,7 +48,6 @@ public class InicioRestaurante extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         list_pedidosAbertTB = new javax.swing.JTable();
         painel_buttonsPed = new javax.swing.JPanel();
-        remove_ped = new javax.swing.JButton();
         finalize_ped = new javax.swing.JButton();
         painel_vendas = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -110,6 +109,12 @@ public class InicioRestaurante extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(list_prodTB);
+        if (list_prodTB.getColumnModel().getColumnCount() > 0) {
+            list_prodTB.getColumnModel().getColumn(0).setResizable(false);
+            list_prodTB.getColumnModel().getColumn(1).setResizable(false);
+            list_prodTB.getColumnModel().getColumn(2).setResizable(false);
+            list_prodTB.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         painel_buttons.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -202,17 +207,13 @@ public class InicioRestaurante extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(list_pedidosAbertTB);
+        if (list_pedidosAbertTB.getColumnModel().getColumnCount() > 0) {
+            list_pedidosAbertTB.getColumnModel().getColumn(0).setResizable(false);
+            list_pedidosAbertTB.getColumnModel().getColumn(1).setResizable(false);
+            list_pedidosAbertTB.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         painel_buttonsPed.setBackground(new java.awt.Color(249, 160, 63));
-
-        remove_ped.setBackground(java.awt.Color.darkGray);
-        remove_ped.setForeground(new java.awt.Color(255, 255, 255));
-        remove_ped.setText("Remover Pedido");
-        remove_ped.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remove_pedActionPerformed(evt);
-            }
-        });
 
         finalize_ped.setBackground(java.awt.Color.darkGray);
         finalize_ped.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,25 +230,15 @@ public class InicioRestaurante extends javax.swing.JFrame {
             painel_buttonsPedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_buttonsPedLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(remove_ped, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(finalize_ped, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(painel_buttonsPedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painel_buttonsPedLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(finalize_ped, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         painel_buttonsPedLayout.setVerticalGroup(
             painel_buttonsPedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_buttonsPedLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(remove_ped, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(painel_buttonsPedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(painel_buttonsPedLayout.createSequentialGroup()
-                    .addGap(40, 40, 40)
-                    .addComponent(finalize_ped, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(85, Short.MAX_VALUE)))
+                .addGap(40, 40, 40)
+                .addComponent(finalize_ped, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painel_pedidosAbertosLayout = new javax.swing.GroupLayout(painel_pedidosAbertos);
@@ -262,7 +253,7 @@ public class InicioRestaurante extends javax.swing.JFrame {
         );
         painel_pedidosAbertosLayout.setVerticalGroup(
             painel_pedidosAbertosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
             .addGroup(painel_pedidosAbertosLayout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(painel_buttonsPed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,6 +283,11 @@ public class InicioRestaurante extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(list_vendasTB);
+        if (list_vendasTB.getColumnModel().getColumnCount() > 0) {
+            list_vendasTB.getColumnModel().getColumn(0).setResizable(false);
+            list_vendasTB.getColumnModel().getColumn(1).setResizable(false);
+            list_vendasTB.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         painel_buttonsV.setBackground(new java.awt.Color(249, 160, 63));
 
@@ -642,6 +638,10 @@ public class InicioRestaurante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!", "Aviso!", JOptionPane.PLAIN_MESSAGE);
             flag = false;
         }
+        if (cepTF.getText().length() != 8) {
+            JOptionPane.showMessageDialog(null, "Um Cep deve ter 8 números!", "Aviso", JOptionPane.PLAIN_MESSAGE);
+            flag = false;
+        }
         if (flag) {
             Endereco new_end = new Endereco(ruaTF.getText(), bairroTF.getText(), Integer.parseInt(numeroTF.getText()), cepTF.getText());
             aux_rest.setEndereco(new_end);
@@ -709,35 +709,24 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private void vizualizarPedBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vizualizarPedBTNActionPerformed
         if (list_vendasTB.getSelectedRow() != -1) {
             String cod_ped = list_vendasTB.getValueAt(list_vendasTB.getSelectedRow(), 0).toString();
-            ArrayList<Pedido> list_pedidos = aux_rest.getPedidos();//lista de pedidos do rest
-            int k = -1;//variavel que vai guarda indice do pedido alvo
-            for (int i = 0; i < list_pedidos.size(); i++) {//loop que procura o pedido alvo
-                if (list_pedidos.get(i).getCodigo().equals(cod_ped)) {//guarda o indice do pedido alvo
-                    k = i;
-                    break;
-                }
+            String[] ped = aux_rest.getPedido(cod_ped).split(";");
+            //id;cliente;valorTotal;status;produto1 quantidade1,produto2 quantidade2,;
+            //definição dos textos usados no Cupom fiscal do pedido selecionado
+            String titulo = "Dados do Pedido: " + ped[0];
+            String header = "Lista de produtos:\nCodigo\n";
+            String msg = header + "";
+            String[] aux_prod = ped[4].split(",");
+            for (int i = 0; i < aux_prod.length; i++) {//preenche a mensagem com os produtos do pedido
+                msg = msg + "Codigo:" + aux_prod[i] + "\n";
             }
-            if (k != -1) {
-                //definição dos textos usados no Cupom fiscal do pedido selecionado
-                String titulo = "Dados do Pedido: " + list_pedidos.get(k).getCodigo();
-                ArrayList<Produto> aux_ProdutosPed = list_pedidos.get(k).getProdutos();
-                String header = "Codigo\tNome\tQuantidade\tPreço\n";
-                String msg = header + "";
-                for (Produto aux_ProdutosPed1 : aux_ProdutosPed) {//preenche a mensagem com os produtos do pedido
-                    msg = msg + aux_ProdutosPed1.getCodigo() + "\t" + aux_ProdutosPed1.getNome() + "\t" + aux_ProdutosPed1.getQuantidade() + "\t" + aux_ProdutosPed1.getPreco() + "\n";
-                }
-                String fim = "Valor Total: " + list_pedidos.get(k).getValorTotal();
-                msg = msg + fim;
-                JOptionPane.showMessageDialog(null, msg, titulo, JOptionPane.PLAIN_MESSAGE);
-            }
+            String fim = "Valor Total: " + ped[2];
+            msg = msg + fim;
+            JOptionPane.showMessageDialog(null, msg, titulo, JOptionPane.PLAIN_MESSAGE);
+
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum pedido selecionado!", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_vizualizarPedBTNActionPerformed
-
-    private void remove_pedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_pedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_remove_pedActionPerformed
 
     private void cepTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cepTFKeyReleased
         mascaraCEP(cepTF);
@@ -781,7 +770,6 @@ public class InicioRestaurante extends javax.swing.JFrame {
     private javax.swing.JPanel painel_perfil;
     private javax.swing.JPanel painel_principal;
     private javax.swing.JPanel painel_vendas;
-    private javax.swing.JButton remove_ped;
     private javax.swing.JButton remove_prod;
     private javax.swing.JLabel ruaLB;
     private javax.swing.JTextField ruaTF;
@@ -838,8 +826,8 @@ public class InicioRestaurante extends javax.swing.JFrame {
         ArrayList<Pedido> list_pedidos = aux_rest.getPedidos();//lista de todos os pedidos associados ao restaurantes
         DefaultTableModel model = (DefaultTableModel) list_pedidosAbertTB.getModel();
         for (int i = 0; i < list_pedidos.size(); i++) { //loop que preenche a tabela com os pedidos em aberto um em cada linha
-            if (!list_pedidos.get(i).getStatus().equals("finalizado")) {
-                Object[] linha = {list_pedidos.get(i).getCodigo(), list_pedidos.get(i).getCliente(), list_pedidos.get(i).getValorTotal()};
+            if (!list_pedidos.get(i).getStatus().equals("Finalizado")) {
+                Object[] linha = {list_pedidos.get(i).getCodigo(), list_pedidos.get(i).getCliente().getNome(), list_pedidos.get(i).getValorTotal()};
                 model.addRow(linha);
             }
         }
@@ -861,8 +849,8 @@ public class InicioRestaurante extends javax.swing.JFrame {
         ArrayList<Pedido> list_pedidos = aux_rest.getPedidos();//lista de todos os pedidos associados ao restaurantes
         DefaultTableModel model = (DefaultTableModel) list_vendasTB.getModel();
         for (int i = 0; i < list_pedidos.size(); i++) { //loop que preenche a tabela com os pedidos finalizados um em cada linha
-            if (list_pedidos.get(i).getStatus().equals("finalizado")) {
-                Object[] linha = {list_pedidos.get(i).getCodigo(), list_pedidos.get(i).getCliente(), list_pedidos.get(i).getValorTotal()};
+            if (list_pedidos.get(i).getStatus().equals("Finalizado")) {
+                Object[] linha = {list_pedidos.get(i).getCodigo(), list_pedidos.get(i).getCliente().getNome(), list_pedidos.get(i).getValorTotal()};
                 model.addRow(linha);
             }
         }

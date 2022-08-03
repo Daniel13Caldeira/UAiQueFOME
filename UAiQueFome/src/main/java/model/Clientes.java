@@ -25,7 +25,6 @@ public class Clientes {
     }
 
     public static void cadastra(String cpf) {
-        //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
         //define o arquivo de salvamento
         File arquivo = abreArquivo();
         try {
@@ -38,7 +37,6 @@ public class Clientes {
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -56,7 +54,6 @@ public class Clientes {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return clientes;
     }

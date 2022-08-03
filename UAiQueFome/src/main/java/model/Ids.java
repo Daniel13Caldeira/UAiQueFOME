@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.BufferedReader;
@@ -40,14 +37,13 @@ public class Ids {
                 return Integer.parseInt(linha);
             }
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         //se a linha estiver vazia retorna o valor 0
         return 0;
     }
 
-    //busca o código do próximo funcionário a ser adicionado
-    public static int buscaPedido() {
+    //busca o código do próximo pedido a ser adicionado
+    public static String buscaPedido() {
         //arquivo onde vai ser feita a leitura
         File arquivo = abreArquivo();
         try {
@@ -56,37 +52,40 @@ public class Ids {
             leitor.readLine();
             String linha = leitor.readLine();
             if (linha != null) {
-                //retorna a linha 2, onde está o código do funcionário
-                return Integer.parseInt(linha);
+                //retorna a linha 2, onde está o código do pedido
+                return linha;
             }
         } catch (IOException ex) {
-            //erro(arquivo);
         }
-        //se a linha estiver vazia retorna o valor 0
-        return 0;
+        //se a linha estiver vazia retorna o cod P0
+        return "P0";
     }
 
     public static void alteraPedido() {
-        //pega o código do carrinho, do produto e do funcionário
         int produto = buscaProduto();
-        int pedido = buscaPedido() + 1;//adiciona 1 no funcionário
-        //apaga todo o arquivo
+        String pedido = buscaPedido();
+        String aux = "";
+        for (int i = 0; i < pedido.length(); i++) {
+            char c = pedido.charAt(i);
+            if (!Character.isDigit(c)) {
+                aux = pedido.substring(i + 1, pedido.length());
+
+            }
+        }
+        int ped = Integer.parseInt(aux) + 1;
+        String new_cod = "P" + String.valueOf(ped);
         apagar();
-        //insere os códigos atualizados
-        escreve(produto, pedido);
+        escreve(produto, new_cod);
     }
 
     public static void alterarPrduto() {
-        //pega o código do carrinho, do produto e do funcionário
-        int produto = buscaProduto() + 1;//adiciona 1 no produto
-        int pedido = buscaPedido();
-        //apaga todo o arquivo
+        int produto = buscaProduto() + 1;
+        String pedido = buscaPedido();
         apagar();
-        //insere os códigos atualizados
         escreve(produto, pedido);
     }
 
-    private static void escreve(int codProduto, int codFuncionario) {
+    private static void escreve(int codProduto, String codFuncionario) {
         //arquivo onde será feita a escrita
         File arquivo = abreArquivo();
         try {
@@ -95,12 +94,11 @@ public class Ids {
             //insere os códigos
             escritor.write(codProduto + "");
             escritor.newLine();
-            escritor.write(codFuncionario + "");
+            escritor.write(codFuncionario);
             escritor.flush();
             escritor.close();
             escrita.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -110,7 +108,6 @@ public class Ids {
             FileWriter escrita = new FileWriter(arquivo, false); //apaga todo o arquivo
             escrita.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 }

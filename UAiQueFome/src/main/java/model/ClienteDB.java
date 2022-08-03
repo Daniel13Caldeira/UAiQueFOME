@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import Controller.Endereco;
@@ -30,9 +27,7 @@ public class ClienteDB {
     }
 
     public static void cadastra(String cpf, String nome, Endereco endereco, String senha) {
-        //cria uma String com os dados do cliente no formato padrão que está sendo utilizado
         String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep() + ";";
-        //define o arquivo de salvamento
         File arquivo = abreArquivo(cpf);
         boolean flag = false;
         try {
@@ -45,7 +40,6 @@ public class ClienteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true); //define o escritor
@@ -67,15 +61,13 @@ public class ClienteDB {
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
-    public static void esvaziaCarrinho(String cpf){
-        //arquivo de onde ele será removido
+    public static ArrayList<String> esvaziaCarrinho(String cpf) {
         File arquivo = abreArquivo(cpf);
-        //lista com os clientes que não serão removidos
         ArrayList<String> salvar = new ArrayList<>();//armazena as linhas que não serão apagadas
+        ArrayList<String> prods = new ArrayList<>();//armazena os produtos que vão voltar para o restaurante
         try {
             boolean flag = true;
             FileReader leitura = new FileReader(arquivo);//define o leitor
@@ -87,6 +79,8 @@ public class ClienteDB {
                 }
                 if (flag) {
                     salvar.add(linha);
+                } else {
+                    prods.add(linha);
                 }
                 if (linha.equals("#:produtos:#")) {
                     flag = false;
@@ -96,13 +90,11 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -115,14 +107,12 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
+        return prods;
     }
-    
+
     public static void altera(String cpf, String nome, Endereco endereco, String senha) {
-        //arquivo de onde ele será removido
         File arquivo = abreArquivo(cpf);
-        //lista com os clientes que não serão removidos
         ArrayList<String> salvar = new ArrayList<>();//armazena as linhas que não serão apagadas
         try {
             FileReader leitura = new FileReader(arquivo);//define o leitor
@@ -138,13 +128,11 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         String endereco_ = endereco.getBairro() + ";" + endereco.getRua() + ";" + String.valueOf(endereco.getNumero()) + ";" + endereco.getCep() + ";";
         try {
@@ -164,18 +152,17 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
-    public static void alteraProduto(String cpf, String id,int quantidade,String restaurante){
+    public static void alteraProduto(String cpf, String id, int quantidade, String restaurante) {
         removeProduto(cpf, id);
         if (quantidade > 0) {
-            addProduto(cpf, id, quantidade,restaurante);
+            addProduto(cpf, id, quantidade, restaurante);
         }
     }
-    
-    public static void removeProduto(String cpf, String produto){
+
+    public static void removeProduto(String cpf, String produto) {
         File arquivo = abreArquivo(cpf);
         ArrayList<String> salvar = new ArrayList<>();
         try {
@@ -192,13 +179,11 @@ public class ClienteDB {
             leitor.close();
             leitura.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -211,10 +196,9 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
-    
+
     public static String getRestaurante(String cpf) {
         File arquivo = abreArquivo(cpf);
         try {
@@ -222,7 +206,7 @@ public class ClienteDB {
             BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
 
             String linha = leitor.readLine();//primeira linha a ser salv
-            String linhaAux=linha;
+            String linhaAux = linha;
             while (!linha.equals("#:pedidos:#")) {
                 linhaAux = linha;
                 linha = leitor.readLine();//pega proxima linha
@@ -231,7 +215,6 @@ public class ClienteDB {
             leitura.close();//fecha o leitor
             return linhaAux;
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return "";
     }
@@ -254,7 +237,6 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return produtos;
     }
@@ -270,14 +252,13 @@ public class ClienteDB {
                 linha = leitor.readLine();//pega proxima linha
             }
             linha = leitor.readLine();//pega proxima linha
-            while (linha != null) {//linha null = final do arquivo
+            while (!linha.equals("#:restaurantes favoritos:#")) {//linha null = final do arquivo
                 pedidos.add(linha);
                 linha = leitor.readLine();//pega proxima linha
             }
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return pedidos;
     }
@@ -300,7 +281,6 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return restaurantes;
     }
@@ -321,18 +301,15 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
             BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
-
             for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
                 escritor.write(salvar.get(i));
                 escritor.newLine();
@@ -341,7 +318,42 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
+        }
+    }
+    
+    public static void removerUnicoProd(String cpf, String produto) {
+        File arquivo = abreArquivo(cpf);
+        ArrayList<String> salvar = new ArrayList<String>();
+        try {
+            FileReader leitura = new FileReader(arquivo);//define o leitor
+            BufferedReader leitor = new BufferedReader(leitura);//cria um buffer de leitura
+            String linha = leitor.readLine();//primeira linha a ser salvo
+            while (linha != null) {//linha null = final do arquivo
+                if (!produto.equals(linha.split(";")[0]) && !linha.equals(getRestaurante(cpf))) {
+                    salvar.add(linha);
+                }
+                linha = leitor.readLine();//pega proxima linha
+            }
+            leitor.close();//fecha o buffer
+            leitura.close();//fecha o leitor
+        } catch (IOException ex) {
+        }
+        try {
+            FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
+            escritaAux.close();//fecha o escritot
+        } catch (IOException ex) {
+        }
+        try {
+            FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
+            BufferedWriter escritor = new BufferedWriter(escrita);//buffer de escrita
+            for (int i = 0; i < salvar.size(); i++) {//escreve o que estava no array no arquivo
+                escritor.write(salvar.get(i));
+                escritor.newLine();
+            }
+            escritor.flush();
+            escrita.close();
+            escritor.close();
+        } catch (IOException ex) {
         }
     }
 
@@ -359,13 +371,12 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
+
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -388,7 +399,6 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -406,13 +416,11 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -430,7 +438,7 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
+         
         }
     }
 
@@ -445,7 +453,7 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
+
         }
     }
 
@@ -467,13 +475,11 @@ public class ClienteDB {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escritaAux = new FileWriter(arquivo, false);//apaga todo o arquivo
             escritaAux.close();//fecha o escritot
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         try {
             FileWriter escrita = new FileWriter(arquivo, true);//define o escritor
@@ -487,7 +493,6 @@ public class ClienteDB {
             escrita.close();
             escritor.close();
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 

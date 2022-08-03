@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import java.util.ArrayList;
@@ -26,14 +23,14 @@ public class Pedido {
     public Pedido(Cliente cliente, Restaurante restaurante) {
         Ids.alteraPedido();
         this.codigo = String.valueOf(Ids.buscaPedido());
-        this.status = "enviado para o restaurante";
+        this.status = "Enviado para o restaurante";
         this.cliente = cliente;
         this.restaurante = restaurante;
         produtos = cliente.getCarrinho();
         ArrayList<String> prod = new ArrayList<>();
         valorTotal = 0;
         for (int i = 0; i < produtos.size(); i++) {
-            this.valorTotal += produtos.get(i).getPreco_();
+            this.valorTotal += produtos.get(i).getPrecoCarrinho();  
             prod.add(produtos.get(i).getCodigo());
         }
         RestauranteDB.addPedido(restaurante.getCnpj(), codigo, cliente.getCpf(), valorTotal, status, prod);
@@ -62,6 +59,17 @@ public class Pedido {
         this.restaurante = restaurante;
         this.status = getStatus();
     }
+        public Pedido(String codigo, Cliente cliente, Restaurante restaurante,String status,Float valor) {
+        this.codigo = codigo;
+        this.cliente = cliente;
+        this.restaurante = restaurante;
+        this.status = status;
+        this.valorTotal = valor;
+        
+        
+        
+        
+    }
 
     public Cliente getCliente() {
         return this.cliente;
@@ -71,9 +79,6 @@ public class Pedido {
         return this.restaurante;
     }
 
-    public void esvaziaCarrinho(){
-        
-    }
     
     public ArrayList<Produto> getProdutos() {
         this.produtos = this.cliente.getCarrinho();
@@ -81,7 +86,7 @@ public class Pedido {
     }
 
     public float getValorTotal() {
-        return Float.parseFloat(RestauranteDB.getPedido(this.restaurante.getCnpj(), this.codigo).split(";")[2]);
+        return this.valorTotal;
     }
 
     public String getCodigo() {
@@ -90,10 +95,6 @@ public class Pedido {
 
     public void setStatus(String status) {
         this.status = status;
-        ArrayList<String> produtos = new ArrayList<>();
-        for (int i = 0; i < this.produtos.size(); i++) {
-            produtos.add(this.produtos.get(i).getCodigo());
-        }
-        RestauranteDB.alteraPedido(this.restaurante.getCnpj(), codigo, this.cliente.getCpf(), valorTotal, status, produtos);
+        RestauranteDB.alteraPedido(this.restaurante.getCnpj(), codigo, this.cliente.getCpf(), valorTotal, status);
     }
 }

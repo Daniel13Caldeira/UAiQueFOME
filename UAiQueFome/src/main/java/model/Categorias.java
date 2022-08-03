@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.BufferedReader;
@@ -39,7 +36,6 @@ public class Categorias {
             escritor.close();//fecha o buffer
             escrita.close();//fecha o escritor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
     }
 
@@ -57,7 +53,6 @@ public class Categorias {
             leitor.close();//fecha o buffer
             leitura.close();//fecha o leitor
         } catch (IOException ex) {
-            //erro(arquivo);
         }
         return categorias;
     }

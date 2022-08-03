@@ -268,8 +268,10 @@ public class ListaProdutos extends javax.swing.JFrame {
             ArrayList<Produto> list_Prod = rest.getProdutos(); //obtem a lista de produtos do restaurante
             DefaultTableModel model = (DefaultTableModel) lista_prodTB.getModel();
             for (int i = 0; i < list_Prod.size(); i++) { //loop que preenche a tabela com os produtos, um em cada linha
-                Object[] linha = {list_Prod.get(i).getNome(), list_Prod.get(i).getPreco(), list_Prod.get(i).getQuantidade(), list_Prod.get(i).getCodigo()};
-                model.addRow(linha);
+                if (list_Prod.get(i).getQuantidade() > 0) {
+                    Object[] linha = {list_Prod.get(i).getNome(), list_Prod.get(i).getPreco(), list_Prod.get(i).getQuantidade(), list_Prod.get(i).getCodigo()};
+                    model.addRow(linha);
+                }
             }
         }
         //Os passos abaixo mudam a cor do header da tabela
